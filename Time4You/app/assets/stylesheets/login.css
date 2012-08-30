@@ -1,0 +1,26 @@
+/* LOGIN - CSS
+/----------------------------------------------------------*/
+
+
+
+#loading {  
+    position:relative;  
+    width:300px;  
+    top:2%;  
+    left:50%;  
+    margin-left:-150px;  
+    text-align:center;  
+    padding:7px 0 0 0;  
+    font:bold 11px Arial, Helvetica, sans-serif;  
+}
+
+
+#flash_notice_error {
+
+	background: transparent url('/assets/icons/icon_error.png') scroll no-repeat 0 0;
+	background-position: 0px 0px;
+	padding-left:30px;
+	color: red;
+	font-size: 14px;
+	margin-bottom: 10px;
+}

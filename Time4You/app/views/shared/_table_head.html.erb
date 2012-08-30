@@ -1,0 +1,13 @@
+<% if @col_order == col_order_name%>
+	
+	<% if @order == "asc" %>
+		<th class="ord actived asc"><%=link_to col_name, {:action => "change_order", :col_name => col_order_name, :order => "desc"}, :remote => true %></th>
+	<% else%>
+		<th class="ord actived desc"><%=link_to col_name, {:action => "change_order", :col_name => col_order_name, :order => "asc"}, :remote => true %></th>
+	<% end %>
+	
+<% else %>
+	
+	<th  class = "ord disabled"><%=link_to col_name, {:action => "change_order", :col_name => col_order_name, :order => "asc"}, :remote => true %></th>
+
+<% end%>

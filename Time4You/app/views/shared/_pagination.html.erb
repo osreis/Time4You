@@ -1,0 +1,73 @@
+
+<!--Inputs: total_pages.to_i, current_page.to_i -->
+<!-- Explicação:
+	O index que for renderizar paginação terá que mandar os 2 parâmetros acima citados.
+	Com os parâmetros, podemos ter os seguintes casos:
+		-total_pages.to_i > 1 ... Nesse caso há paginação
+			-current_page.to_i != 1 ... Nesse caso há botão "prev"
+			-total_pages.to_i <= 10 ... Todas as páginas são mostradas no visor
+			-total_page > 10 ... Nem todas as páginas são mostradas
+				-current_page.to_i < 5 .... Não há "1 ..."
+				-actual page > total_pages.to_i - 4 ... Não há "... total_pages.to_i"
+				-Nenhum dos casos acima ... Mostra-se 2 paginas pra cima, 2 paginas abaixo e primeira e ultima paginas
+			-current_page.to_i != total_pages.to_i ... Nesse caso há bottão "next"
+-->
+<% if total_pages.to_i > 1 %>			
+	<%= stylesheet_link_tag "layout/pagination.css" %>
+	<ul class = "pagination">
+		<% if current_page.to_i != 1 %>
+			<!--Botao previous-->
+			<li class = "prev"  ><%=link_to t(:pagination_prev) , {:action => "change_page", :page => current_page.to_i - 1}, :remote => true %></li>
+		<% end %>
+		
+		<% if total_pages.to_i <= 10 %>
+			<% for i in 1...(total_pages.to_i+1) %>
+				<li class = <%= "current" if i == current_page.to_i %> ><%=link_to i , {:action => "change_page", :page => i}, :remote => true %></li>
+			<% end %>
+		<% else %>
+			<% if current_page.to_i < 5 %>
+				<% for i in 1...6 %>
+					<% if i == current_page.to_i %>
+						<li class = "current"><%=i%></li>
+					<% else %>
+						<li><%=link_to i , {:action => "change_page", :page => i}, :remote => true %></li>
+					<% end %>
+				<% end %>
+				<li class = "dots">...</li>
+				<li><%=link_to total_pages , {:action => "change_page", :page => total_pages.to_i}, :remote => true %></li>
+			<% elsif current_page.to_i > total_pages.to_i - 4 %>
+				<li><%=link_to 1 , {:action => "change_page", :page => 1}, :remote => true %></li>
+				<li class = "dots">...</li>
+				<% for i in (total_pages.to_i - 4)...(total_pages.to_i + 1)%> 
+					<% if i == current_page.to_i %>
+						<li class = "current"><%=i%></li>
+					<% else %>
+						<li><%=link_to i, {:action => "change_page", :page => i}, :remote => true %></li>
+					<% end %>
+				<% end %>
+			<% else %> 
+				<li><%=link_to 1 , {:action => "change_page", :page => 1}, :remote => true %></li>
+				<li class = "dots">...</li>
+				<% for i in (current_page.to_i - 2)...(current_page.to_i + 3)%> 
+					<% if i == current_page.to_i %>
+						<li class = "current"><%=i%></li>
+					<% else %>
+						<li><%=link_to i, {:action => "change_page", :page => i}, :remote => true %></li>
+					<% end %>
+				<% end %>				
+				<li class = "dots">...</li>
+				<li ><%=link_to total_pages, {:action => "change_page", :page => total_pages.to_i}, :remote => true %></li>
+			<% end %>
+		<% end %>
+		
+		<% if current_page.to_i != total_pages.to_i%>
+			<!--Botao next-->
+			<li class = "next"><%=link_to t(:pagination_next) , {:action => "change_page", :page => current_page.to_i + 1}, :remote => true %></li>
+		<% end %>
+	</ul>
+<% end %>
+<script>
+	$('a[data-remote]').bind('ajax:success', function(event, data, status, xhr) {
+		$("#table_container").html(data);
+	});
+</script>

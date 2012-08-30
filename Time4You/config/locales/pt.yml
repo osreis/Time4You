@@ -1,0 +1,111 @@
+# encoding: utf-8
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+pt:
+ mongoid:
+    errors:
+      messages:
+        taken: "It is already taken"
+      models:
+        group:
+          attributes:
+            name:
+              blank: "digite um nome"
+              taken: "nome já esta em uso"	
+        user:
+           attributes:
+            name:
+              blank: "digite um nome"
+            email:
+              blank: "digite um email"
+              invalid: "formato inválido"
+              taken: "e-mail já está em uso"
+            password:  
+              blank: "digite uma senha"
+              confirmation: "confirmação e senha diferentes"	
+            password_confirmation:  
+              blank: "confirme sua senha"
+
+#Groups messages		  
+ add_new_group_success: "Grupo adicionado com sucesso"
+ remove_group_success: "Grupo removido com sucesso"
+ remove_group_fail: "Não foi possível remover o grupo"
+ edit_group_success : "Grupo alterado com sucesso"
+ edit_group_fail : "Não foi possível alterar o grupo"
+ group_index_title: "Grupos de Acesso"
+ group_index_subtitle: "Grupos de usuários do sistema"
+ group_index_button_title: "Adicionar novo grupo"
+ group_new_title: "Adicionar Grupo"
+ group_new_subtitle: " "
+ group_new_legend: "Novo Grupo"
+ group_edit_title: "Editar Grupo"
+ group_edit_subtitle: " "
+ group_edit_legend: "Editar"
+ group_att_name: "Nome"
+ group_att_internalID: "Número"
+ group_remove_confirm: "Deseja remover o grupo?"
+ empty_group_table: "Não há grupos cadastrados"
+ 
+ 
+ actions_name: "Ações"
+ submit_save: "Salvar"
+ submit_cancel: "Cancelar"
+ page_back: "Voltar"
+ action_or: "ou"
+ # Users messages			  
+ add_new_user_success: "Usuário adicionado com sucesso"
+ remove_user_success: "Usuário removido com sucesso"
+ remove_user_fail: "Não foi possível remover o Usuário"
+ update_my_profile_success: "Senha alterada com sucesso"
+ update_my_profile_fail: "Não foi possível alterar a senha"
+ edit_user_success : "Usuário alterado com sucesso"
+ edit_user_fail : "Não foi possível alterar o Usuário"
+ user_index_title: "Usuários"
+ user_index_subtitle: "Usuários cadastrados no sistema"
+ user_index_button_title: "Adicionar novo Usuário"
+ user_new_title: "Adicionar Usuário"
+ user_new_subtitle: " "
+ user_new_legend: "Novo Usuário"
+ user_edit_title: "Editar Usuário"
+ user_edit_subtitle: " "
+ user_edit_legend: "Editar"
+ user_my_profile_title: "Meu perfil"
+ user_my_profile_subtitle: " "
+ user_my_profile_legend: "Editar"
+ user_att_name: "Nome"
+ user_att_email: "E-mail"
+ user_att_group: "Grupo"
+ user_att_current_password: "Senha Atual"
+ user_att_password: "Senha"
+ user_att_confirm_password: "Confirmaçao de Senha"
+ user_empty_table: "Não ha Usuários cadastrados"
+ user_remove_confirm: "Deseja remover o Usuário?"
+ old_password_error: "senha incorreta"
+ old_password_blank: "digite sua senha"
+ empty_user_table: "Não há Usuários cadastrados"
+
+
+ #Sessions
+ session_expired: "Por favor faça o login primeiro"
+ session_logout: "Logout efetuado com sucesso"
+ session_submit_button: "Entrar"
+ session_password: "Senha"
+ session_remember_me: "Lembrar minha senha"
+ session_entering: "Verificando Usuário e senha..."
+ loadin_message: "Salvando por favor aguarde..."
+ session_exit: "Sair"
+ session_submit : "Entrar"
+ not_authorized: "Página não encontrada"
+ session_email_blank: "Digite um e-mail"
+ session_password_blank: "Digite uma senha"
+ session_wrong_password: "Senha ou e-mail incorretos"
+ session_login_success: "Login efetuado com sucesso"
+
+
+ # Pagination
+ pagination_next: "próximo"
+ pagination_prev: "anterior"   
+ search_button: "Buscar"   
+ search_in: "Buscar em:"
+ all: "Todos"

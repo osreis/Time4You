@@ -6,17 +6,19 @@ gem 'rails', '3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-
-
+gem 'bson_ext'
+gem 'bcrypt-ruby'
+gem "client_side_validations"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
+  #gem 'twitter-bootstrap-rails'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platform => :ruby
-
+  #gem 'twitter-bootstrap-rails', :github => 'seyhunak/twitter-bootstrap-rails'
+  gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'static'
   gem 'uglifier', '>= 1.0.3'
 end
 

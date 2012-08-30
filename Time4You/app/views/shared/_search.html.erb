@@ -1,0 +1,21 @@
+<%= form_tag "#{controller_name}/filter_search", :method => 'get',:id => "search_form",:class => "search_field", :remote => true do %>
+	<p>
+		    <%= text_field_tag :search, @search_value,:placeholder => "buscar...", :style => "height:25px;" %>
+		    <%= submit_tag "Search", :name => nil,:class => "button" %>
+	</p>
+	
+		<p>
+			<span> <%= t(:search_in) %> </span>
+			 <select class="short_text" name="search_select" >
+				<% options_search.each do |option| %>
+					<option value=<%= option[0] %>><%= option[1] %></option> 
+				<% end %>
+			</select>
+		</p>
+	
+<% end %>	
+<script>
+	$('#search_form').bind('ajax:success', function(event, data, status, xhr) {
+		$("#table_container").html(data);
+	});
+</script>
