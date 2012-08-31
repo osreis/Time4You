@@ -54,3 +54,6 @@ span.message
     color: #C11B17;
     font-size: 12px;
 }
+select {
+   width:auto;
+}

@@ -1,0 +1,40 @@
+﻿<style>
+.dl-horizontal dt {
+float: left;
+clear: left;
+width: 170px;
+text-align: right
+}
+</style>
+
+
+<fieldset >
+	<legend> <%= " " +  @catalog.name %> </legend>
+	<div class = "form-actions">
+	<dl class="dl-horizontal">
+		    <dt>Nome :</dt> 
+		    <dd> <%= " " +  @catalog.name.to_s %> </dd>
+		
+		    <dt>Marca :</dt> 
+		    <dd>Marca</dd>
+		 
+		    <dt>Data Inicial :</dt> 
+		    <dd><%= " " + @catalog.beginDate.strftime("%d/%m/%Y") %> </dd>
+		
+		 <dt>Data Final :</dt> 
+		    <dd><%= " " + @catalog.endDate.strftime("%d/%m/%Y") %> </dd>
+		 
+		
+	</div>
+		
+	<div align = "right">
+		<div class="form" style="float:right">
+		<div class=" form btn-group">
+				<a class="btn btn-small btn-primary" href="/catalogs/"><i class="icon-backward icon-white"></i>Voltar</a>
+				<a class="btn btn-small" href="/catalogs/<%= @catalog.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
+				<a class="btn btn-small  btn-danger" href="/catalogs/<%= @catalog.id %>" data-confirm="<%= " Deseja remover o Catálogo? " %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
+			</div> 
+		
+	</div>
+	</div>
+</fieldset>

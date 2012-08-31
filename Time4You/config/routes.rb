@@ -1,5 +1,7 @@
 Time4You::Application.routes.draw do
 
+  resources :catalogs
+
 	get ':controller/change_order' => ':controller#change_order'
 	get ':controller/change_page' => ':controller#change_page'
 	get ':controller/filter_search' => ':controller#filter_search'

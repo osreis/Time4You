@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830203752) do
+ActiveRecord::Schema.define(:version => 20120831190217) do
+
+  create_table "catalogs", :force => true do |t|
+    t.string   "name"
+    t.date     "endDate"
+    t.date     "beginDate"
+    t.integer  "brand_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "catalogs", ["brand_id"], :name => "index_catalogs_on_brand_id"
 
   create_table "groups", :force => true do |t|
     t.string   "name"
