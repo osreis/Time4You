@@ -27,7 +27,21 @@
       <div class="nav-collapse">
         <ul class="nav">
 		<% if admin? %>
-			<li><%= link_to "Usuários", users_path %></li>
+		 <li class="dropdown">
+		<a class="dropdown-toggle"
+		data-toggle="dropdown" href="#">
+        Usuários
+        <b class="caret"></b>
+      </a>
+    <ul class="dropdown-menu">
+	<li>
+      <%= link_to "Exibir", users_path %>
+	</li>
+	<li>			
+	  <a href="/users/new"> Adicionar </a>
+    </li>
+	</ul>
+  </li>
             <li><%= link_to "Produtos" %></li>
             <li><%= link_to "Catálogos" %></li>
 			<li><%= link_to "Pedidos" %></li>
@@ -51,8 +65,8 @@
 
 <div class="container">
     <div class="row">
-      <div class="span9"><%= yield %></div>
-      <div class="span3">
+      <div class="span12"><%= yield %></div>
+      <div class="span1">
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 pt:
- mongoid:
+ activerecord:
     errors:
       messages:
         taken: "It is already taken"
