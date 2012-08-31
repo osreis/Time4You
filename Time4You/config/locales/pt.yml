@@ -6,27 +6,20 @@ pt:
  activerecord:
     errors:
       messages:
-        taken: "It is already taken"
+        taken: "já está em uso."
         blank: "deve ser preenchido."
       models:
         group:
           attributes:
             name:
-              blank: "digite um nome"
-              taken: "nome já esta em uso"	
         user:
            attributes:
             name:
-              blank: "digite um nome"
             email:
-              blank: "digite um email"
               invalid: "formato inválido"
-              taken: "e-mail já está em uso"
-            password:  
-              blank: "digite uma senha"
+            password:
               confirmation: "confirmação e senha diferentes"	
-            password_confirmation:  
-              blank: "confirme sua senha"
+            password_confirmation:
         
 
 #Groups messages		  
