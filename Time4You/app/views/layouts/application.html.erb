@@ -26,17 +26,16 @@
       <a class="brand" href="#">Time4You</a>
       <div class="nav-collapse">
         <ul class="nav">
-		<% if admin? %>
-			<li><%= link_to "Usuários", users_path %></li>
-            <li><%= link_to "Produtos" %></li>
-            <li><%= link_to "Catálogos" %></li>
-			<li><%= link_to "Pedidos" %></li>
-            <li><%= link_to "Relatórios" %></li>
-			<li><%= link_to "Marcas" %></li>
-			<li><%= link_to "Consultar Estoque" %></li>
-
-        <% end %>
-		</ul>
+					<% if admin? %>
+						<li><%= link_to "Usuários", users_path %></li>
+						<li><%= link_to "Marcas", brands_path %></li>
+			      <li><%= link_to "Produtos" %></li>
+			      <li><%= link_to "Catálogos" %></li>
+						<li><%= link_to "Pedidos" %></li>
+			      <li><%= link_to "Relatórios" %></li>
+						<li><%= link_to "Consultar Estoque" %></li>
+			    <% end %>
+				</ul>
       </div>
 	  
     </div>
