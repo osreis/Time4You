@@ -39,7 +39,7 @@
 		if @user.save  
 			redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_success => t(:add_new_user_success) }) 
 		else  
-		render "new"  
+			render "new"  
 		end  
 	end  # end create
 	

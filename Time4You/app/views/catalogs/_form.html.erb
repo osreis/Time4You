@@ -1,0 +1,96 @@
+<style>
+.text_field {
+	height:22px;
+}
+</style>
+<script>
+
+ $(document).ready(function(){
+	
+$( "#catalog_beginDate" ).datepicker({
+             regional: "pt-BR",
+			onClose: function ()
+    {
+        this.focus();
+    }
+ });
+ $( "#catalog_endDate" ).datepicker({
+         regional: "pt-BR",
+	onClose: function ()
+    {
+        this.focus();
+    }
+ });
+ });
+ 
+ 
+ 
+ function validate(){
+  var camposNaoPreenchidos = false;
+  var dataErrada = false;
+  var DateToValue = $("#catalog_endDate").val();
+  var DateFromValue = $("#catalog_beginDate").val();
+
+  
+   var parts = DateToValue.split("/");
+   var date_inicio = new Date(parts[1] + "/" + parts[0] + "/" + parts[2]);
+
+   parts = DateFromValue.split("/");
+   var date_final = new Date(parts[1] + "/" + parts[0] + "/" + parts[2]);
+
+  if ((date_inicio.getTime()) < (date_final.getTime())) {
+		alert("Data final deve ser maior que a inicial!");
+		dataErrada = true;
+		var e = window.event;
+		e.cancelBubble = true;
+		e.returnValue = false;
+
+		if (e.stopPropagation) {
+            e.stopPropagation();
+            e.preventDefault();
+			}
+		return false;	
+	}	
+	
+  
+		
+}
+ 
+ 
+</script>
+<%= stylesheet_link_tag "jqueryui.css" %>
+
+
+
+
+<%= form_for @catalog, :validate => true, :html => { :class => 'form-horizontal',  :onsubmit => 'return validate()'} do |f| %>
+<div class="form">
+  
+
+  <div class="control-group">
+   <label class="control-label" for="user_nome">Nome<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field'  %>
+    </div>
+  </div>
+  
+   <div class="control-group">
+   <label class="control-label" for="user_nome">Data Inicial<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.text_field :beginDate, :class => 'text_field' %>
+    </div>
+  </div>
+
+    <div class="control-group">
+   <label class="control-label" for="user_nome">Data Final<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.text_field :endDate, :class => 'text_field' %>
+    </div>
+  </div>
+
+</div>
+  <div class="form-actions">
+    <%= f.submit "Salvar", :class => 'btn btn-primary' %>
+	<a class="btn btn-small btn-danger" href="/catalogs/"><i class="icon-remove icon-white"></i>Cancelar</a>
+  </div>
+<% end %>

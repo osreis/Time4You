@@ -54,3 +54,6 @@ span.message
     font-size: 12px;
 >>>>>>> origin/branchcaio1
 }
+select {
+   width:auto;
+}

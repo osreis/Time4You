@@ -27,23 +27,29 @@
       <div class="nav-collapse">
         <ul class="nav">
 		<% if admin? %>
-		 <li class="dropdown">
-		<a class="dropdown-toggle"
-		data-toggle="dropdown" href="#">
-        Usuários
-        <b class="caret"></b>
-      </a>
-    <ul class="dropdown-menu">
-	<li>
-      <%= link_to "Exibir", users_path %>
-	</li>
-	<li>			
-	  <a href="/users/new"> Adicionar </a>
-    </li>
-	</ul>
-  </li>
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Usuários<b class="caret"></b> </a>
+			<ul class="dropdown-menu">
+				<li>
+					<%= link_to "Exibir", users_path %>
+				</li>
+				<li>			
+					<a href="/users/new"> Adicionar </a>
+				</li>
+			</ul>
+		</li>
             <li><%= link_to "Produtos" %></li>
-            <li><%= link_to "Catálogos" %></li>
+            <li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Catálogos<b class="caret"></b> </a>
+			<ul class="dropdown-menu">
+				<li>
+					<%= link_to "Exibir", catalogs_path %>
+				</li>
+				<li>			
+					<a href="/catalogs/new"> Adicionar </a>
+				</li>
+			</ul>
+		</li>
 			<li><%= link_to "Pedidos" %></li>
             <li><%= link_to "Relatórios" %></li>
 			<li><%= link_to "Marcas", brands_path %></li>
