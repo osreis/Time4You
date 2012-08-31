@@ -12,35 +12,55 @@
    <div class="control-group">
    <label class="control-label" for="user_nome">Nome<span class="asterisk" >*</span>:</label>
     <div class="controls">
+	<% if !@edit %>
       <%= f.text_field :name, :class => 'text_field' %>	
-    </div>
+    <% else %>
+		<input class="text_field"   type="text" placeholder="<%= @user.name %>" disabled>
+	<% end %>
+	</div>
   </div>
   
     <div class="control-group">
    <label class="control-label" for="user_nome">Perfil<span class="asterisk" >*</span>:</label>
     <div class="controls">
+	<% if !@edit %>
       <%= collection_select :group, :id, @grupos, :internal_id,:name, options = {}, html_options={:class => "long_text", :id => "selectGrupo"}%>
-    </div>
+    <% else %>
+		<input class="text_field"   type="text" placeholder="<%= @user.group.name %>" disabled>
+	<% end %>
+	</div>
   </div>
   
    <div class="control-group">
    <label class="control-label" for="user_nome">CPF<span class="asterisk" >*</span>:</label>
     <div class="controls">
+	<% if !@edit %>
       <%= f.text_field :cpf, :class => 'text_field' %>
+	<% else %>
+		<input class="text_field"   type="text" placeholder="<%= @user.cpf %>" disabled>
+	<% end %>	
     </div>
   </div>
   
    <div class="control-group">
    <label class="control-label" for="user_nome">Data de Nascimento<span class="asterisk" >*</span>:</label>
     <div class="controls">
+	<% if !@edit %>
      <%= f.date_select :birthDate, :order=>[:day,:month,:year], :start_year => 1966, :end_year => 2000, :use_month_numbers => true %>
-    </div>
+    <% else %>
+		<input class="text_field"   type="text" placeholder="<%= @user.birthDate.strftime("%d/%m/%Y") %>" disabled>
+	<% end %>
+	</div>
   </div>
 
    <div class="control-group">
    <label class="control-label" for="user_nome">Sexo<span class="asterisk" >*</span>:</label>
     <div class="controls">
+	<% if !@edit %>
       <%= f.select(:gender, options_for_select(sexos))  %>
+	<% else %>
+		<input class="text_field"   type="text" placeholder="<%= @user.gender %>" disabled>
+	<% end %>	
     </div>
   </div>
   
@@ -101,14 +121,22 @@
    <div class="control-group">
    <label class="control-label" for="user_nome"><%= t(:user_att_password) %><span class="asterisk" >*</span>:</label>
     <div class="controls">
+	<% if !@edit %>	
       <%= f.password_field :password, :class => 'text_field' %>
+	  <% else %>
+		<input class="text_field"   type="password" placeholder="**********" disabled>
+		<% end %>	
     </div>
   </div>
   
  <div class="control-group">
    <label class="control-label" for="user_nome"><%= t(:user_att_confirm_password) %><span class="asterisk" >*</span>:</label>
     <div class="controls">
+	<% if !@edit %>	
       <%= f.password_field :password_confirmation, :class => 'text_field' %>
+	 <% else %>
+		<input class="text_field"   type="password" placeholder="**********" disabled>
+	<% end %>	
     </div>
   </div>
 

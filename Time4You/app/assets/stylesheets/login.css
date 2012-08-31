@@ -15,6 +15,9 @@
 }
 
 
+/* Flash Notice
+/-------------------------------------*/
+
 #flash_notice_error {
 
 	background: transparent url('/assets/icons/icon_error.png') scroll no-repeat 0 0;
@@ -24,7 +27,30 @@
 	font-size: 14px;
 	margin-bottom: 10px;
 }
+#flash_notice_success {
 
-select {
-	width:auto;
+	background: url('/assets/icons/icon_success.png') scroll no-repeat 0 0;
+	background-position: 0px 0px;
+	padding-left:30px;
+	color: #093;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+span.validation
+{
+	color: 	red;
+	margin-left: 2%;
+}
+
+span.message
+{
+	color: 	red;
+	margin-left: 2%;
+}
+
+.asterisk
+{
+    color: #C11B17;
+    font-size: 12px;
+>>>>>>> origin/branchcaio1
 }
