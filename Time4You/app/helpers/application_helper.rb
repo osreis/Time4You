@@ -128,7 +128,7 @@
     # renders header of index view
     
     html = " 
-    <h1> #{ @title } </h1>
+    <h1> #{ @title }  </h1>
     <p>  #{ @subtitle } </p>"
 
     flash.each do |name, msg| 

@@ -1,0 +1,41 @@
+﻿
+
+		
+<% if (User.all.count) > 0 %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+
+		<%= render "shared/table_head", {:col_order_name => "name", :col_name => t(:user_att_name) }%> 
+		<%= render "shared/table_head", {:col_order_name => "email", :col_name => t(:user_att_email) }%> 
+		<th><%= "Login" %></th> 
+		<th><%= "Perfil" %></th>
+		<th style="text-align:center"><%= t(:actions_name) %></th> 
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+	
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.login %></td>
+        <td><%= user.group.name %></td>
+
+
+        <td>
+			<div class="btn-group">
+				<a class="btn btn-small btn-primary" href="/users/<%= user.id %>"><i class="icon-search icon-white"></i>Exibir</a>
+				<a class="btn btn-small" href="/users/<%= user.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
+				<a class="btn btn-small  btn-danger" href="/users/<%= user.id %>" data-confirm="<%= t(:user_remove_confirm) %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
+			</div> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% end %>
+
+
