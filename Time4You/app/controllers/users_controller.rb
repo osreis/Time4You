@@ -27,15 +27,7 @@ class UsersController < SeaOrdPagController
 		@subtitle = t(:user_new_subtitle)
 		@legend = t(:user_new_legend)
 		@user = User.new  
-		@grupos = Group.where(:internal_id.gte => current_user.group.internal_id).order_by(:name.desc)
-		@RH = false
-		if current_user.group.internal_id <= Group::CADASTRO.to_i
-			@instituicoes = Instituicao.all.order_by(:Nome.asc)
-		else
-			@instituicoes = current_user.instituicao
-			@RH = true
-		end	
-		#Group.where(:internal_id.gte => curent_user.group.internal_id)
+		@grupos = Group.all
 	end  
   
   

@@ -1,0 +1,64 @@
+﻿<style>
+.dl-horizontal dt {
+float: left;
+clear: left;
+width: 170px;
+text-align: right
+}
+</style>
+
+
+<fieldset >
+	<legend> <%= @user.name %> </legend>
+	<div class = "form-actions">
+	<dl class="dl-horizontal">
+		    <dt>Nome :</dt> 
+		    <dd> <%= @user.name %> </dd>
+	
+		    <dt>Grupo :</dt> 
+		    <dd> <%= @user.group.name %> </dd>
+	
+		    <dt>Sexo :</dt> 
+		    <dd> <%= @user.gender %> </dd>
+		
+		    <dt>Data de Nascimento :</dt> 
+		    <dd> 18/01/1990<%#= @user.birthDate.strftime("%d/%m/%Y") %> </dd>
+		
+		    <dt>CPF :</dt> 
+		    <dd> <%= @user.cpf %> </dd>
+		
+		    <dt>Telefone:</dt> 
+		    <dd> <%= @user.phone %></dd>
+		
+		    <dt>Celular:</dt> 
+		    <dd> <%= @user.mobile %></dd>
+		
+		    <dt>E-mail:</dt> 
+		    <dd> <%= @user.email %></dd>
+		
+		   <dt>Endereço: </dt> 
+		   <dd> <%= @user.address %></dd>
+		
+		   <dt>CEP: </dt> 
+		   <dd> <%= @user.cep %></dd>
+		
+		   <dt>Cidade: </dt> 
+		   <dd> <%= @user.city %></dd>
+		
+		   <dt>Estado: </dt> 
+		   <dd> <%= @user.state %></dd>
+		</dl>
+		
+	</div>
+		
+	<div align = "right">
+		<div class="form" style="float:right">
+		<div class=" form btn-group">
+				<a class="btn btn-small btn-primary" href="/users/"><i class="icon-backward icon-white"></i>Voltar</a>
+				<a class="btn btn-small" href="/users/<%= @user.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
+				<a class="btn btn-small  btn-danger" href="/users/<%= @user.id %>" data-confirm="<%= t(:user_remove_confirm) %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
+			</div> 
+		
+	</div>
+	</div>
+</fieldset>

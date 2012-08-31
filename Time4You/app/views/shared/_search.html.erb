@@ -1,7 +1,7 @@
 <%= form_tag "#{controller_name}/filter_search", :method => 'get',:id => "search_form",:class => "search_field", :remote => true do %>
 	<p>
 		    <%= text_field_tag :search, @search_value,:placeholder => "buscar...", :style => "height:25px;" %>
-		    <%= submit_tag "Search", :name => nil,:class => "button" %>
+		    <%= submit_tag "Pesquisar", :name => nil,:class => "button" %>
 	</p>
 	
 		<p>

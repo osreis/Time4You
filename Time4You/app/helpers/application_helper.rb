@@ -1,6 +1,7 @@
 ﻿module ApplicationHelper
   def br_states
   [
+   ['São Paulo', 'SP'],
     ['Acre', 'AC'],
     ['Alagoas', 'AL'],
     ['Amapá', 'AP'],
@@ -25,7 +26,6 @@
     ['Rondônia', 'RO'],
     ['Roraima', 'RR'],
     ['Santa Catarina', 'SC'],
-    ['São Paulo', 'SP'],
     ['Sergipe', 'SE'],
     ['Tocantins', 'TO']
   ]
@@ -33,8 +33,8 @@
   
    def sexos
 	[
-		['Masculino','Masculino'],
-		['Feminino','Feminino']
+		['Feminino','Feminino'],
+		['Masculino','Masculino']
 	]
    end
   

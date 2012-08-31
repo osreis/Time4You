@@ -1,114 +1,121 @@
+﻿<style>
+.text_field {
+	height:22px;
+}
+</style>
+
+
+
 <%= form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
-
-  <div class="control-group">
-    <%= f.label :email, :class => 'control-label' %>
+<div class="form">
+  
+   <div class="control-group">
+   <label class="control-label" for="user_nome">Nome<span class="asterisk" >*</span>:</label>
     <div class="controls">
-      <%= f.text_field :email, :class => 'text_field' %>
+      <%= f.text_field :name, :class => 'text_field' %>	
     </div>
   </div>
-
-  <div class="control-group">
-    <%= f.label :name, :class => 'control-label' %>
+  
+    <div class="control-group">
+   <label class="control-label" for="user_nome">Perfil<span class="asterisk" >*</span>:</label>
     <div class="controls">
-      <%= f.text_field :name, :class => 'text_field' %>
+      <%= collection_select :group, :id, @grupos, :internal_id,:name, options = {}, html_options={:class => "long_text", :id => "selectGrupo"}%>
     </div>
   </div>
-
-  <div class="control-group">
-    <%= f.label :password_digest, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :password_digest, :class => 'text_field' %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :address, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :address, :class => 'text_field' %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :phone, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :phone, :class => 'text_field' %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :birthDate, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.date_select :birthDate, :class => 'date_select' %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :cpf, :class => 'control-label' %>
+  
+   <div class="control-group">
+   <label class="control-label" for="user_nome">CPF<span class="asterisk" >*</span>:</label>
     <div class="controls">
       <%= f.text_field :cpf, :class => 'text_field' %>
     </div>
   </div>
-
-  <div class="control-group">
-    <%= f.label :login, :class => 'control-label' %>
+  
+   <div class="control-group">
+   <label class="control-label" for="user_nome">Data de Nascimento<span class="asterisk" >*</span>:</label>
     <div class="controls">
-      <%= f.text_field :login, :class => 'text_field' %>
+     <%= f.date_select :birthDate, :order=>[:day,:month,:year], :start_year => 1966, :end_year => 2000, :use_month_numbers => true %>
     </div>
   </div>
 
+   <div class="control-group">
+   <label class="control-label" for="user_nome">Sexo<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.select(:gender, options_for_select(sexos))  %>
+    </div>
+  </div>
+  
   <div class="control-group">
-    <%= f.label :mobile, :class => 'control-label' %>
+   <label class="control-label" for="user_nome">E-Mail<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.text_field :email, :class => 'text_field' %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+   <label class="control-label" for="user_nome">Telefone<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.text_field :phone, :class => 'text_field' %>
+    </div>
+  </div>
+ 
+   <div class="control-group">
+   <label class="control-label" for="user_nome">Celular<span class="asterisk" >*</span>:</label>
     <div class="controls">
       <%= f.text_field :mobile, :class => 'text_field' %>
     </div>
   </div>
 
   <div class="control-group">
-    <%= f.label :gender, :class => 'control-label' %>
+   <label class="control-label" for="user_nome">Endereço<span class="asterisk" >*</span>:</label>
     <div class="controls">
-      <%= f.text_field :gender, :class => 'text_field' %>
+      <%= f.text_field :address, :class => 'text_field' %>
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :city, :class => 'control-label' %>
+ <div class="control-group">
+   <label class="control-label" for="user_nome">Cidade<span class="asterisk" >*</span>:</label>
     <div class="controls">
       <%= f.text_field :city, :class => 'text_field' %>
     </div>
   </div>
-
-  <div class="control-group">
-    <%= f.label :state, :class => 'control-label' %>
+ 
+ <div class="control-group">
+   <label class="control-label" for="user_nome">Estado<span class="asterisk" >*</span>:</label>
     <div class="controls">
-      <%= f.text_field :state, :class => 'text_field' %>
+      <%= f.select(:state, options_for_select(br_states, :selected => @user.state))  %>
     </div>
   </div>
-
-  <div class="control-group">
-    <%= f.label :cep, :class => 'control-label' %>
+ <div class="control-group">
+   <label class="control-label" for="user_nome">CEP<span class="asterisk" >*</span>:</label>
     <div class="controls">
       <%= f.text_field :cep, :class => 'text_field' %>
     </div>
   </div>
-
   <div class="control-group">
-    <%= f.label :group_id, :class => 'control-label' %>
+   <label class="control-label" for="user_nome">Login<span class="asterisk" >*</span>:</label>
     <div class="controls">
-      <%= f.number_field :group_id, :class => 'number_field' %>
+      <%= f.text_field :login, :class => 'text_field' %>
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :auth_token, :class => 'control-label' %>
+   <div class="control-group">
+   <label class="control-label" for="user_nome"><%= t(:user_att_password) %><span class="asterisk" >*</span>:</label>
     <div class="controls">
-      <%= f.text_field :auth_token, :class => 'text_field' %>
+      <%= f.password_field :password, :class => 'text_field' %>
+    </div>
+  </div>
+  
+ <div class="control-group">
+   <label class="control-label" for="user_nome"><%= t(:user_att_confirm_password) %><span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.password_field :password_confirmation, :class => 'text_field' %>
     </div>
   </div>
 
 
+</div>
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                users_path, :class => 'btn' %>
+    <%= f.submit "Salvar", :class => 'btn btn-primary' %>
+	<a class="btn btn-small btn-danger" href="/users/"><i class="icon-remove icon-white"></i>Cancelar</a>
   </div>
 <% end %>
