@@ -1,8 +1,5 @@
 ﻿<style>
 .dl-horizontal dt {
-float: left;
-clear: left;
-width: 170px;
 text-align: right
 }
 </style>
@@ -12,16 +9,16 @@ text-align: right
 	<legend> <%= " " +  @catalog.name %> </legend>
 	<div class = "form-actions">
 	<dl class="dl-horizontal">
-		    <dt>Nome :</dt> 
+		    <dt>Nome:</dt>
 		    <dd> <%= " " +  @catalog.name.to_s %> </dd>
 		
-		    <dt>Marca :</dt> 
-		    <dd>Marca</dd>
+		    <dt>Marca:</dt>
+		    <dd> <%= " " +  @catalog.brand.name.to_s %> </dd>
 		 
-		    <dt>Data Inicial :</dt> 
+		    <dt>Data Inicial:</dt>
 		    <dd><%= " " + @catalog.beginDate.strftime("%d/%m/%Y") %> </dd>
 		
-		 <dt>Data Final :</dt> 
+		 <dt>Data Final:</dt>
 		    <dd><%= " " + @catalog.endDate.strftime("%d/%m/%Y") %> </dd>
 		 
 		

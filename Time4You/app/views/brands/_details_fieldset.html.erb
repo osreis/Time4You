@@ -1,13 +1,6 @@
 <style>
 .dl-horizontal dt {
-float: left;
-clear: left;
-width: 170px;
-text-align: right
-}
-dd {
-	position: relative;
-	left: 20px;
+	text-align: right
 }
 ul {
 	font-weight:bold;
@@ -22,25 +15,26 @@ ul {
 	<dl class="dl-horizontal">	
 			<ul>Informações da marca</ul>
 	    <dt>Nome: </dt>
-			</br>
 	    <dd> <%= @brand.name %> </dd>
-			</br>
+			
 			<% if !@brand.representative_name.blank? %>
-				<ul>Informações do representante</ul>
-	    	<dt>Nome:</dt></br>
+				</br><ul>Informações do representante</ul>
+	    	<dt>Nome:</dt>
 	    	<dd> <%= @brand.representative_name %> </dd>
 			<% end %>
 			<% if !@brand.representative_email.blank? %>
-	    	<dt>E-mail: </dt></br>
+	    	<dt>E-mail: </dt>
 	    	<dd> <%= @brand.representative_email %> </dd>
 			<% end %>
 			<% if !@brand.representative_email.blank? %>
-	    	<dt style="position:relative; left:12px"> Telefone: </dt></br>
+	    	<dt> Telefone: </dt>
 	    	<dd> <%= @brand.representative_phone %> </dd>
 			<% end %>
 			<% if !@brand.extra_info.blank? %>
-			<ul>Informações adicionais</ul>
-	    <dd> <%= @brand.extra_info %> </dd>
+	    	</br><div class="well"> 
+					<b>Informações adicionais</b></br>
+					<%= @brand.extra_info %> 
+				</div>
 			<% end %>
 		</dl>
 	</div>
