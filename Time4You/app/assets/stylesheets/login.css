@@ -27,7 +27,6 @@
 	font-size: 14px;
 	margin-bottom: 10px;
 }
-
 #flash_notice_success {
 
 	background: url('/assets/icons/icon_success.png') scroll no-repeat 0 0;
@@ -53,6 +52,7 @@ span.message
 {
     color: #C11B17;
     font-size: 12px;
+>>>>>>> origin/branchcaio1
 }
 select {
    width:auto;

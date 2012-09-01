@@ -1,0 +1,41 @@
+<%= form_for @brand, :validate => true, :html => { :class => 'form-horizontal' } do |f| %>
+<div class="form">
+  
+   <div class="control-group">
+   <label class="control-label" for="user_nome"><%= t(:brand_att_name) %><span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>	
+    </div>
+  </div>
+	<ul style="font-weight:bold"><%= t(:brand_info_rep) %></ul>
+	<div class="control-group">
+   	<label class="control-label" for="user_nome"><%= t(:brand_att_rep_name)%>:</label>
+    <div class="controls">
+      <%= f.text_field :representative_name, :class => 'text_field' %>	
+    </div>
+  </div>
+
+	<div class="control-group">
+   <label class="control-label" for="user_nome"><%= t(:brand_att_rep_email) %>:</label>
+    <div class="controls">
+      <%= f.text_field :representative_email, :class => 'text_field' %>	
+    </div>
+  </div>
+
+	<div class="control-group">
+   <label class="control-label" for="user_nome"><%= t(:brand_att_rep_phone) %>:</label>
+    <div class="controls">
+      <%= f.text_field :representative_phone, :class => 'text_field' %>	
+    </div>
+  </div>
+
+	<ul style="font-weight:bold"><%= t(:brand_extra_info) %></ul>
+  <ul><div class="field">
+    <%= f.text_area :extra_info, :style => 'height:100px; width:300px' %>
+  </div></ul>
+	
+	<div class="form-actions">
+    <%= f.submit "Salvar", :class => 'btn btn-primary' %>
+		<%= link_to raw('<i class="icon-remove icon-white"></i>' + ' ' + "Cancelar"), :back, :class => 'btn btn-danger'%>
+  </div>
+<% end %>

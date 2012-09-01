@@ -1,5 +1,6 @@
 Time4You::Application.routes.draw do
 
+  resources :brands
   resources :catalogs
 
 	get ':controller/change_order' => ':controller#change_order'
