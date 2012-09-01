@@ -1,4 +1,4 @@
-<style>
+﻿<style>
 .dl-horizontal dt {
 	text-align: right
 }
@@ -14,7 +14,7 @@
 	    <ul><b>Nome: </b>
 	    <%= @brand.name %></ul>
 		</div>
-			
+
 			<% if !@brand.representative_name.blank? %>
 				<div class="well">
 					<b><u>Informações do representante</u></b></br>
@@ -38,7 +38,7 @@
 			<% end %>
 		</dl>
 	</div>
-		
+
 	<div align = "right">
 		<div class="form" style="float:right">
 		<div class=" form btn-group">
@@ -46,7 +46,7 @@
 				<a class="btn btn-small" href="/brands/<%= @brand.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
 				<a class="btn btn-small  btn-danger" href="/brands/<%= @brand.id %>" data-confirm="Tem certeza?" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
 			</div> 
-		
+
 	</div>
 	</div>
 </fieldset>

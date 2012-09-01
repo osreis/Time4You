@@ -82,11 +82,10 @@ class BrandsController < ApplicationController
   # DELETE /brands/1.json
   def destroy
     @brand = Brand.find(params[:id])
-    @brand.destroy
-
-    respond_to do |format|
-      format.html { redirect_to brands_url }
-      format.json { head :no_content }
-    end
+    if @brand.delete
+		redirect_to({:controller=> :brands, :action => :index}, :flash => { :notice_success => "Marca removida com sucesso" }) 
+	else  
+		redirect_to({:controller=> :brands, :action => :index}, :flash => { :notice_error => "Erro ao remover marca" }) 
+	end  
   end
 end

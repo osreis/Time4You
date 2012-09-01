@@ -21,7 +21,7 @@ text-align: right
 		 <dt>Data Final:</dt>
 		    <dd><%= " " + @catalog.endDate.strftime("%d/%m/%Y") %> </dd>
 		 
-		
+		</dl>
 	</div>
 		
 	<div align = "right">
@@ -35,3 +35,45 @@ text-align: right
 	</div>
 	</div>
 </fieldset>
+
+
+
+<%if @catalog.sales.count > 0 %>
+<fieldset >
+	<legend> Produtos </legend>
+	<div class = "">
+	<table class="table table-striped">
+  <thead>
+    <tr>
+
+		<th><%= "Produto" %></th>
+		<th><%= "Preço Nominal" %></th> 
+		<th><%= "Preço Promocional" %></th>
+		<th><%= " Desconto" %></th>
+		<th style="text-align:center"><%= t(:actions_name) %></th> 
+    </tr>
+  </thead>
+  <tbody>
+    <% @catalog.sales.each do |sale| %>
+      <tr>
+	    <td><%= "Produto" %></td>
+        <td><%= "R$ 10,99" %></td>
+        <td><%=  (number_to_currency(sale.salePrice, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> </td>
+		<td><%= "10%" %></td>
+		
+        <td>
+			<div class="btn-group">
+				<a class="btn btn-small btn-primary" href="/sales/<%= sale.id %>"><i class="icon-search icon-white"></i>Exibir</a>
+				<a class="btn btn-small" href="/sales/<%= sale.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
+				<a class="btn btn-small  btn-danger" href="/sales/<%= sale.id %>" data-confirm="<%= "Deseja remover a Promoção?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
+			</div> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+	</div>
+		
+	</div>
+</fieldset>
+<% end %>

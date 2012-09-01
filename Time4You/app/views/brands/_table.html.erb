@@ -1,4 +1,4 @@
-<% if (Brand.all.count) > 0 %>
+﻿<% if (Brand.all.count) > 0 %>
 
 <table class="table table-striped">
   <thead>
@@ -23,6 +23,9 @@
 	                  	edit_brand_path(brand)%>
 					<%= link_to raw('<i class="icon-trash"></i>' + ' ' + "Remover"),
                   		brand_path(brand), :method => :delete, :confirm => 'Tem certeza?' %>
+						</ul>
+				    </div>
+				</td>		
       </tr>
     <% end %>
   </tbody>
