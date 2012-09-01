@@ -28,30 +28,39 @@
 		@legend = t(:user_new_legend)
 		@user = User.new  
 		@grupos = Group.all
-		@edit = false
 	end  
   
   
 	def create
 		@group = Group.where(:internal_id => params[:group][:id].to_s).first
+		if current_user.group.internal_id <= Group::CADASTRO.to_i
+			@instituicao = Instituicao.find(params[:instituicao][:id].to_s)
+		else
+			@instituicao = current_user.instituicao
+		end	
 		@user = User.new(params[:user])  
 		@user.group = @group
+		@user.instituicao = @instituicao
 		if @user.save  
 			redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_success => t(:add_new_user_success) }) 
 		else  
-			render "new"  
+		render "new"  
 		end  
 	end  # end create
 	
 	
 	
-	def destroy
+	def destroy_user
 	  @user = User.find(params[:id])
+	  if @user.registro_medicos.count == 0
 		if @user.delete  
 			redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_success => t(:remove_user_success)}) 
 		else  
 			redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_error => t(:remove_user_fail)}) 
 		end  
+	  else
+		redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_error => t(:remove_user_fail)}) 
+		end
 	end # end destroy_user
 	
 	def show
@@ -68,26 +77,27 @@
 		@legend = t(:user_my_profile_legend)
 	end
 	
-	def edit
-		@grupos = Group.all
-		@edit = true
-		@user = User.find(params[:id])
-		@title = t(:user_edit_title)
-		@subtitle = t(:user_edit_subtitle)
-		@legend = @user.name
-	end
 	
 	
+	def update # update user's params from My Profile
 	
-	def update
-	  @user = User.find(params[:id])
-	  puts "**************************" + @user.to_s
-      if @user.update_attribute(:email, params[:user][:email]) and @user.update_attribute(:address, params[:user][:address]) and @user.update_attribute(:city, params[:user][:city]) and @user.update_attribute(:state, params[:user][:state]) and @user.update_attribute(:phone, params[:user][:phone]) and @user.update_attribute(:mobile, params[:user][:mobile]) and @user.update_attribute(:login, params[:user][:login])  
-       	redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_success => "Usuário alterado com sucesso" }) 
-      else
-		render "edit"
-	  end
-  end
+		@user = current_user
+		if @user.authenticate(params[:user][:old_password]) 
+			@user.password = params[:user][:password] 
+			@user.password_confirmation = params[:user][:password_confirmation] 
+			
+			if @user.OrgExp.nil?
+				@user.OrgExp = "SSP"
+			end	
+			if @user.save
+				redirect_to({:controller=> :home, :action => :index}, :flash => { :notice_success => t(:update_my_profile_success) }) # TODO: change the redirect to your root view
+			else
+				redirect_to({:controller=> :home, :action => :index}, :flash => { :notice_error => t(:update_my_profile_fail) }) 
+			end 
+		else 
+			redirect_to({:controller=> :users, :action => :my_profile}, :flash => { :notice_error => t(:update_my_profile_fail) })
+		end 
+	end #end update
 	
 	
 	def admin_update # update user's params, by an Admin call

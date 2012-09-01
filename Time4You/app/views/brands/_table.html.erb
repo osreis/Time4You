@@ -1,0 +1,30 @@
+<% if (Brand.all.count) > 0 %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+
+		<%= render "shared/table_head", {:col_order_name => "name", :col_name => t(:brand_att_name) }%>
+    </tr>
+  </thead>
+  <tbody>
+    <% @brands.each do |brand| %>
+      <tr>
+        <td><%= brand.name %></td>
+       	<td><div class="btn-group">
+				  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+				    Ações
+				    <span class="caret"></span>
+				  </a>
+				  <ul class="dropdown-menu" style='font-size:12'>
+					<%= link_to raw('<i class="icon-search"></i>' + ' ' + "Visualizar"),
+		                  brand%>
+					<%= link_to raw('<i class="icon-pencil"></i>' + ' ' + "Editar"),
+	                  	edit_brand_path(brand)%>
+					<%= link_to raw('<i class="icon-trash"></i>' + ' ' + "Remover"),
+                  		brand_path(brand), :method => :delete, :confirm => 'Tem certeza?' %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

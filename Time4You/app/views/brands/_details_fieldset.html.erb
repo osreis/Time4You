@@ -1,0 +1,58 @@
+<style>
+.dl-horizontal dt {
+float: left;
+clear: left;
+width: 170px;
+text-align: right
+}
+dd {
+	position: relative;
+	left: 20px;
+}
+ul {
+	font-weight:bold;
+	text-decoration:underline;
+}
+</style>
+
+
+<fieldset>
+	<legend> <%= " " +  @brand.name %> </legend>
+	<div class = "form-actions">
+	<dl class="dl-horizontal">	
+			<ul>Informações da marca</ul>
+	    <dt>Nome: </dt>
+			</br>
+	    <dd> <%= @brand.name %> </dd>
+			</br>
+			<% if !@brand.representative_name.blank? %>
+				<ul>Informações do representante</ul>
+	    	<dt>Nome:</dt></br>
+	    	<dd> <%= @brand.representative_name %> </dd>
+			<% end %>
+			<% if !@brand.representative_email.blank? %>
+	    	<dt>E-mail: </dt></br>
+	    	<dd> <%= @brand.representative_email %> </dd>
+			<% end %>
+			<% if !@brand.representative_email.blank? %>
+	    	<dt style="position:relative; left:12px"> Telefone: </dt></br>
+	    	<dd> <%= @brand.representative_phone %> </dd>
+			<% end %>
+			<% if !@brand.extra_info.blank? %>
+			<ul>Informações adicionais</ul>
+	    <dd> <%= @brand.extra_info %> </dd>
+			<% end %>
+		</dl>
+	</div>
+		
+	<div align = "right">
+		<div class="form" style="float:right">
+		<div class=" form btn-group">
+				<a class="btn btn-small btn-primary" href="/brands/"><i class="icon-backward icon-white"></i>Voltar</a>
+				<a class="btn btn-small" href="/brands/<%= @brand.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
+				<a class="btn btn-small  btn-danger" href="/brands/<%= @brand.id %>" data-confirm="Tem certeza?" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
+			</div> 
+		
+	</div>
+	</div>
+</fieldset>
