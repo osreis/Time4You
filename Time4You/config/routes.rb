@@ -1,5 +1,9 @@
 Time4You::Application.routes.draw do
 
+  resources :special_products
+
+  resources :sales
+
   resources :brands
   resources :catalogs
 

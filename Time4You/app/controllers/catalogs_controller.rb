@@ -29,9 +29,9 @@
   # GET /catalogs/new.json
   def new
     @edit = false
-	  @title = "Novo Catálogo"
-	  @subtitle = ""
-	  @legend = "Catálogo"
+	@title = "Novo Catálogo"
+	@subtitle = ""
+	@legend = "Catálogo"
     @catalog = Catalog.new
   end
 
@@ -39,11 +39,11 @@
   def edit
     @edit = true
     @catalog = Catalog.find(params[:id])
-	  @catalog.beginDate =  @catalog.beginDate.strftime("%d/%m/%Y")
-	  @catalog.endDate =  @catalog.endDate.strftime("%d/%m/%Y")
-	  @title = "Editar Catálogo"
-	  @subtitle = ""
-	  @legend = @catalog.name
+	@catalog.beginDate =  @catalog.beginDate.strftime("%d/%m/%Y")
+	@catalog.endDate =  @catalog.endDate.strftime("%d/%m/%Y")
+	@title = "Editar Catálogo"
+	@subtitle = ""
+	@legend = @catalog.name
   end
 
   # POST /catalogs
@@ -53,11 +53,6 @@
 	  if @catalog.save  
 		  redirect_to({:controller=> :catalogs, :action => :index}, :flash => { :notice_success => "Catálogo adicionado com sucesso" }) 
 	  else
-	    puts "\n\n\n\n\n\n\n Id: #{@catalog.id} \n\n\n\n\n\n\n\n\n"
-  	  puts "\n\n\n\n\n\n\n Nome: #{@catalog.name} \n\n\n\n\n\n\n\n\n"
-    	puts "\n\n\n\n\n\n\n Id_marca: #{@catalog.brand_id.to_s} \n\n\n\n\n\n\n\n\n"
-    	puts "\n\n\n\n\n\n\n Begin_Date: #{@catalog.beginDate} \n\n\n\n\n\n\n\n\n"
-    	puts "\n\n\n\n\n\n\n End_Date: #{@catalog.endDate} \n\n\n\n\n\n\n\n\n"
 		  render "new"
 	  end  
   end

@@ -1,8 +1,7 @@
-
 <%= index_header %>
 <br/>
 <div style="float:right; margin-top:-8%">
-<a href="/catalogs/new" class="btn btn-primary"> <i class="icon-plus icon-white"></i> <%= @button_title.to_s %></a>
+<a href="/sales/new" class="btn btn-primary"> <i class="icon-plus icon-white"></i> <%= @button_title.to_s %></a>
 </div>	
 <br/>
 <%= render "shared/search", {:options_search => [["name",  t(:user_att_name)]]} %>

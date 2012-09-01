@@ -1,4 +1,4 @@
-<style>
+﻿<style>
 .dl-horizontal dt {
 	text-align: right
 }
@@ -36,13 +36,14 @@
 		<% end %>
 		</dl>
 	</div>
+
 	<div align = "right">
 		<div class="form" style="float:right">
-				<div class=" form btn-group">
-						<a class="btn btn-small btn-primary" href="/brands/"><i class="icon-backward icon-white"></i>Voltar</a>
-						<a class="btn btn-small" href="/brands/<%= @brand.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
-						<a class="btn btn-small  btn-danger" href="/brands/<%= @brand.id %>" data-confirm="Tem certeza?" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
-				</div> 
+		<div class=" form btn-group">
+				<a class="btn btn-small btn-primary" href="/brands/"><i class="icon-backward icon-white"></i>Voltar</a>
+				<a class="btn btn-small" href="/brands/<%= @brand.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
+				<a class="btn btn-small  btn-danger" href="/brands/<%= @brand.id %>" data-confirm="Tem certeza?" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
+			</div> 
 		</div>
 	</div>
 </fieldset>

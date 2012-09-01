@@ -1,0 +1,115 @@
+﻿<style>
+.text_field {
+	height:22px;
+}
+</style>
+
+
+<script>
+
+function validate (){
+
+	var camposNaoPreenchidos = false;
+	var precoErrado = false;
+	var precoNominal = parseFloat($("#nominal_price").val().replace("R$", "").replace(",", "."));
+	var precoPromocional = parseFloat($("#sale_salePrice").val().replace("R$", "").replace(",", "."));
+
+	if(precoNominal < precoPromocional){
+		alert("Preço Promocional deve ser menor que o nominal!");
+		var e = window.event;
+		e.cancelBubble = true;
+		e.returnValue = false;
+
+		if (e.stopPropagation) {
+            e.stopPropagation();
+            e.preventDefault();
+			}
+		return false;	
+	}
+	else {
+		$("#nominal_price").val(precoNominal);
+		$("#sale_salePrice").val(precoPromocional);
+		return true;
+	}	
+}
+
+ $(document).ready(function(){
+ $("#sale_salePrice").priceFormat({
+    prefix: 'R$ ',
+    centsSeparator: ','
+});
+
+
+$("#nominal_price").priceFormat({
+    prefix: 'R$ ',
+    centsSeparator: ','
+});
+
+//TODO!!! torcar para 0 quando chegar o produto!!
+	if( $("#nominal_price").val().length === 0 ){
+		$("#nominal_price").val("R$ 100,00");
+	} 
+	else {
+			$("#nominal_price").val($("#nominal_price").val().replace(".", ","));
+
+	}
+	if( $("#sale_salePrice").val().length === 0){
+		$("#sale_salePrice").val("R$ 0,00");
+	} 
+		else {
+			$("#sale_salePrice").val($("#sale_salePrice").val().replace(".", ","));
+
+	}
+
+ });
+ 
+</script>
+
+<%= stylesheet_link_tag "jqueryui.css" %>
+
+<%= form_for @sale, :validate => true, :html => { :class => 'form-horizontal',  :onsubmit => 'return validate()'} do |f| %>
+<div class="form">
+  
+  
+	<div class="control-group">
+   	<label class="control-label">Catálogo<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+			<% if !params[:catalog] %>
+				<%= collection_select(:sale, :catalog_id, Catalog.all, :id, :name) %>
+			<% else %>
+			    <input class="text_field"   type="text" placeholder="<%= @catalog.name %>" disabled>
+				<input  name="sale[catalog_id]" size="30" type="hidden" value="<%= @catalog.id %> ">
+				<input  name="catalog" size="30" type="hidden" value="<%= @catalog.id %> ">
+			<% end %>
+	</div>
+  </div>
+
+   <div class="control-group">
+   <label class="control-label" for="user_nome">Produto<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%#= f.text_field :product_id, :class => 'text_field' %>
+    <input class="text_field"   type="text" placeholder="Autocomplete Produtos..." disabled>
+	</div>
+  </div>
+
+    <div class="control-group">
+   <label class="control-label" for="user_nome">Preço Nominal<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+     <input class="text_field"   id="nominal_price" type="text" placeholder="10.99" disabled >
+    </div>
+  </div>
+
+    <div class="control-group">
+   <label class="control-label" for="user_nome">Preço Promocional<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.text_field :salePrice, :class => 'text_field' %>
+    </div>
+  </div>
+  
+  
+</div>
+  <div class="form-actions">
+    <%= f.submit "Salvar", :class => 'btn btn-primary' %>
+	<a class="btn btn-small btn-danger" href="/sales/"><i class="icon-remove icon-white"></i>Cancelar</a>
+  </div>
+<% end %>

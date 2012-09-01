@@ -27,7 +27,8 @@
       <div class="nav-collapse">
         <ul class="nav">
 		<% if admin? %>
-		<li class="dropdown">
+		<li class="active"><a href="/home">Home</a></li>
+		<li class=" dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Usuários<b class="caret"></b> </a>
 			<ul class="dropdown-menu">
 				<li>
@@ -38,8 +39,23 @@
 				</li>
 			</ul>
 		</li>
-            <li><%= link_to "Produtos" %></li>
-            <li class="dropdown">
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Produtos<b class="caret"></b> </a>
+			<ul class="dropdown-menu">
+				<li>
+					<%= "Exibir" %>
+				</li>
+				<li>			
+					 Adicionar 
+				</li>
+				<li>			
+					<a href="/special_products"> Diferenciações </a>
+				</li>
+				<li>			
+					<a href="/special_products/new">Nova Diferenciação </a>
+				</li>
+			</ul>
+		</li>            <li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Catálogos<b class="caret"></b> </a>
 			<ul class="dropdown-menu">
 				<li>
@@ -47,6 +63,9 @@
 				</li>
 				<li>			
 					<a href="/catalogs/new"> Adicionar </a>
+				</li>
+				<li>
+					<%= link_to "Promoções", sales_path %>
 				</li>
 			</ul>
 		</li>
@@ -56,13 +75,13 @@
 			<li><%= link_to "Consultar Estoque" %></li>
 		  <li class="divider-vertical"></li>
 			<li class="dropdown">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Conta<b class="caret"></b> </a>
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user icon-white"></i> Conta<b class="caret"></b> </a>
 			<ul class="dropdown-menu">
 				<li>
-					<a href="/my_profile"> Meu perfil </a>
+					<a href="/my_profile"><i class="icon-pencil "></i> Meu perfil </a>
 				</li>
 				<li>
-					<%= link_to "Sair", logout_path %>
+					<a href="/logout"> <i class="icon-off "></i> Sair </a>
 				</li>
 			</ul>
 

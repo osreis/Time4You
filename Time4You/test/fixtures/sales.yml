@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  salePrice: 9.99
+  originalPrice: 9.99
+  product: 
+  catalog: 
+
+two:
+  salePrice: 9.99
+  originalPrice: 9.99
+  product: 
+  catalog: 
