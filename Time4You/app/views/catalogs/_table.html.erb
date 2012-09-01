@@ -19,7 +19,7 @@
       <tr>
 	
         <td><%= catalog.name %></td>
-        <td><%= "Marca" %></td>
+        <td><%= link_to raw('<i class="icon-tag icon-white"></i>' + ' ' + catalog.brand.name), brand_path(catalog.brand), :class => "btn btn-small btn-info" %></td>
         <td><%= catalog.beginDate.strftime("%d/%m/%Y") %></td>
         <td><%= catalog.endDate.strftime("%d/%m/%Y") %></td>
 		<% status = "Ativo" %>
