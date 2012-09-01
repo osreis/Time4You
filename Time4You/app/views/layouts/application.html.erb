@@ -27,7 +27,8 @@
       <div class="nav-collapse">
         <ul class="nav">
 		<% if admin? %>
-		<li class="dropdown">
+		<li class="active"><a href="/home">Home</a></li>
+		<li class=" dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Usuários<b class="caret"></b> </a>
 			<ul class="dropdown-menu">
 				<li>
@@ -38,8 +39,23 @@
 				</li>
 			</ul>
 		</li>
-            <li><%= link_to "Produtos" %></li>
-            <li class="dropdown">
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Produtos<b class="caret"></b> </a>
+			<ul class="dropdown-menu">
+				<li>
+					<%= "Exibir" %>
+				</li>
+				<li>			
+					 Adicionar 
+				</li>
+				<li>			
+					<a href="/special_products"> Diferenciações </a>
+				</li>
+				<li>			
+					<a href="/special_products/new">Nova Diferenciação </a>
+				</li>
+			</ul>
+		</li>            <li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Catálogos<b class="caret"></b> </a>
 			<ul class="dropdown-menu">
 				<li>
