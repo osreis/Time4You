@@ -23,7 +23,7 @@
     	<b>E-mail:</b>
     	<%= @brand.representative_email %></br>
 		<% end %>
-		<% if !@brand.representative_email.blank? %>
+		<% if !@brand.representative_phone.blank? %>
     	<b> Telefone: </b>
     	<%= @brand.representative_phone %></ul>
 		<% end %>	
@@ -38,7 +38,7 @@
 	</div>
 
 	<div align = "right">
-		<div class="form" style="float:right">
+		<div class="form-actions" style="float:right">
 		<div class=" form btn-group">
 				<a class="btn btn-small btn-primary" href="/brands/"><i class="icon-backward icon-white"></i>Voltar</a>
 				<a class="btn btn-small" href="/brands/<%= @brand.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
