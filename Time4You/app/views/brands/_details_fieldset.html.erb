@@ -2,37 +2,37 @@
 .dl-horizontal dt {
 	text-align: right
 }
-ul {
-	font-weight:bold;
-	text-decoration:underline;
-}
 </style>
 
 
 <fieldset>
 	<legend> <%= " " +  @brand.name %> </legend>
 	<div class = "form-actions">
-	<dl class="dl-horizontal">	
-			<ul>Informações da marca</ul>
-	    <dt>Nome: </dt>
-	    <dd> <%= @brand.name %> </dd>
+	<dl class="dl-horizontal">
+		<div class="well">
+			<b><u>Informações da marca</u></b></br>
+	    <ul><b>Nome: </b>
+	    <%= @brand.name %></ul>
+		</div>
 			
 			<% if !@brand.representative_name.blank? %>
-				</br><ul>Informações do representante</ul>
-	    	<dt>Nome:</dt>
-	    	<dd> <%= @brand.representative_name %> </dd>
+				<div class="well">
+					<b><u>Informações do representante</u></b></br>
+	    		<ul><b>Nome:</b>
+	    		<%= @brand.representative_name %></br>
 			<% end %>
 			<% if !@brand.representative_email.blank? %>
-	    	<dt>E-mail: </dt>
-	    	<dd> <%= @brand.representative_email %> </dd>
+	    	<b>E-mail:</b>
+	    	<%= @brand.representative_email %></br>
 			<% end %>
 			<% if !@brand.representative_email.blank? %>
-	    	<dt> Telefone: </dt>
-	    	<dd> <%= @brand.representative_phone %> </dd>
-			<% end %>
+	    	<b> Telefone: </b>
+	    	<%= @brand.representative_phone %></ul>
+			<% end %>	
+			</div>
 			<% if !@brand.extra_info.blank? %>
-	    	</br><div class="well"> 
-					<b>Informações adicionais</b></br>
+	    	<div class="well"> 
+					<b><u>Informações adicionais</b></u></br>
 					<%= @brand.extra_info %> 
 				</div>
 			<% end %>
