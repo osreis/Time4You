@@ -53,7 +53,7 @@ class BrandsController < ApplicationController
 
     respond_to do |format|
       if @brand.save
-        format.html { redirect_to @brand, :flash => { :notice_success => "#{@brand.name} criada com sucesso!" } }
+        format.html { redirect_to brands_path, :flash => { :notice_success => "#{@brand.name} criada com sucesso!" } }
         format.json { render json: @brand, status: :created, location: @brand }
       else
         format.html { render action: "new" }

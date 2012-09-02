@@ -1,38 +1,32 @@
-﻿<% if (Brand.all.count) > 0 %>
+﻿
+<% if (Brand.all.count) > 0 %>
 
 <table class="table table-striped">
   <thead>
     <tr>
-
-		<%= render "shared/table_head", {:col_order_name => "name", :col_name => t(:brand_att_name) }%>
+			<th><%= "Nome" %></th>
+			<th style="text-align:center"><%= t(:actions_name) %></th> 
     </tr>
   </thead>
-  <tbody>
-    <% @brands.each do |brand| %>
-      <tr>
-        <td><%= brand.name %></td>
-       	<td>
-					<div class="btn-group pull-right">
-						<%= link_to raw('<i class="icon-search icon-white"></i>' + ' ' + "Visualizar"),
-		                  brand, :class => 'btn btn-primary' %>
-						<%= link_to raw('<i class="icon-pencil"></i>' + ' ' + "Editar"),
-	                  	edit_brand_path(brand), :class => 'btn' %>
-						<%= link_to raw('<i class="icon-trash icon-white"></i>' + ' ' + "Remover"),
-                  		brand_path(brand), :class => 'btn btn-danger' , :method => :delete, :confirm => 'Tem certeza?' %>
-					</div>
-				</td>
-				<td>
-					<div class="btn-group" style="position:relative; left:40px">	 
-						<a class="btn btn-primary dropdown-toggle btn-info" data-toggle="dropdown" href="#"> <i class="icon-cog icon-white"></i> Extras
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" style='font-size:12'>
-							<%= link_to raw('<i class="icon-gift"></i>' + " Produtos") %>
-							<%= link_to raw('<i class="icon-book"></i>' + " Catálogos") %>
-						</ul>
-				</td>
-      </tr>
-    <% end %>
-  </tbody>
+	<tbody>
+		<% @brands.each do |brand| %>
+  	<tr>
+    	<td><%= brand.name %></td>
+    	<td>
+			<div class="btn-group centralizada" style="width:340px">	 
+				<a class="btn btn-primary dropdown-toggle btn-info" data-toggle="dropdown" href="#"> <i class="icon-cog icon-white"></i> Extras
+		    	<span class="caret"></span>
+				</a>
+		  	<ul class="dropdown-menu" style='font-size:12'>
+					<a href="#"><i class="icon-book"></i> Catálogos</a>
+					<a href="#"><i class="icon-gift"></i> Produtos</a>
+		    </ul>
+				<a class="btn btn-primary btn-small" href="/brands/<%= brand.id %>"><i class="icon-search icon-white"></i> Visualizar</a>
+				<a class="btn btn-small" href="/brands/<%= brand.id %>/edit"><i class="icon-pencil icon-gray"></i> Editar</a>
+				<a class="btn btn-small  btn-danger" href="/brands/<%= brand.id %>" data-confirm="<%= "Deseja remover #{brand.name}?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i> Remover</a>
+    	</td>
+  	</tr>
+		<% end %>
+	</tbody>
 </table>
 <% end %>

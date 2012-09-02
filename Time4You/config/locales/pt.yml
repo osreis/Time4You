@@ -8,6 +8,7 @@ pt:
       messages:
         taken: "já está em uso."
         blank: "deve ser preenchido."
+        greater_than: "deve ser maior que 0."
       models:
         group:
           attributes:
