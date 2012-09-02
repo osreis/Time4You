@@ -29,6 +29,7 @@
 		@user = User.new  
 		@grupos = Group.all
 		@edit = false
+		@myProfile = false
 	end  
   
   
@@ -66,11 +67,14 @@
 		@title = t(:user_my_profile_title)
 		@subtitle = t(:user_my_profile_subtitle)
 		@legend = t(:user_my_profile_legend)
+		@myProfile = true
+		@edit = true
 	end
 
 	def edit
 		@grupos = Group.all
 		@edit = true
+		@myProfile = false
 		@user = User.find(params[:id])
 		@title = t(:user_edit_title)
 		@subtitle = t(:user_edit_subtitle)
@@ -81,10 +85,13 @@
 
 	def update
 	  @user = User.find(params[:id])
-	  puts "**************************" + @user.to_s
       if @user.update_attribute(:email, params[:user][:email]) and @user.update_attribute(:address, params[:user][:address]) and @user.update_attribute(:city, params[:user][:city]) and @user.update_attribute(:state, params[:user][:state]) and @user.update_attribute(:phone, params[:user][:phone]) and @user.update_attribute(:mobile, params[:user][:mobile]) and @user.update_attribute(:login, params[:user][:login])  
-       	redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_success => "Usuário alterado com sucesso" }) 
-      else
+       	if @user != current_user
+		redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_success => "Usuário alterado com sucesso" }) 
+		elsif   @user.update_attribute(:password, params[:user][:password]) and @user.update_attribute(:password_confirmation, params[:user][:password_confirmation])
+			redirect_to({:controller=> :home, :action => :index}, :flash => { :notice_success => "Usuário alterado com sucesso" }) 
+		end	
+	  else
 		render "edit"
 	  end
   end

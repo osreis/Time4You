@@ -54,7 +54,7 @@ text-align: right
     </tr>
   </thead>
   <tbody>
-    <% @catalog.sales.each do |sale| %>
+    <% @sales.each do |sale| %>
       <tr>
 	    <td><%= "Produto" %></td>
         <td><%= "R$ 10,99" %></td>
@@ -73,7 +73,7 @@ text-align: right
   </tbody>
 </table>
 	</div>
-		
+		<%= will_paginate @sales, :renderer => BootstrapPagination::Rails, :next_label => "Próxima", :previous_label => "Anterior", :update => 'tabela' %>
 	</div>
 </fieldset>
 <% end %>

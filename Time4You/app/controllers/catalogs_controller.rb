@@ -23,6 +23,7 @@
 	#@produtos = @catalog.produtos
 	@title = "Detalhes"
 	@subtitle = ""
+	@sales = @catalog.sales.paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /catalogs/new

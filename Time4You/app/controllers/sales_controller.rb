@@ -12,10 +12,7 @@
 		@title = "Promoções" 
 		@subtitle = "Promoções de Catálogo"
 		@button_title = "Adicionar Promoção"
-		if params[:from] == "menu" #reset session parameters
-		   init
-		end
-		get_page
+		@sales = Sale.paginate(:page => params[:page], :per_page => 5)
 	end # end index	
 	
 
