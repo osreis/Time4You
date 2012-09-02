@@ -19,7 +19,7 @@
       <tr>
 	
         <td><%= catalog.name %></td>
-		<td> <%= link_to raw('<i class="icon-tag icon-white"></i>' + ' ' + catalog.brand.name), brand_path(catalog.brand), :class => 'btn btn-small btn-info'%></td>
+		<td> <%= link_to raw('<i class="icon-tag icon-white"></i>' + ' ' + catalog.brand.name), brand_path(catalog.brand), :class => 'btn btn-info'%></td>
         <td><%= catalog.beginDate.strftime("%d/%m/%Y") %></td>
         <td><%= catalog.endDate.strftime("%d/%m/%Y") %></td>
 		<% status = "Ativo" %>
@@ -31,9 +31,9 @@
 
         <td>
 			<div class="btn-group" style="position:relative; left:40px">	 
-			<a class="btn btn-primary dropdown-toggle btn-info" data-toggle="dropdown" href="#"> <i class="icon-cog icon-white"></i> Opções
+				<a class="btn btn-small dropdown-toggle btn-info" data-toggle="dropdown" href="#"> <i class="icon-cog icon-white"></i> Opções
 				    <span class="caret"></span>
-				  </a>
+				</a>
 				  <ul class="dropdown-menu" style='font-size:12'>
 					<a href="/catalogs/<%= catalog.id %>"><i class="icon-search"></i> Exibir</a>
 					<a href="/sales/new?catalog=<%= catalog.id %>"><i class="icon-tag"></i> Adicionar Produto</a>
