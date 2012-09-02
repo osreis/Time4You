@@ -9,47 +9,34 @@ text-align: right
 
 
 <fieldset >
-	<legend> <%= " " +  @user.name %> </legend>
-	<div class = "form-actions">
+	<legend> <%= " " +  @user.name + " (" + @user.group.name + ")" %> </legend>
 	<dl class="dl-horizontal">
-		    <dt>Nome :</dt> 
-		    <dd> <%= " " +  @user.name.to_s %> </dd>
-	
-		    <dt>Grupo :</dt> 
-		    <dd> <%= " " +  @user.group.name %> </dd>
-	
-		    <dt>Sexo :</dt> 
-		    <dd> <%= " " +  @user.gender %> </dd>
+		<div class="well">
+			<b><u>Dados pessoais</u></b></br>
+	    <ul>
+				<b>CPF: </b>
+				<%= @user.cpf %></br>
+				<b>Sexo: </b>
+	    	<%= @user.gender %></br>
+	    	<b>Data de Nascimento: </b> 
+	    	<%= @user.birthDate.strftime("%d/%m/%Y") %></br>
+			</ul>
+		</div>
 		
-		    <dt>Data de Nascimento :</dt> 
-		    <dd><%= " " + @user.birthDate.strftime("%d/%m/%Y") %> </dd>
-		
-		    <dt>CPF :</dt> 
-		    <dd> <%= " " +  @user.cpf %> </dd>
-		
-		    <dt>Telefone:</dt> 
-		    <dd> <%= " " +  @user.phone %></dd>
-		
-		    <dt>Celular:</dt> 
-		    <dd> <%= " " +  @user.mobile %></dd>
-		
-		    <dt>E-mail:</dt> 
-		    <dd> <%= " " +  @user.email %></dd>
-		
-		   <dt>Endereço: </dt> 
-		   <dd> <%= " " +  @user.address %></dd>
-		
-		   <dt>CEP: </dt> 
-		   <dd> <%= " " +  @user.cep %></dd>
-		
-		   <dt>Cidade: </dt> 
-		   <dd> <%= " " +  @user.city %></dd>
-		
-		   <dt>Estado: </dt> 
-		   <dd> <%= " " +  @user.state %></dd>
-		</dl>
-		
-	</div>
+		<div class="well">
+			<b><u>Dados para contato</u></b></br>
+	    <ul>
+				<b>Telefone: </b>
+				<%= @user.phone %></br>
+				<b>Celular: </b>
+	    	<%= @user.mobile %></br>
+	    	<b>E-mail: </b> 
+	    	<%= mail_to @user.email %></br>
+				<b>Endereço: </b>
+				<%= @user.address + " - " +  @user.cep + " - " + @user.city + " - " + @user.state%>
+			</ul>
+		</div>
+	</dl>
 		
 	<div align = "right">
 		<div class="form" style="float:right">
