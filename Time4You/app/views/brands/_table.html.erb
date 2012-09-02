@@ -11,21 +11,26 @@
     <% @brands.each do |brand| %>
       <tr>
         <td><%= brand.name %></td>
-       	<td><div class="btn-group">
-				  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-				    Ações
-				    <span class="caret"></span>
-				  </a>
-				  <ul class="dropdown-menu" style='font-size:12'>
-					<%= link_to raw('<i class="icon-search"></i>' + ' ' + "Visualizar"),
-		                  brand%>
-					<%= link_to raw('<i class="icon-pencil"></i>' + ' ' + "Editar"),
-	                  	edit_brand_path(brand)%>
-					<%= link_to raw('<i class="icon-trash"></i>' + ' ' + "Remover"),
-                  		brand_path(brand), :method => :delete, :confirm => 'Tem certeza?' %>
+       	<td>
+					<div class="btn-group pull-right">
+						<%= link_to raw('<i class="icon-search icon-white"></i>' + ' ' + "Visualizar"),
+		                  brand, :class => 'btn btn-primary' %>
+						<%= link_to raw('<i class="icon-pencil"></i>' + ' ' + "Editar"),
+	                  	edit_brand_path(brand), :class => 'btn' %>
+						<%= link_to raw('<i class="icon-trash icon-white"></i>' + ' ' + "Remover"),
+                  		brand_path(brand), :class => 'btn btn-danger' , :method => :delete, :confirm => 'Tem certeza?' %>
+					</div>
+				</td>
+				<td>
+					<div class="btn-group" style="position:relative; left:40px">	 
+						<a class="btn btn-primary dropdown-toggle btn-info" data-toggle="dropdown" href="#"> <i class="icon-cog icon-white"></i> Extras
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" style='font-size:12'>
+							<%= link_to raw('<i class="icon-gift"></i>' + " Produtos") %>
+							<%= link_to raw('<i class="icon-book"></i>' + " Catálogos") %>
 						</ul>
-				    </div>
-				</td>		
+				</td>
       </tr>
     <% end %>
   </tbody>

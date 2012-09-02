@@ -4,49 +4,46 @@
 }
 </style>
 
-
 <fieldset>
 	<legend> <%= " " +  @brand.name %> </legend>
-	<div class = "form-actions">
 	<dl class="dl-horizontal">
 		<div class="well">
 			<b><u>Informações da marca</u></b></br>
 	    <ul><b>Nome: </b>
 	    <%= @brand.name %></ul>
 		</div>
-
-			<% if !@brand.representative_name.blank? %>
-				<div class="well">
-					<b><u>Informações do representante</u></b></br>
-	    		<ul><b>Nome:</b>
-	    		<%= @brand.representative_name %></br>
-			<% end %>
-			<% if !@brand.representative_email.blank? %>
-	    	<b>E-mail:</b>
-	    	<%= @brand.representative_email %></br>
-			<% end %>
-			<% if !@brand.representative_email.blank? %>
-	    	<b> Telefone: </b>
-	    	<%= @brand.representative_phone %></ul>
-			<% end %>	
+			
+		<% if !@brand.representative_name.blank? %>
+			<div class="well">
+				<b><u>Informações do representante</u></b></br>
+    		<ul><b>Nome:</b>
+    		<%= @brand.representative_name %></br>
+		<% end %>
+		<% if !@brand.representative_email.blank? %>
+    	<b>E-mail:</b>
+    	<%= @brand.representative_email %></br>
+		<% end %>
+		<% if !@brand.representative_phone.blank? %>
+    	<b> Telefone: </b>
+    	<%= @brand.representative_phone %></ul>
+		<% end %>	
+		</div>
+		<% if !@brand.extra_info.blank? %>
+    	<div class="well"> 
+				<b><u>Informações adicionais</b></u></br>
+				<ul><%= @brand.extra_info %></ul>
 			</div>
-			<% if !@brand.extra_info.blank? %>
-	    	<div class="well"> 
-					<b><u>Informações adicionais</b></u></br>
-					<%= @brand.extra_info %> 
-				</div>
-			<% end %>
+		<% end %>
 		</dl>
 	</div>
 
 	<div align = "right">
-		<div class="form" style="float:right">
+		<div class="form-actions" style="float:right">
 		<div class=" form btn-group">
 				<a class="btn btn-small btn-primary" href="/brands/"><i class="icon-backward icon-white"></i>Voltar</a>
 				<a class="btn btn-small" href="/brands/<%= @brand.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
 				<a class="btn btn-small  btn-danger" href="/brands/<%= @brand.id %>" data-confirm="Tem certeza?" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
 			</div> 
-
-	</div>
+		</div>
 	</div>
 </fieldset>
