@@ -1,0 +1,47 @@
+﻿<%= layout_edit_and_new %>
+
+
+<script type='text/javascript'>
+  $(document).ready(function(){
+
+	/* global variables */
+
+	enable = false;
+	
+	/* function to check if the current password is correct */
+    $("#old_password").change(function(){
+		$("#old_password_error").html("");
+		if ($("#old_password").val().length != 0) $.getJSON ("users/check_ajax?password=" + $("#old_password").val(), check_ajaxAjax);
+		else {
+			$("#old_password_error").html("<%= t(:old_password_blank) %>");
+			enable = false;
+		}
+	});	
+
+	
+  });
+
+
+ /* function to confir server response, if the current pssword is correct */
+  function check_ajaxAjax(data)
+  {
+		
+		if (data == true) enable = true;
+		else {
+			$("#old_password_error").html('<%= t(:old_password_error) %>');
+			enable = false;
+		}
+  }
+
+/*  submit is only valid after all conditions are true */
+$(window).submit(function(){ 
+
+			if(!enable) {
+				$("#old_password_error").html("<%= t(:old_password_error) %>");
+				return false;
+			}
+			   
+}) 
+
+ 
+</script>

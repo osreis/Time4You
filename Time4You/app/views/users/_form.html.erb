@@ -118,6 +118,7 @@
     </div>
   </div>
 
+ <% if !@myProfile %> 
    <div class="control-group">
    <label class="control-label" for="user_nome"><%= t(:user_att_password) %><span class="asterisk" >*</span>:</label>
     <div class="controls">
@@ -139,7 +140,32 @@
 	<% end %>	
     </div>
   </div>
+<% else %>
 
+
+	<div class="control-group">
+   <label class="control-label" for="user_nome"><%= t(:user_att_current_password) %><span class="asterisk" >*</span>:</label>
+    <div class="controls">
+	<%= f.password_field :old_password , :class => 'long_text', :id => "old_password" %> 
+		<span id="old_password_error" class="message"></span>
+    </div>
+  </div>
+
+  	<div class="control-group">
+   <label class="control-label" for="user_nome"><%= t(:user_att_password) %><span class="asterisk" >*</span>:</label>
+    <div class="controls">
+    <%= f.password_field :password , :class => 'long_text' %> 
+    </div>
+  </div>
+  
+  	<div class="control-group">
+   <label class="control-label" for="user_nome"><%= t(:user_att_confirm_password) %><span class="asterisk" >*</span>:</label>
+    <div class="controls">
+     <%= f.password_field :password_confirmation , :class => 'long_text' %> 
+    </div>
+  </div>
+
+<% end %>
 
 </div>
   <div class="form-actions">

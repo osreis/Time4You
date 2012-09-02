@@ -45,7 +45,7 @@ $("#nominal_price").priceFormat({
     centsSeparator: ','
 });
 
-//TODO!!! torcar para 0 quando chegar o produto!!
+//TODO!!! trocar para 0 quando chegar o produto!!
 	if( $("#nominal_price").val().length === 0 ){
 		$("#nominal_price").val("R$ 100,00");
 	} 
@@ -57,7 +57,8 @@ $("#nominal_price").priceFormat({
 		$("#sale_salePrice").val("R$ 0,00");
 	} 
 		else {
-			$("#sale_salePrice").val($("#sale_salePrice").val().replace(".", ","));
+			var valor = $("#sale_salePrice").val().replace(".", ",");
+			$("#sale_salePrice").val("<%=  (number_to_currency(@sale.salePrice, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %>");
 
 	}
 

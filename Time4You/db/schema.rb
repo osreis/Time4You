@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120901165358) do
+ActiveRecord::Schema.define(:version => 20120902161000) do
+
+  create_table "backups", :force => true do |t|
+    t.date     "date"
+    t.string   "file"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "brands", :force => true do |t|
     t.string   "name"

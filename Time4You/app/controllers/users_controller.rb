@@ -4,20 +4,12 @@
 	before_filter :authorize_admin, :except=>[:my_profile, :update, :check_ajax]
 
 
-	def get_page
-		@users = User.all
-	end
-
-
-
 	def index
 		@title = t(:user_index_title) 
 		@subtitle = t(:user_index_subtitle)
 		@button_title = t(:user_index_button_title)
-		if params[:from] == "menu" #reset session parameters
-		   init
-		end
-		get_page
+		@users = User.where("id != " + current_user.id.to_s) 
+	    @users = @users.paginate(:page => params[:page], :per_page => 5)
 	end # end index
 
 
@@ -29,6 +21,7 @@
 		@user = User.new  
 		@grupos = Group.all
 		@edit = false
+		@myProfile = false
 	end  
   
   
@@ -52,8 +45,21 @@
 		else  
 			redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_error => t(:remove_user_fail)}) 
 		end  
-	end # end destroy_user
-
+	end 
+	
+	
+	def recovery
+	  @user = User.find(params[:id])
+	  @user.password = "time4you"
+	  @user.password_confirmation = "time4you"
+	  if @user.save  
+			redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_success => "A senha do usuário foi resetada para time4you. "}) 
+		else  
+			redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_error => "Erro ao resetar a senha do usuário." }) 
+		end  
+	end 
+	
+	
 	def show
 	  @user = User.find(params[:id])
 	  @title = "Detalhes"
@@ -66,11 +72,14 @@
 		@title = t(:user_my_profile_title)
 		@subtitle = t(:user_my_profile_subtitle)
 		@legend = t(:user_my_profile_legend)
+		@myProfile = true
+		@edit = true
 	end
 
 	def edit
 		@grupos = Group.all
 		@edit = true
+		@myProfile = false
 		@user = User.find(params[:id])
 		@title = t(:user_edit_title)
 		@subtitle = t(:user_edit_subtitle)
@@ -81,10 +90,13 @@
 
 	def update
 	  @user = User.find(params[:id])
-	  puts "**************************" + @user.to_s
       if @user.update_attribute(:email, params[:user][:email]) and @user.update_attribute(:address, params[:user][:address]) and @user.update_attribute(:city, params[:user][:city]) and @user.update_attribute(:state, params[:user][:state]) and @user.update_attribute(:phone, params[:user][:phone]) and @user.update_attribute(:mobile, params[:user][:mobile]) and @user.update_attribute(:login, params[:user][:login])  
-       	redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_success => "Usuário alterado com sucesso" }) 
-      else
+       	if @user != current_user
+		redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_success => "Usuário alterado com sucesso" }) 
+		elsif   @user.update_attribute(:password, params[:user][:password]) and @user.update_attribute(:password_confirmation, params[:user][:password_confirmation])
+			redirect_to({:controller=> :home, :action => :index}, :flash => { :notice_success => "Usuário alterado com sucesso" }) 
+		end	
+	  else
 		render "edit"
 	  end
   end
