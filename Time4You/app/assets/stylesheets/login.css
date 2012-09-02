@@ -57,3 +57,9 @@ span.message
 select {
    width:auto;
 }
+
+.centralizada {
+	margin-left: auto;
+	margin-right: auto;
+	width: 210px;
+}

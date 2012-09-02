@@ -131,9 +131,21 @@
     <h1> #{ @title }  </h1>
     <p>  #{ @subtitle } </p>"
 
-    flash.each do |name, msg| 
-      html += "	#{ content_tag :div, msg, :id => "flash_#{name}"}"
-
+    flash.each do |name, msg|       
+	  if name.to_s == "notice_success"
+		html += "  <div class='alert alert-success' style='width:70%'>
+						<button type='button' class='close' data-dismiss='alert'>×</button>
+						<h4>Sucesso!</h4>
+						 #{ msg }  
+					</div> "
+	  
+	  else
+		  html += "  <div class='alert alert-error' style='width:70%'>
+						<button type='button' class='close' data-dismiss='alert'>×</button>
+						<h4>Erro!</h4>
+							#{ msg }  
+					</div> "
+	  end
       end
         html.html_safe
   end

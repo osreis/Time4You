@@ -26,7 +26,7 @@ text-align: right
 		
 	<div align = "right">
 		<div class="form" style="float:right">
-		<div class=" form btn-group">
+		<div class=" form btn-group ">
 				<a class="btn btn-small btn-primary" href="/catalogs/"><i class="icon-backward icon-white"></i>Voltar</a>
 				<a class="btn btn-small" href="/catalogs/<%= @catalog.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
 				<a class="btn btn-small  btn-danger" href="/catalogs/<%= @catalog.id %>" data-confirm="<%= " Deseja remover o Catálogo? " %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
@@ -62,7 +62,7 @@ text-align: right
 		<td><%= "10%" %></td>
 		
         <td>
-			<div class="btn-group">
+			<div class="btn-group centralizada">
 				<a class="btn btn-small btn-primary" href="/sales/<%= sale.id %>"><i class="icon-search icon-white"></i>Exibir</a>
 				<a class="btn btn-small" href="/sales/<%= sale.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
 				<a class="btn btn-small  btn-danger" href="/sales/<%= sale.id %>" data-confirm="<%= "Deseja remover a Promoção?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>

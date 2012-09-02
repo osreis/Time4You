@@ -6,7 +6,7 @@
   <thead>
     <tr>
 
-		<%= render "shared/table_head", {:col_order_name => "name", :col_name => t(:user_att_name) }%> 
+		<th><%= "Nome" %></th>
 		<th><%= "Marca" %></th>
 		<th><%= "Data Inicial" %></th> 
 		<th><%= "Data Final" %></th>
@@ -19,7 +19,7 @@
       <tr>
 	
         <td><%= catalog.name %></td>
-		<td> <%= link_to raw('<i class="icon-tag icon-white"></i>' + ' ' + catalog.brand.name), brand_path(catalog.brand), :class => 'btn btn-small btn-info'%></td>
+		<td> <%= link_to raw(catalog.brand.name), brand_path(catalog.brand)%></td>
         <td><%= catalog.beginDate.strftime("%d/%m/%Y") %></td>
         <td><%= catalog.endDate.strftime("%d/%m/%Y") %></td>
 		<% status = "Ativo" %>
@@ -30,7 +30,7 @@
 
 
         <td>
-			<div class="btn-group" style="position:relative; left:40px">	 
+			<div class="btn-group centralizada" style="width:240px">	 
 			<a class="btn btn-primary dropdown-toggle btn-info" data-toggle="dropdown" href="#"> <i class="icon-cog icon-white"></i> Opções
 				    <span class="caret"></span>
 				  </a>
