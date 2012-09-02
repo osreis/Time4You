@@ -113,7 +113,7 @@ pt:
  not_authorized: "Página não encontrada"
  session_email_blank: "Digite um e-mail"
  session_password_blank: "Digite uma senha"
- session_wrong_password: "Senha ou e-mail incorretos"
+ session_wrong_password: "Senha ou login incorretos"
  session_login_success: "Login efetuado com sucesso"
 
 

@@ -1,5 +1,5 @@
-﻿<% if (User.all.count) > 0 %>
-
+﻿<% if (User.all.count) > 1 %>
+<div id = "tabela">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -13,7 +13,7 @@
   </thead>
   <tbody>
     <% @users.each do |user| %>
-      <tr>
+	  <tr>
 	
         <td><%= user.name %></td>
         <td><%= user.email %></td>
@@ -22,8 +22,14 @@
 
 
         <td>
-			<div class="btn-group centralizada">
-				<a class="btn btn-small btn-primary" href="/users/<%= user.id %>"><i class="icon-search icon-white"></i> Exibir</a>
+			<div class="btn-group centralizada" style="width:245px">
+				<a class="btn btn-primary dropdown-toggle btn-info" data-toggle="dropdown" href="#"> <i class="icon-cog icon-white"></i> Opções
+				    <span class="caret"></span>
+				  </a>
+			  <ul class="dropdown-menu" style='font-size:12'>
+					<a href="/users/<%= user.id %>"><i class="icon-search"></i> Exibir</a>
+					<a href="/users/recovery/<%= user.id %>"><i class="icon-tag"></i> Resetar Senha </a>
+				    </ul>
 				<a class="btn btn-small" href="/users/<%= user.id %>/edit"><i class="icon-pencil icon-gray"></i> Editar</a>
 				<a class="btn btn-small  btn-danger" href="/users/<%= user.id %>" data-confirm="<%= t(:user_remove_confirm) %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i> Remover</a>
 			</div> 
@@ -32,7 +38,13 @@
     <% end %>
   </tbody>
 </table>
-
+</div>
+<%= will_paginate @users, :renderer => BootstrapPagination::Rails, :next_label => "Próxima", :previous_label => "Anterior", :update => 'tabela' %>
+<% else %>
+<br/><br/>
+<div align="center">
+	Nenhum Usuário Encontrado
+</div>	
 <% end %>
 
 

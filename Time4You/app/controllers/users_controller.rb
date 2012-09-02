@@ -4,20 +4,12 @@
 	before_filter :authorize_admin, :except=>[:my_profile, :update, :check_ajax]
 
 
-	def get_page
-		@users = User.all
-	end
-
-
-
 	def index
 		@title = t(:user_index_title) 
 		@subtitle = t(:user_index_subtitle)
 		@button_title = t(:user_index_button_title)
-		if params[:from] == "menu" #reset session parameters
-		   init
-		end
-		get_page
+		@users = User.where("id != " + current_user.id.to_s) 
+	    @users = @users.paginate(:page => params[:page], :per_page => 5)
 	end # end index
 
 
@@ -53,8 +45,21 @@
 		else  
 			redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_error => t(:remove_user_fail)}) 
 		end  
-	end # end destroy_user
-
+	end 
+	
+	
+	def recovery
+	  @user = User.find(params[:id])
+	  @user.password = "time4you"
+	  @user.password_confirmation = "time4you"
+	  if @user.save  
+			redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_success => "A senha do usuário foi resetada para time4you. "}) 
+		else  
+			redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_error => "Erro ao resetar a senha do usuário." }) 
+		end  
+	end 
+	
+	
 	def show
 	  @user = User.find(params[:id])
 	  @title = "Detalhes"
