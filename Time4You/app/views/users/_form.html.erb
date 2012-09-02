@@ -5,6 +5,14 @@
 </style>
 
 
+<script type="text/javascript">
+	$(document).ready(function(){
+		//$("#user_phone").mask("(99)9999-9999");
+		//$("#user_cpf").mask("999.999.999-99");
+		//$("#user_cep").mask("99999-999");
+	});
+</script>
+
 
 <%= form_for @user, :validate => true, :html => { :class => 'form-horizontal' } do |f| %>
 <div class="form">
@@ -46,7 +54,7 @@
    <label class="control-label" for="user_nome">Data de Nascimento<span class="asterisk" >*</span>:</label>
     <div class="controls">
 	<% if !@edit %>
-     <%= f.date_select :birthDate, :order=>[:day,:month,:year], :start_year => 1966, :end_year => 2000, :use_month_numbers => true %>
+     <%= f.date_select :birthDate, :order=>[:day,:month,:year], :start_year => 1946, :end_year => 2000, :use_month_numbers => true %>
     <% else %>
 		<input class="text_field"   type="text" placeholder="<%= @user.birthDate.strftime("%d/%m/%Y") %>" disabled>
 	<% end %>

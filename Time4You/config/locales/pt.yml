@@ -19,6 +19,7 @@ pt:
               invalid: "formato inválido"
             password:
               confirmation: "confirmação e senha diferentes"	
+              too_short: "senha deve ter no mínimo 6 caracteres"	
             password_confirmation:
         
 

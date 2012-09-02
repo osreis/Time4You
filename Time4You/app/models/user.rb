@@ -10,7 +10,7 @@
   validates_format_of :cep, :with => /\A(\d{5})([-]{0,1})(\d{3})\Z/, :message => "CEP inválido"
   validates_format_of :cpf, :with => /^\d{10,11}$|\d{3}\.\d{3}\.\d{3}-\d{2}$/, :message => "CPF inválido"  
 
-  validates_uniqueness_of :email,:case_sensitive => false
+  validates_uniqueness_of :login,:case_sensitive => false
   validates_presence_of :email  
   validates_presence_of :name
   validates_presence_of :password
@@ -22,7 +22,10 @@
   validates_presence_of :city, :message => "digite uma cidade"
   validates_presence_of :cep, :message => "digite um CEP"
   validates_presence_of :cpf, :message => "digite um CPF"
+  validates_length_of :password, :minimum => 6, :message => "senha deve ter mais de 6 caracteres"
+  validates_length_of :password_confirmation, :minimum => 6, :message => "senha deve ter mais de 6 caracteres"
 
+  
   User::CAN_EDIT_EMAIL = false
   User::CAN_EDIT_GROUP = false
   User::CAN_EDIT_NAME = true
