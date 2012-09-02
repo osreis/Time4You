@@ -1,0 +1,38 @@
+﻿
+		
+<% if (Backup.all.count) > 0 %>
+<div id="tabela">
+<table class="table table-striped" >
+  <thead>
+    <tr>
+
+		<th><%= "Número" %></th>
+		<th><%= "Data" %></th>
+		<th style="text-align:center"><%= t(:actions_name) %></th> 
+    </tr>
+  </thead>
+  <tbody>
+    <% @backups.each do |backup| %>
+      <tr>
+	    <td><%= backup.id %></td>
+	    <td><%= backup.date.strftime("%d/%m/%Y")  %></td>		
+        <td>
+			<div class="btn-group centralizada" style="width:160px">
+				<a class="btn btn-small btn-warning" href="/backups/restaurar/<%= backup.id %>" data-confirm="Deseja restaurar o Backup?"><i class="icon-refresh icon-white"></i>Restaurar</a>
+				<a class="btn btn-small  btn-danger" href="/backups/<%= backup.id %>" data-confirm="<%= "Deseja remover o Backup?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
+			</div> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<%= will_paginate @sales, :renderer => BootstrapPagination::Rails, :next_label => "Próxima", :previous_label => "Anterior", :update => 'tabela' %>
+<% else %>
+<br/><br/>
+<div align="center">
+	Nenhum Backup Encontrado
+</div>	
+<% end %>
+
+
