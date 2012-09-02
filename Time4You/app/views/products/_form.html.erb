@@ -1,0 +1,118 @@
+<style>
+.text_field {
+	height:22px;
+}
+.number_input {
+	height:auto;
+	width:auto;
+}
+</style>
+
+<script>
+
+function validate (){
+
+	var camposNaoPreenchidos = false;
+	var precoErrado = false;
+	var precoCompra = parseFloat($("#precoCompra").val().replace("R$", "").replace(",", "."));
+	var precoVenda = parseFloat($("#precoVenda").val().replace("R$", "").replace(",", "."));
+
+	if(precoVenda < precoCompra){
+		alert("Preço de venda deve ser maior que o de compra!");
+		var e = window.event;
+		e.cancelBubble = true;
+		e.returnValue = false;
+
+		if (e.stopPropagation) {
+            e.stopPropagation();
+            e.preventDefault();
+			}
+		return false;	
+	}
+	else {
+		$("#precoCompra").val(precoCompra);
+		$("#precoVenda").val(precoVenda);
+		return true;
+	}	
+}
+
+ $(document).ready(function(){
+ $("#precoVenda").priceFormat({
+    prefix: 'R$ ',
+    centsSeparator: ','
+});
+
+
+$("#precoCompra").priceFormat({
+    prefix: 'R$ ',
+    centsSeparator: ','
+});
+
+//TODO!!! trocar para 0 quando chegar o produto!!
+	if( $("#precoCompra").val().length === 0 ){
+		$("#precoCompra").val("R$ 0,00");
+	} 
+	else {
+			$("#precoCompra").val($("#precoCompra").val().replace(".", ","));
+
+	}
+	if( $("#precoVenda").val().length === 0){
+		$("#precoVenda").val("R$ 0,00");
+	} 
+		else {
+			var valor = $("#precoVenda").val().replace(".", ",");
+			$("#precoVenda").val("<%=  (number_to_currency(@product.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %>");
+
+	}
+
+ });
+ 
+</script>
+
+<%= stylesheet_link_tag "jqueryui.css" %>
+
+<%= form_for @product, :validate => true, :html => { :class => 'form-horizontal' , :onsubmit => 'return validate()'} do |f| %>
+<div class="form">
+  
+   <div class="control-group">
+   <label class="control-label" for="user_nome">Nome<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>	
+    </div>
+  </div>
+	<div class="control-group">
+   	<label class="control-label" for="user_nome">Código de Barras<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.text_field :barcode, :class => 'text_field' %>	
+    </div>
+  </div>
+	<div class="control-group">
+   	<label class="control-label" for="user_nome">Preço de Compra<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.text_field :regular_purchase_price, :id => 'precoCompra', :class => 'text_field' %>	
+    </div>
+  </div>
+	<div class="control-group">
+   	<label class="control-label" for="user_nome">Preço de Venda<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.text_field :regular_sale_price, :id => 'precoVenda' ,:class => 'text_field' %>	
+    </div>
+  </div>
+	<div class="control-group">
+   	<label class="control-label" for="user_nome">Qtde. em Estoque<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+      <%= f.number_field :in_stock_quantity, :min => 1, :class => 'number_input' %>	
+    </div>
+  </div>
+	<div class="control-group">
+   	<label class="control-label">Marca<span class="asterisk" >*</span>:</label>
+    <div class="controls">
+			<%= collection_select(:product, :brand_id, Brand.all, :id, :name) %>
+    </div>
+  </div>
+
+	<div class="form-actions">
+    <%= f.submit "Salvar", :class => 'btn btn-primary' %>
+		<%= link_to raw('<i class="icon-remove icon-white"></i>' + ' ' + "Cancelar"), :back, :class => 'btn btn-danger'%>
+  </div>
+<% end %>
