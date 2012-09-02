@@ -1,0 +1,29 @@
+<style>
+.dl-horizontal dt {
+	text-align: right
+}
+</style>
+
+<fieldset>
+	<legend> <%= " " +  @product.name + ' (' + @product.barcode + ')' %> </legend>
+	<dl class="dl-horizontal">
+		<div class="well">
+	    <ul><b>Preço de Compra: </b>
+	    <%= @product.regular_purchase_price %></ul>
+	    <ul><b>Preço de Venda: </b>
+	    <%= @product.regular_sale_price %></ul>
+		  <ul><b>Quantidade em estoque: </b>
+	    <%= @product.in_stock_quantity %></ul>
+		  <ul><b>Marca: </b>
+	    <%= link_to Brand.find(@product.brand_id).name, brand_path(@product.brand_id) %></ul>
+		</div>
+	</div>
+	
+	<div class="btn-group">
+		<div style="margin-left:20px">
+			<a class="btn btn-small btn-primary" href="/products/"><i class="icon-backward icon-white"></i>Voltar</a>
+			<a class="btn btn-small" href="/products/<%= @product.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
+			<a class="btn btn-small  btn-danger" href="/products/<%= @product.id %>" data-confirm="Tem certeza?" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
+		</div>
+	</div>
+</fieldset>

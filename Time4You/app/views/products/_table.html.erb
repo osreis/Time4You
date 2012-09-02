@@ -1,0 +1,29 @@
+<% if (Product.all.count) > 0 %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+			<%= render "shared/table_head", {:col_order_name => "name", :col_name => "Nome" }%>
+			<%= render "shared/table_head", {:col_order_name => "brand", :col_name => "Marca" }%>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+	      <td><%= link_to Brand.find(product.brand_id).name, brand_path(product.brand_id) %></td>
+       	<td>
+					<div class="btn-group pull-right">
+						<%= link_to raw('<i class="icon-search icon-white"></i>' + ' ' + "Visualizar"),
+		                  product, :class => 'btn btn-primary' %>
+						<%= link_to raw('<i class="icon-pencil"></i>' + ' ' + "Editar"),
+	                  	edit_product_path(product), :class => 'btn' %>
+						<%= link_to raw('<i class="icon-trash icon-white"></i>' + ' ' + "Remover"),
+                  		product_path(product), :class => 'btn btn-danger' , :method => :delete, :confirm => 'Tem certeza?' %>
+					</div>
+				</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
