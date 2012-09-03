@@ -49,4 +49,9 @@ class BackupsController < ApplicationController
 	end
   end
   
+  def download
+   @backup = Backup.find(params[:id])
+    send_file @backup.file
+end
+  
 end
