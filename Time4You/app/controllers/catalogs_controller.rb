@@ -1,9 +1,13 @@
 ﻿class CatalogsController < SeaOrdPagController
 
-   before_filter :authorize
+  before_filter :authorize
     
-   def get_page
-		 @catalogs = Catalog.all
+  def get_page
+    if params[:brand_id]
+      @catalogs = Brand.find(params[:brand_id]).catalogs
+    else
+      @catalogs = Catalog.all
+    end
 	end
 	
 	

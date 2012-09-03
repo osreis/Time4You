@@ -3,7 +3,11 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    if params[:brand_id]
+      @products = Brand.find(params[:brand_id]).products
+    else
+      @products = Product.all
+    end
     @title = 'Produtos'
     if (@products.empty?)
       @subtitle = 'Não há produtos cadastrados'
