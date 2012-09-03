@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120902210749) do
+ActiveRecord::Schema.define(:version => 20120903001113) do
 
   create_table "backups", :force => true do |t|
     t.date     "date"
@@ -48,6 +48,21 @@ ActiveRecord::Schema.define(:version => 20120902210749) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "orders", :force => true do |t|
+    t.date     "created"
+    t.decimal  "amout"
+    t.string   "paymentType"
+    t.decimal  "discount"
+    t.decimal  "consumerAmout"
+    t.string   "status"
+    t.date     "updated"
+    t.integer  "user_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
+
   create_table "products", :force => true do |t|
     t.string   "name"
     t.string   "barcode"
@@ -59,6 +74,8 @@ ActiveRecord::Schema.define(:version => 20120902210749) do
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
   end
+
+  add_index "products", ["order_id"], :name => "index_products_on_order_id"
 
   create_table "sales", :force => true do |t|
     t.decimal  "salePrice"

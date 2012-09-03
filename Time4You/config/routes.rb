@@ -1,5 +1,7 @@
 Time4You::Application.routes.draw do
 
+  resources :orders
+
   resources :products
 
   resources :backups
