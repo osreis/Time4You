@@ -54,6 +54,7 @@ $("#precoCompra").priceFormat({
 	} 
 	else {
 			$("#precoCompra").val($("#precoCompra").val().replace(".", ","));
+			$("#precoCompra").val("<%=  (number_to_currency(@product.regular_purchase_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %>");
 
 	}
 	if( $("#precoVenda").val().length === 0){

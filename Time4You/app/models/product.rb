@@ -8,4 +8,13 @@ class Product < ActiveRecord::Base
   validates_numericality_of :in_stock_quantity, :greater_than => 0
   validates_presence_of :brand_id
   belongs_to :brand
+  
+  def self.search(barcode)
+    if (barcode)
+      Product.where('barcode = ?', barcode)
+    else
+      Product.all
+    end
+  end
+  
 end

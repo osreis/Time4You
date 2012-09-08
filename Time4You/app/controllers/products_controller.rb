@@ -6,11 +6,11 @@ class ProductsController < ApplicationController
     if params[:brand_id]
       @products = Brand.find(params[:brand_id]).products
     else
-      @products = Product.all
+      @products = Product.search(params[:barcode])
     end
     @title = 'Produtos'
     if (@products.empty?)
-      @subtitle = 'Não há produtos cadastrados'
+      @subtitle = 'Nenhum produto foi encontrado'
     else 
       @subtitle = 'Produtos cadastrados'
     end
@@ -88,9 +88,14 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
     if @product.delete
-		redirect_to({:controller=> :products, :action => :index}, :flash => { :notice_success => "Produto removido com sucesso" }) 
-	else  
-		redirect_to({:controller=> :products, :action => :index}, :flash => { :notice_error => "Erro ao remover Produto" }) 
-	end  
+		  redirect_to({:controller=> :products, :action => :index}, :flash => { :notice_success => "Produto removido com sucesso" }) 
+	  else  
+		  redirect_to({:controller=> :products, :action => :index}, :flash => { :notice_error => "Erro ao remover Produto" }) 
+	  end  
   end
+  
+  def search
+    
+  end
+  
 end
