@@ -1,10 +1,16 @@
+<% if params[:brand_id] %>
+	<ul class="breadcrumb">
+	  <li><a href="/brands">Marcas</a> <span class="divider">/</span></li>
+	  <li class="active"><%= "Produtos da #{Brand.find(params[:brand_id]).name}" %></li>
+	</ul>
+<% end %>
 <%= index_header %>
-<div style="float:right; margin-top:-8%">
-	<%= link_to raw('<i class="icon-plus icon-white"></i>' + ' ' + 'Adicionar produto'), new_product_path, :class => "btn btn-primary" %>
-</div>
 <%= form_tag("/products", :method => "get") do %>
   <%= text_field_tag :barcode, nil, :style => 'height:38px', :class => 'search-query', :placeholder => "Insira o código de barras" %>
   <button type="submit" class="btn btn-large">
   <i class="icon-search"></i> Buscar Produto</button>
 <% end %>
+<div style="float:right; margin-top:-8%">
+	<%= link_to raw('<i class="icon-plus icon-white"></i>' + ' ' + 'Adicionar produto'), new_product_path, :class => "btn btn-primary" %>
+</div>
 <%= render "table" %>

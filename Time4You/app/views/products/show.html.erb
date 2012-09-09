@@ -1,5 +1,8 @@
+<ul class="breadcrumb">
+  <li><a href="/products">Produtos</a> <span class="divider">/</span></li>
+  <li class="active"><%= @product.name %></li>
+</ul>
 <%= stylesheet_link_tag "details.css" %>
 
 <h1 class="titulo"> <%= @title %> </h1>
-
 <%= render "details_fieldset" %>

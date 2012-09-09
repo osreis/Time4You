@@ -1,11 +1,10 @@
 <% if (@products.count) > 0 %>
-
 <table class="table table-striped">
   <thead>
     <tr>
 			<%= render "shared/table_head", {:col_order_name => "name", :col_name => "Nome" }%>
 			<%= render "shared/table_head", {:col_order_name => "brand", :col_name => "Marca" }%>
-			<th>Em Estoque</th>
+			<th style="text-align:center">Em Estoque</th>
     </tr>
   </thead>
   <tbody>
@@ -13,7 +12,7 @@
       <tr>
         <td><%= product.name %></td>
 	      <td><%= link_to Brand.find(product.brand_id).name, brand_path(product.brand_id) %></td>
-	      <td><%= product.in_stock_quantity %></td>
+	      <td id="in_stock_quantity" style="text-align:center"><%= product.in_stock_quantity %></td>
        	<td>
 					<div class="btn-group pull-right">
 						<%= link_to raw('<i class="icon-search icon-white"></i>' + ' ' + "Visualizar"),

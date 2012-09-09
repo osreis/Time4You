@@ -1,4 +1,9 @@
-
+<% if params[:brand_id] %>
+	<ul class="breadcrumb">
+	  <li><a href="/brands">Marcas</a> <span class="divider">/</span></li>
+	  <li class="active"><%= "Catálogos da #{Brand.find(params[:brand_id]).name}" %></li>
+	</ul>
+<% end %>
 <%= index_header %>
 <br/>
 <div style="float:right; margin-top:-8%">

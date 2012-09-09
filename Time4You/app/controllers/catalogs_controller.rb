@@ -4,9 +4,9 @@
     
   def get_page
     if params[:brand_id]
-      @catalogs = Brand.find(params[:brand_id]).catalogs
+      @catalogs = Brand.find(params[:brand_id]).catalogs.searchByPage(params[:page])
     else
-      @catalogs = Catalog.all
+      @catalogs = Catalog.searchByPage(params[:page])
     end
 	end
 	
@@ -78,10 +78,10 @@
   def destroy
     @catalog = Catalog.find(params[:id])
     if @catalog.delete
-		redirect_to({:controller=> :catalogs, :action => :index}, :flash => { :notice_success => "Catálogo removido com sucesso" }) 
-	else  
-		redirect_to({:controller=> :catalogs, :action => :index}, :flash => { :notice_error => "Erro ao remover catálogo" }) 
-	end  
+		  redirect_to({:controller=> :catalogs, :action => :index}, :flash => { :notice_success => "Catálogo removido com sucesso" }) 
+	  else  
+		  redirect_to({:controller=> :catalogs, :action => :index}, :flash => { :notice_error => "Erro ao remover catálogo" }) 
+	  end  
   end
   
 end
