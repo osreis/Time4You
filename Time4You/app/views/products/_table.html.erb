@@ -29,3 +29,8 @@
   </tbody>
 </table>
 <% end %>
+
+<% if (@products.count) > 1 %>
+	<%= page_navigation_links @products %>
+<% end %>
+	

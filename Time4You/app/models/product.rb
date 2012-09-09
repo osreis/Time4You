@@ -14,7 +14,11 @@ class Product < ActiveRecord::Base
       Product.where('barcode = ?', barcode)
     else
       Product.all
-    end
+    end   
+  end
+  
+  def self.searchByPage(page)
+    paginate :per_page => 5, :page => page
   end
   
 end

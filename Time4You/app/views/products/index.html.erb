@@ -3,7 +3,8 @@
 	<%= link_to raw('<i class="icon-plus icon-white"></i>' + ' ' + 'Adicionar produto'), new_product_path, :class => "btn btn-primary" %>
 </div>
 <%= form_tag("/products", :method => "get") do %>
-  <%= text_field_tag :barcode, nil, :style => 'height:auto', :class => 'search-query', :placeholder => 'Insira o código de barras' %>
-  <button type="submit" class="btn">Buscar Produto</button>
+  <%= text_field_tag :barcode, nil, :style => 'height:38px', :class => 'search-query', :placeholder => "Insira o código de barras" %>
+  <button type="submit" class="btn btn-large">
+  <i class="icon-search"></i> Buscar Produto</button>
 <% end %>
 <%= render "table" %>

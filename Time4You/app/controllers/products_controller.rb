@@ -4,9 +4,11 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     if params[:brand_id]
-      @products = Brand.find(params[:brand_id]).products
-    else
+      @products = Brand.find(params[:brand_id]).products.searchByPage(params[:page])
+    elsif params[:barcode]
       @products = Product.search(params[:barcode])
+    else
+      @products = Product.searchByPage(params[:page])
     end
     @title = 'Produtos'
     if (@products.empty?)
