@@ -8,7 +8,7 @@
   has_many :sales
   
   def self.searchByPage(page)
-    paginate :per_page => 5, :page => page
+    paginate :per_page => 5, :page => page, :order => 'endDate desc'
   end
 
 end

@@ -37,6 +37,11 @@
   def generate_token(column)  
     begin  
       self[column] = SecureRandom.urlsafe_base64  	
-	end  
+	  end  
   end
+  
+  def self.searchByPage(page)
+    paginate :per_page => 5, :page => page, :order => 'name'
+  end
+  
 end
