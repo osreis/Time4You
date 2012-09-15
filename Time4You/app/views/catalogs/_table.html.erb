@@ -1,6 +1,4 @@
-﻿
-
-<% if (Catalog.all.count) > 0 %>
+﻿<% if @catalogs && (@catalogs.count) > 0 %>
 
 <table class="table table-striped">
   <thead>
@@ -48,6 +46,7 @@
     <% end %>
   </tbody>
 </table>
+<%= page_navigation_links @catalogs %>
 <% else %>
 <br/><br/>
 <div align="center">

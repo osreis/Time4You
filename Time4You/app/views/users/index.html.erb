@@ -3,8 +3,12 @@
 <div style="float:right; margin-top:-8%">
 <a href="/users/new" class="btn btn-primary"> <i class="icon-plus icon-white"></i> <%= @button_title.to_s %></a>
 </div>	
-<br/>
-<%= render "shared/search", {:options_search => [["name",  t(:user_att_name)] , ["email",  t(:user_att_email)], ["Login",  "login"], ["CPF", "cpf"]]} %>
-<br/>
+<%= form_tag("/users", :method => "get") do %>
+  <%= text_field_tag :query, nil, :style => 'height:auto', :class => 'search-query', :placeholder => "Busca..." %>
+  <button type="submit" class="btn">
+  <i class="icon-search"></i> Buscar Usuários </button>
+	Por:
+	<%= select_tag :query_option, "<option>Nome</option> <option>E-mail</option> <option>Login</option> <option>CPF</option>".html_safe, :style => 'position:relative; top:5px' %>
+<% end %>
 
 <%= render "table" %>

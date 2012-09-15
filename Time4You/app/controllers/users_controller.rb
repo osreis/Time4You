@@ -8,9 +8,21 @@
 		@title = t(:user_index_title) 
 		@subtitle = t(:user_index_subtitle)
 		@button_title = t(:user_index_button_title)
-		@users = User.where("id != " + current_user.id.to_s) 
-	    @users = @users.paginate(:page => params[:page], :per_page => 5)
-	end # end index
+		if (params[:query] && !params[:query].empty?)
+		  if (params[:query_option] == "Nome")
+		    @users = User.where('name like ?', "%#{params[:query]}%")
+	    elsif(params[:query_option] == "E-mail")
+	      @users = User.where('email = ?', "#{params[:query]}")  
+      elsif(params[:query_option] == "Login")
+        @users = User.where('login like ?', "%#{params[:query]}%")
+      elsif(params[:query_option] == "CPF")
+        @users = User.where('cpf = ?', "#{params[:query]}")
+      end
+		else
+		  @users = User.where('id != ?', current_user.id)
+	  end
+	  @users = @users.searchByPage(params[:page])
+	end
 
 
 

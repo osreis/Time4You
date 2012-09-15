@@ -19,11 +19,12 @@
 				</a>
 		  	<ul class="dropdown-menu" style='font-size:12'>
 					<a class="btn btn-primary btn-small" href="/brands/<%= brand.id %>"><i class="icon-search icon"></i> Visualizar</a>
-					<a href="#"><i class="icon-book"></i> Catálogos</a>
-					<a href="#"><i class="icon-gift"></i> Produtos</a>
+					<%= link_to raw('<i class="icon-book"></i>' + ' Catálogos'), catalogs_path(:brand_id => brand.id) %>
+					<%= link_to raw('<i class="icon-gift"></i>' + ' Produtos'), products_path(:brand_id => brand.id) %>
 		    </ul>
 				<a class="btn btn-small" href="/brands/<%= brand.id %>/edit"><i class="icon-pencil icon-gray"></i> Editar</a>
 				<a class="btn btn-small  btn-danger" href="/brands/<%= brand.id %>" data-confirm="<%= "Deseja remover #{brand.name}?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i> Remover</a>
+			</div>
     	</td>
   	</tr>
 		<% end %>

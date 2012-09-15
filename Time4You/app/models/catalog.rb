@@ -6,5 +6,9 @@
   validates :beginDate, :presence => { :message => "digite a data inicial"}
   validates :endDate, :presence => { :message => "digite a data final"}
   has_many :sales
+  
+  def self.searchByPage(page)
+    paginate :per_page => 5, :page => page, :order => 'endDate desc'
+  end
 
 end

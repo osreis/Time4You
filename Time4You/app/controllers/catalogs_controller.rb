@@ -1,9 +1,22 @@
 ﻿class CatalogsController < SeaOrdPagController
 
-   before_filter :authorize
+  before_filter :authorize
     
-   def get_page
-		 @catalogs = Catalog.all
+  def get_page
+    if params[:brand_id]
+      @catalogs = Brand.find(params[:brand_id]).catalogs.searchByPage(params[:page])
+    elsif params[:query]
+      if params[:query_option] == 'Marca'
+        @catalogs = Catalog.joins(:brand).where("brands.name like ?", "%#{params[:query]}%")
+      elsif params[:query_option] == 'Nome'
+        @catalogs = Catalog.where('name like ?', "%#{params[:query]}%")
+      end
+      if (@catalogs)
+        @catalogs = @catalogs.searchByPage(params[:page])
+      end
+    else
+      @catalogs = Catalog.searchByPage(params[:page])
+    end
 	end
 	
 	
@@ -74,10 +87,10 @@
   def destroy
     @catalog = Catalog.find(params[:id])
     if @catalog.delete
-		redirect_to({:controller=> :catalogs, :action => :index}, :flash => { :notice_success => "Catálogo removido com sucesso" }) 
-	else  
-		redirect_to({:controller=> :catalogs, :action => :index}, :flash => { :notice_error => "Erro ao remover catálogo" }) 
-	end  
+		  redirect_to({:controller=> :catalogs, :action => :index}, :flash => { :notice_success => "Catálogo removido com sucesso" }) 
+	  else  
+		  redirect_to({:controller=> :catalogs, :action => :index}, :flash => { :notice_error => "Erro ao remover catálogo" }) 
+	  end  
   end
   
 end

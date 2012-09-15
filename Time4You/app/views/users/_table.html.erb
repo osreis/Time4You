@@ -1,4 +1,4 @@
-﻿<% if (User.all.count) > 1 %>
+﻿<% if (@users.count) > 0 %>
 <div id = "tabela">
 <table class="table table-striped">
   <thead>
@@ -39,7 +39,7 @@
   </tbody>
 </table>
 </div>
-<%= will_paginate @users, :renderer => BootstrapPagination::Rails, :next_label => "Próxima", :previous_label => "Anterior", :update => 'tabela' %>
+<%= page_navigation_links @users %>
 <% else %>
 <br/><br/>
 <div align="center">
