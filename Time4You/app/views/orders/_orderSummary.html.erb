@@ -1,0 +1,35 @@
+﻿<div class="grid_16">
+
+    	<h2 class="muted">
+    		<%=  " Nova Venda - Resumo"%>
+    	</h2>
+</div>
+<br/>
+<table class="table table-bordered">
+  <thead>
+    <tr class = "info">
+
+		<th><%= "Pedido" %></th>
+		<th><%= "Número de Itens" %></th> 
+		<th><%= " Total " %></th>
+		<th><%= " Desconto " %></th>
+		<th><%= " Preço Final " %></th>
+
+		<th style="text-align:center"><%= " " %></th> 
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "warning">
+	    <td><%= @order.id%></td>
+		<td><%= @numeroItens.to_s %></td>
+        <td><%= "R$ 10,99" %></td>
+        <td><%= "10%" %></td>
+		   <td> <%=  (number_to_currency( @total, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
+        <td style="text-align:center"><a class="btn btn-large btn-success" href="#"><i class=" icon-white icon-ok"></i>Finalizar</a></td>
+		
+      </tr>
+	  
+</table>
+
+
+

@@ -1,1 +1,71 @@
-<%= layout_edit_and_new %>
+﻿<script type="text/javascript">
+
+
+function submitenter(myfield,e)
+{
+	var keycode;
+	if (window.event) keycode = window.event.keyCode;
+	else if (e) keycode = e.which;
+	else return true;
+
+	if (keycode == 13)
+	{
+		$("#formAddProducts").submit();
+		$("#myModal2").show();
+		return false;
+   }
+	else
+		return true;
+}
+
+</script> 
+
+ <a href="#myModal" role="button" class="btn btn-large btn-block btn-primary" data-toggle="modal" style="float: right;margin-top: 40px;"><i class="icon-plus icon-white"></i>Adicionar Produto</a>
+
+ <div id="order">
+	<%= render "orderSummary" %> 
+</div>
+  
+ 
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Adicionar Produto</h3>
+  </div>
+  
+   <div id="message">
+		<%= render "orderMessage" %>
+	</div>
+
+	 <form class="form-horizontal" id="formAddProducts" action="check_ajax" method="get" data-remote="true">
+
+	  <div class="modal-body">
+<div class="control-group">
+   	<label class="control-label" for="user_nome">Quantidade<span class="asterisk"></span>:</label>
+    <div class="controls">
+      <input class="number_input"  min="1" name="quantidade" type="number" value="1" style="height:30px; width:50px;">	
+    </div>
+  </div>
+  <div class="control-group">
+   	<label class="control-label" for="user_nome">Código de Barras<span class="asterisk"></span>:</label>
+    <div class="controls">
+      <input class="text_field"  min="1" name="codigo" type="text" style="height:30px;"  onKeyPress="return submitenter(this,event)">	
+	   <input class="text_field"  min="1" name="id" type="hidden" style="height:30px;"  value="<%= @order.id %>">	
+
+    </div>
+  </div>
+
+    
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+    <button class="btn btn-primary">Adicionar</button>
+  </div>
+  </form>
+</div>
+
+
+
+ <div id="itens">
+	<%= render "orderItens" %>
+</div>

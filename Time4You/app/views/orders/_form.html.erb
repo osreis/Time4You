@@ -67,7 +67,7 @@ $("#nominal_price").priceFormat({
 
 <%= stylesheet_link_tag "jqueryui.css" %>
 
-<%= form_for @special_product, :validate => true, :html => { :class => 'form-horizontal',  :onsubmit => 'return validate()'} do |f| %>
+<%= form_for @order, :validate => true, :html => { :class => 'form-horizontal',  :onsubmit => 'return validate()'} do |f| %>
 <div class="form">
   
   
@@ -91,26 +91,26 @@ $("#nominal_price").priceFormat({
     <div class="control-group">
    <label class="control-label" for="user_nome">Preço Promocional<span class="asterisk" >*</span>:</label>
     <div class="controls">
-      <%= f.text_field :specialPrice, :class => 'text_field' %>
+      <%#= f.text_field :specialPrice, :class => 'text_field' %>
     </div>
   </div>
   
    <div class="control-group">
    <label class="control-label" for="user_nome">Quantidade Adquirida<span class="asterisk" >*</span>:</label>
     <div class="controls">
-      <%= f.text_field :total, :class => 'text_field' %>
+      <%#= f.text_field :total, :class => 'text_field' %>
     </div>
   </div>
    <div class="control-group">
    <label class="control-label" for="user_nome">Quantidade em Estoque<span class="asterisk" >*</span>:</label>
     <div class="controls">
-      <%= f.text_field :available, :class => 'text_field' %>
+      <%#= f.text_field :available, :class => 'text_field' %>
     </div>
   </div>
   
 </div>
   <div class="form-actions">
     <%= f.submit "Salvar", :class => 'btn btn-primary' %>
-	<a class="btn btn-small btn-danger" href="/special_products/"><i class="icon-remove icon-white"></i>Cancelar</a>
+	<a class="btn btn-small btn-danger" href="/orders/"><i class="icon-remove icon-white"></i>Cancelar</a>
   </div>
 <% end %>

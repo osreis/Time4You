@@ -1,0 +1,21 @@
+﻿ 
+ <% if @message != nil %>
+	<%  if @message.to_s == "success" %>
+		<div class='alert alert-success' style='width:70%'>
+						<button type='button' class='close' data-dismiss='alert'>×</button>
+						<h4>Sucesso!</h4>
+						 <%= "Produto " + @product.name + " adicionado ao carrinho" %>
+					</div> 
+	  
+	  <%  else %>
+		   <div class='alert alert-error' style='width:70%'>
+						<button type='button' class='close' data-dismiss='alert'>×</button>
+						<h4>Erro!</h4>
+						<% if @product != nil %>
+						<%= "Quantidade do Produto " + @product.name + " fora do estoque" %>
+						<% else %>
+							<%= "Produto não encontrado" %>
+						<% end %>
+					</div> 
+   <% end %>
+ <%end%>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120903001113) do
+ActiveRecord::Schema.define(:version => 20120923000209) do
 
   create_table "backups", :force => true do |t|
     t.date     "date"
@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(:version => 20120903001113) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "ordercells", :force => true do |t|
+    t.integer  "quantity"
+    t.integer  "order_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "ordercells", ["order_id"], :name => "index_ordercells_on_order_id"
+
   create_table "orders", :force => true do |t|
     t.date     "created"
     t.decimal  "amout"
@@ -73,9 +82,11 @@ ActiveRecord::Schema.define(:version => 20120903001113) do
     t.integer  "order_id"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
+    t.integer  "ordercell_id"
   end
 
   add_index "products", ["order_id"], :name => "index_products_on_order_id"
+  add_index "products", ["ordercell_id"], :name => "index_products_on_ordercell_id"
 
   create_table "sales", :force => true do |t|
     t.decimal  "salePrice"

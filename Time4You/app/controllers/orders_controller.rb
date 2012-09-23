@@ -19,10 +19,11 @@
   # GET /Orders/new
   # GET /Orders/new.json
   def new
-	@title = "Nova Venda"
-	@subtitle = ""
-	@legend = "Venda"
     @order = Order.new
+	@order.save
+	@numeroItens = 0;
+	@total = 0;
+	@message = nil
   end
 
   # GET /Orders/1/edit
@@ -66,5 +67,49 @@
 		redirect_to({:controller=> :orders, :action => :index}, :flash => { :notice_error => "Erro ao remover Venda" }) 
 	end  
   end
+  
+    def check_ajax  
+	@title = "Vendas" 
+	@product =  Product.where('barcode = ?', params[:codigo]).first
+	@order = Order.find(params[:id])
+	@ordercell = Ordercell.new
+	@message = "erro"
+	found = false
+	if @product != nil
+		
+		if @product.in_stock_quantity >= params[:quantidade].to_i
+			@order.ordercells.each do |ordercell|
+				if ordercell.product == @product
+					if @product.in_stock_quantity >= params[:quantidade].to_i + ordercell.quantity
+						ordercell.quantity = ordercell.quantity + params[:quantidade].to_i
+						ordercell.save
+						@message = "success"
+					end
+					found = true
+					break
+				end	
+			end	
+			if !found
+				@ordercell.product = @product
+				@ordercell.quantity = params[:quantidade].to_i
+				@ordercell.save
+				@order.ordercells << @ordercell
+				@message = "success"
+			end
+		end
+	end
+	
+	@numeroItens =  @order.ordercells.count;
+	@total = 0.0;
+	@order.ordercells.each do |ordercell|
+			@total = ordercell.product.regular_sale_price.to_f + @total.to_f
+	end
+	
+	 respond_to do |format|
+    format.js
+  end
+ end
+  
+  
   
   end
