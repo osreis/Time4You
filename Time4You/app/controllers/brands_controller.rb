@@ -1,6 +1,7 @@
 class BrandsController < ApplicationController
   # GET /brands
   # GET /brands.json
+  before_filter :authorize
   def index
     @brands = Brand.all
     @title = t(:brand_index_title)

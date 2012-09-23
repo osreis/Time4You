@@ -18,15 +18,18 @@
     </tr>
   </thead>
   <tbody>
-    <% @order.ordercells.each do |ordercell| %>
+    <% @order.ordercells.reverse.each do |ordercell| %>
       <tr>
         <td><%= ordercell.product.name %></td>
 		<td><%= ordercell.product.brand.name %></td>
-
+		<% if ordercell.product.regular_sale_price.to_f == ordercell.product_sold_price.to_f %>
 		<td> <%= (number_to_currency(  ordercell.product.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
-		<td><%= ordercell.quantity %></td>
-		<td> <%= (number_to_currency(  ordercell.product.regular_sale_price.to_f * ordercell.quantity.to_f, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
+				<% else %>
+				<%@oldPrice=  (number_to_currency(  ordercell.product.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> 
+				<td><span class="label label-success" style="font-size:13pt;"> <span  style="text-decoration:line-through"> <%="de " +  @oldPrice.to_s %>    </span>     <%= " por " + (number_to_currency(  ordercell.product_sold_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")).to_s %> </span></td>	<% end %>
 
+		<td><%= ordercell.quantity %></td>
+		<td> <%= (number_to_currency(  ordercell.product_sold_price.to_f * ordercell.quantity.to_f, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
       </tr>
     <% end %>
   </tbody>

@@ -12,7 +12,11 @@
       <tr>
         <td><%= product.name %></td>
 	      <td><%= link_to Brand.find(product.brand_id).name, brand_path(product.brand_id) %></td>
+		  <%if product.in_stock_quantity > 10%>
 	      <td id="in_stock_quantity" style="text-align:center"><%= product.in_stock_quantity %></td>
+		  <% else %>
+		  <td id="in_stock_quantity" style="text-align:center"> <span class="badge badge-error"><%= product.in_stock_quantity %></span></td>
+		  <% end %>
        	<td>
 					<div class="btn-group pull-right">
 						<%= link_to raw('<i class="icon-search icon-white"></i>' + ' ' + "Visualizar"),

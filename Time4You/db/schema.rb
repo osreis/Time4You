@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120923132855) do
+ActiveRecord::Schema.define(:version => 20120923171442) do
 
   create_table "backups", :force => true do |t|
     t.date     "date"
@@ -51,8 +51,9 @@ ActiveRecord::Schema.define(:version => 20120923132855) do
   create_table "ordercells", :force => true do |t|
     t.integer  "quantity"
     t.integer  "order_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.decimal  "product_sold_price"
   end
 
   add_index "ordercells", ["order_id"], :name => "index_ordercells_on_order_id"
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20120923132855) do
     t.datetime "updated_at",     :null => false
     t.decimal  "amount"
     t.decimal  "consumerAmount"
+    t.decimal  "costPrice"
   end
 
   add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
@@ -98,6 +100,15 @@ ActiveRecord::Schema.define(:version => 20120923132855) do
   add_index "products", ["order_id"], :name => "index_products_on_order_id"
   add_index "products", ["ordercell_id"], :name => "index_products_on_ordercell_id"
 
+  create_table "salecells", :force => true do |t|
+    t.integer  "quantity"
+    t.integer  "ordercell_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "salecells", ["ordercell_id"], :name => "index_salecells_on_ordercell_id"
+
   create_table "sales", :force => true do |t|
     t.decimal  "salePrice"
     t.integer  "product_id"
@@ -116,9 +127,11 @@ ActiveRecord::Schema.define(:version => 20120923132855) do
     t.integer  "product_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "salecell_id"
   end
 
   add_index "special_products", ["product_id"], :name => "index_special_products_on_product_id"
+  add_index "special_products", ["salecell_id"], :name => "index_special_products_on_salecell_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"

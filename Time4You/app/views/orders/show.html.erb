@@ -1,4 +1,4 @@
-﻿<h1> <%=  " Finalizar Venda "%> </h1>
+﻿<h1> <%=  " Detalhes Venda "%> </h1>
 
 <div class="grid_16">
 
@@ -16,6 +16,12 @@
 		<th><%= "Vendedor" %></th> 
 		<th><%= "Número de Itens" %></th> 
 		<th><%= " Total " %></th>
+		<% if @order.status == Order::STATUS_CONFIRMED %>
+		<th><%= " Forma de Pagamento " %></th>
+		<th><%= " Desconto " %></th>
+		<th><%= " Valor Pago " %></th>
+		<% end %>
+
     </tr>
   </thead>
   <tbody>
@@ -24,12 +30,51 @@
 		<td><%= @order.created.strftime("%d/%m/%Y")%></td>
 		<td><%= @order.user.name.to_s %></td>
 		<td><%= @numeroItens.to_s %></td>
-		<td> <%=  (number_to_currency( @total, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
+		<td> <%=  (number_to_currency( @order.amount, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
+		<% if @order.status == Order::STATUS_CONFIRMED %>
+		<td><%= @order.payment_type.name %></td>
+		<td><%= @order.discount.to_s + "%" %></td>
+		<td> <%=  (number_to_currency( @order.amount.to_f * (1 - @order.discount.to_f/100), :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
+		<% end %>
       </tr>
 	  
 </table>
 
 
+
+<% if admin? && @order.status == Order::STATUS_CONFIRMED %>
+
+<div class="grid_16">
+
+    	<h2 class="muted">
+    		<%=  "Balanço Financeiro"%>
+    	</h2>
+</div>
+<br/>
+<table class="table table-bordered">
+  <thead>
+    <tr class = "info">
+
+		<th><%= "Data" %></th> 
+		<th><%= "Número de Itens" %></th> 
+		<th><%= " Valor de Compra " %></th>
+		<th><%= " Valor de Venda " %></th>
+		<th><%= " Lucro " %></th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "warning">
+		<td><%= @order.created.strftime("%d/%m/%Y")%></td>
+		<td><%= @numeroItens.to_s %></td>
+		<td> <%=  (number_to_currency( @valorCompra, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
+		<td> <%=  (number_to_currency( @order.amount.to_f * (1 - @order.discount.to_f/100), :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
+		<td> <%=  (number_to_currency( @order.amount.to_f * (1 - @order.discount.to_f/100) - @valorCompra, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => "."))  %></td>
+      </tr>
+	  
+</table>
+
+<% end %>
 
 <% if (@order.ordercells.count) > 0 %>
 <div class="grid_16">
@@ -41,24 +86,32 @@
 <br/>
 <table class="table table-bordered">  <thead>
     <tr>
-			<th >Nome</th>
+		<th >Nome</th>
 			<th >Marca</th>
 			<th >Preço</th>
 			<th >Quantidade</th>
+			<th >Total</th>
 
     </tr>
   </thead>
   <tbody>
-    <% @order.ordercells.each do |ordercell| %>
+    <% @order.ordercells.reverse.each do |ordercell| %>
       <tr>
         <td><%= ordercell.product.name %></td>
 		<td><%= ordercell.product.brand.name %></td>
+		<% if ordercell.product.regular_sale_price.to_f == ordercell.product_sold_price.to_f %>
+		<td> <%= (number_to_currency(  ordercell.product.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
+				<% else %>
+				<%@oldPrice=  (number_to_currency(  ordercell.product.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> 
+				<td><span class="label label-success" style="font-size:13pt;"> <span  style="text-decoration:line-through"> <%="de " +  @oldPrice.to_s %>    </span>     <%= " por " + (number_to_currency(  ordercell.product_sold_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")).to_s %> </span></td>	<% end %>
 
-		<td> <%#= (number_to_currency(  ordercell.product.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
 		<td><%= ordercell.quantity %></td>
-
+		<td> <%= (number_to_currency(  ordercell.product_sold_price.to_f * ordercell.quantity.to_f, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <% end %>
+<div class="form-actions">
+		<a class="btn btn-small btn-primary" href="/orders/"><i class="icon-backward icon-white"></i>Voltar</a>
+  </div>

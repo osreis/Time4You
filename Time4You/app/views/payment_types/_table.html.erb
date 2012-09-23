@@ -1,0 +1,37 @@
+﻿
+		
+<% if (PaymentType.all.count) > 0 %>
+<div id="tabela">
+<table class="table table-striped" >
+  <thead>
+    <tr>
+
+		<th><%= "Nome" %></th>
+		<th><%= "Desconto" %></th>
+		<th style="text-align:center"><%= t(:actions_name) %></th> 
+    </tr>
+  </thead>
+  <tbody>
+    <% @payment_types.each do |payment_type| %>
+      <tr>
+	    <td><%= payment_type.name %></td>
+	    <td><%=payment_type.discount  %></td>		
+        <td>
+			<div class="btn-group centralizada" style="width:190px">
+				<a class="btn btn-small" href="/payment_types/<%= payment_type.id %>/edit"><i class="icon-pencil icon-gray"></i> Editar</a>
+				<a class="btn btn-small  btn-danger" href="/payment_types/<%= payment_type.id %>" data-confirm="<%= "Deseja remover o Tipo de Pagamento?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i> Remover</a>
+			</div> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<% else %>
+<br/><br/>
+<div align="center">
+	Nenhum Tipo de Pagamento Encontrado
+</div>	
+<% end %>
+
+

@@ -27,8 +27,23 @@
 #	puts "*****nao foi possivel criar um usuario, por favor execute db:seed novamente"
 #end
 Order.destroy_all
-PaymentType.destroy_all
+#PaymentType.destroy_all
 #puts "*****nao foi possivel criar um usuario, por favor execute db:seed novamente"
-payment = PaymentType.create(:name =>  "Cartão de Crédito", :discount => 15.00 )
-payment = PaymentType.create(:name =>  "Cartão de Débito", :discount => 20.00 )
-payment = PaymentType.create(:name =>  "Dinheiro", :discount => 20.00 )
+#payment = PaymentType.create(:name =>  "Cartão de Crédito", :discount => 15.00 )
+#payment = PaymentType.create(:name =>  "Cartão de Débito", :discount => 20.00 )
+#payment = PaymentType.create(:name =>  "Dinheiro", :discount => 20.00 )
+Sale.destroy_all
+SpecialProduct.destroy_all
+Product.destroy_all
+@produto1 = Product.create(:name => "teste1", :barcode => 1, :regular_purchase_price => 10.00, :regular_sale_price => 7.00, :in_stock_quantity => 20, :brand_id => Brand.all.first.id )
+@produto12= Product.create(:name => "teste2", :barcode => 2, :regular_purchase_price => 12.00, :regular_sale_price => 5.00, :in_stock_quantity => 20, :brand_id => Brand.all.first.id )
+@produto123= Product.create(:name => "teste23", :barcode => 3, :regular_purchase_price => 13.00, :regular_sale_price => 5.00, :in_stock_quantity => 20, :brand_id => Brand.all.first.id )
+@sale1 = Sale.create(:product_id => @produto1.id, :salePrice => 2.00, :catalog_id => Catalog.all.first.id)
+@sale2 = Sale.create(:product_id => @produto12.id, :salePrice => 2.00, :catalog_id => Catalog.all.last.id)
+@special = SpecialProduct.create(:total => 2, :available => 2, :specialPrice => 1.0, :product_id => @produto1.id)
+
+
+
+
+
+

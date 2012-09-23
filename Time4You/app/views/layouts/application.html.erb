@@ -55,7 +55,8 @@
 					<a href="/special_products/new">Nova Diferenciação </a>
 				</li>
 			</ul>
-		</li>            <li class="dropdown">
+		</li>          
+		<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Catálogos<b class="caret"></b> </a>
 			<ul class="dropdown-menu">
 				<li>
@@ -69,8 +70,20 @@
 				</li>
 			</ul>
 		</li>
-			<li><%= link_to "Pedidos" %></li>
-            <li><%= link_to "Relatórios" %></li>
+	<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Vendas<b class="caret"></b> </a>
+			<ul class="dropdown-menu">
+				<li>
+					<%= link_to "Exibir", orders_path %>
+				</li>
+				<li>			
+					<a href="/orders/new"> Nova </a>
+				</li>
+				<li>
+					<a href="/payment_types/new"> Tipos de Pagamento </a>
+				</li>
+			</ul>
+		</li>            <li><%= link_to "Relatórios" %></li>
 			<li><%= link_to "Marcas", brands_path %></li>
 			<li><%= link_to "Backup", backups_path %></li>
 		  <li class="divider-vertical"></li>

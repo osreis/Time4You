@@ -1,4 +1,20 @@
-﻿
+﻿<style>
+.table tbody tr.CANCEL td {
+	background-color: #F2DEDE;
+}
+.table tbody tr.CONF td {
+background-color: #DFF0D8;
+}
+.table tbody tr.PAG td {
+background-color: #FCF8E3;
+}
+.table tbody tr.NOVA td {
+background-color: #D9EDF7;
+}
+</style>
+
+
+
 		
 <% if (Order.all.count) > 0 %>
 
@@ -14,12 +30,13 @@
 		<th><%= "Valor Pago" %></th>
 		<th><%= "Status " %></th>
 
-		<th style="text-align:center"><%= t(:actions_name) %></th> 
+		<th style="text-align:center;width:1%"><%= t(:actions_name) %></th> 
     </tr>
   </thead>
   <tbody>
     <% @orders.each do |order| %>
-      <tr>
+
+	  <tr class="<%= order.status %>">
 	    <td><%= order.id.to_s %></td>
         <td><%= order.created.strftime("%d/%m/%Y") %></td>
 		<td><%= order.user.name %></td>
@@ -30,9 +47,20 @@
 
         <td>
 			<div class="btn-group centralizada">
-				<a class="btn btn-small btn-primary" href="/orders/<%= order.id %>"><i class="icon-search icon-white"></i>Exibir</a>
-				<a class="btn btn-small" href="/orders/new?id=<%= order.id %>"><i class="icon-pencil icon-gray"></i>Editar</a>
-				<a class="btn btn-small  btn-danger" href="/orders/<%= order.id %>" data-confirm="<%= "Deseja cancelar a venda?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Cancelar</a>
+				<a class="btn btn-primary dropdown-toggle btn-info" data-toggle="dropdown" href="#"> <i class="icon-cog icon-white"></i> Opções
+				    <span class="caret"></span>
+				  </a>
+				  <ul class="dropdown-menu" style='font-size:12'>
+				  		<% if order.status != Order::STATUS_NEW %>
+							<a href="/orders/<%= order.id %>"><i class="icon-search icon-gray"></i>Exibir</a>
+						<% end %>
+				<% if admin? && order.status != Order::STATUS_CANCELED %>
+				 	<% if order.status != Order::STATUS_CONFIRMED %>
+					<a  href="/orders/new?id=<%= order.id %>"><i class="icon-pencil icon-gray"></i>Editar</a>
+					<% end %>
+					<a  href="/orders/<%= order.id %>" data-confirm="<%= "Deseja cancelar a venda?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-gray"></i>Cancelar</a>
+				<% end %>
+				</ul>
 			</div> 
         </td>
       </tr>
