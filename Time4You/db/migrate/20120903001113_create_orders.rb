@@ -3,7 +3,6 @@ class CreateOrders < ActiveRecord::Migration
     create_table :orders do |t|
       t.date :created
       t.decimal :amout
-      t.string :paymentType
       t.decimal :discount
       t.decimal :consumerAmout
       t.string :status

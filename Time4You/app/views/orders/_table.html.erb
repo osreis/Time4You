@@ -1,31 +1,38 @@
 ﻿
 		
-<% if (SpecialProduct.all.count) > 0 %>
+<% if (Order.all.count) > 0 %>
 
 <table class="table table-striped">
   <thead>
     <tr>
 
-		<th><%= "Produto" %></th>
-		<th><%= "Preço Nominal" %></th> 
-		<th><%= "Preço Promocional" %></th>
-		<th><%= " Total em Estoque" %></th>
+		<th><%= "Número" %></th>
+		<th><%= "Data" %></th> 
+		<th><%= "Vendedor" %></th>
+		<th><%= "Valor" %></th>
+		<th><%= "Desconto" %></th>
+		<th><%= "Valor Pago" %></th>
+		<th><%= "Status " %></th>
+
 		<th style="text-align:center"><%= t(:actions_name) %></th> 
     </tr>
   </thead>
   <tbody>
-    <% @special_products.each do |special_product| %>
+    <% @orders.each do |order| %>
       <tr>
-	    <td><%= "Produto" %></td>
-        <td><%= "R$ 10,99" %></td>
-        <td><%=  (number_to_currency(special_product.specialPrice, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> </td>
-		<td><%= special_product.available.to_s %></td>
-		
+	    <td><%= order.id.to_s %></td>
+        <td><%= order.created.strftime("%d/%m/%Y") %></td>
+		<td><%= order.user.name %></td>
+        <td><%=  (number_to_currency(order.amount, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> </td>
+		<td><%= order.discount.to_s + "%" %></td>
+		<td><%=  (number_to_currency(order.consumerAmount, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> </td>
+		<td><%=  order.status %> </td>
+
         <td>
 			<div class="btn-group centralizada">
-				<a class="btn btn-small btn-primary" href="/special_products/<%= special_product.id %>"><i class="icon-search icon-white"></i>Exibir</a>
-				<a class="btn btn-small" href="/special_products/<%= special_product.id %>/edit"><i class="icon-pencil icon-gray"></i>Editar</a>
-				<a class="btn btn-small  btn-danger" href="/special_products/<%= special_product.id %>" data-confirm="<%= "Deseja remover a Diferenciação?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Remover</a>
+				<a class="btn btn-small btn-primary" href="/orders/<%= order.id %>"><i class="icon-search icon-white"></i>Exibir</a>
+				<a class="btn btn-small" href="/orders/new?id=<%= order.id %>"><i class="icon-pencil icon-gray"></i>Editar</a>
+				<a class="btn btn-small  btn-danger" href="/orders/<%= order.id %>" data-confirm="<%= "Deseja cancelar a venda?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i>Cancelar</a>
 			</div> 
         </td>
       </tr>
@@ -35,7 +42,7 @@
 <% else %>
 <br/><br/>
 <div align="center">
-	Nenhuma diferenciação encontrada
+	Nenhum pedido encontrado
 </div>	
 <% end %>
 

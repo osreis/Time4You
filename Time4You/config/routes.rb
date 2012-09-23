@@ -1,6 +1,8 @@
 Time4You::Application.routes.draw do
 
 
+  resources :payment_types
+
   resources :products
 
   resources :backups

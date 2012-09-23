@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120923000209) do
+ActiveRecord::Schema.define(:version => 20120923132855) do
 
   create_table "backups", :force => true do |t|
     t.date     "date"
@@ -59,18 +59,28 @@ ActiveRecord::Schema.define(:version => 20120923000209) do
 
   create_table "orders", :force => true do |t|
     t.date     "created"
-    t.decimal  "amout"
     t.string   "paymentType"
     t.decimal  "discount"
-    t.decimal  "consumerAmout"
     t.string   "status"
     t.date     "updated"
     t.integer  "user_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.decimal  "amount"
+    t.decimal  "consumerAmount"
   end
 
   add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
+
+  create_table "payment_types", :force => true do |t|
+    t.decimal  "discount"
+    t.integer  "order_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "name"
+  end
+
+  add_index "payment_types", ["order_id"], :name => "index_payment_types_on_order_id"
 
   create_table "products", :force => true do |t|
     t.string   "name"

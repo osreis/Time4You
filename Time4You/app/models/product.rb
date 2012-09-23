@@ -9,6 +9,7 @@ class Product < ActiveRecord::Base
   validates_presence_of :brand_id
   belongs_to :ordercell
   belongs_to :brand
+  has_one :sale
   
   def self.search(barcode)
     if (barcode)

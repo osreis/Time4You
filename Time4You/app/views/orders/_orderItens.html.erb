@@ -12,6 +12,8 @@
 			<th >Marca</th>
 			<th >Preço</th>
 			<th >Quantidade</th>
+			<th >Total</th>
+
 
     </tr>
   </thead>
@@ -23,6 +25,7 @@
 
 		<td> <%= (number_to_currency(  ordercell.product.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
 		<td><%= ordercell.quantity %></td>
+		<td> <%= (number_to_currency(  ordercell.product.regular_sale_price.to_f * ordercell.quantity.to_f, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
 
       </tr>
     <% end %>

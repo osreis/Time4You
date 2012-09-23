@@ -1,4 +1,42 @@
-﻿
+﻿<script>
+$(document).ready(function() {
+	
+		var descontos = new Array();  
+		  <% PaymentType.all.each do |t|%>
+				descontos['<%=t.id %>'] =  [<%= t.discount.to_f %>]
+		<% end %>
+		var selectedId = 0;
+		var totalDiscount = 0.0;
+		var total = <%= @order.amount.to_f %>;
+		var valorFInal = total * 0.85;
+    $("#selectPayment").change(function () {
+          var str = "";		  		  
+          $("select option:selected").each(function () {
+                str = descontos[$(this).val()] + "%";
+				selectedId = $(this).val();
+				totalDiscount = parseFloat( descontos[selectedId]) + parseFloat( $("#descontoExtraField").val());
+              });
+		valorFinal = (1 - totalDiscount/100) * total;
+          $("#fieldTotalDescontado").text(("R$ "+  valorFinal.toFixed(2)).replace(".",","));
+          $("#fieldDescontoPadrao").text(str);
+        })
+        .change();
+		
+		
+		 $("#descontoExtraField").change(function () {
+		  	totalDiscount = parseFloat( descontos[selectedId]) + parseFloat( $("#descontoExtraField").val());
+			valorFinal = (1 - totalDiscount/100) * total;
+          $("#fieldTotalDescontado").text(("R$ "+  valorFinal.toFixed(2)).replace(".",","));
+        })
+        .change();
+		
+
+		
+});
+		
+</script>
+
+
 <div class="grid_16">
 
     	<h2 class="muted">
@@ -25,14 +63,66 @@
 		<td><%= @order.created.strftime("%d/%m/%Y")%></td>
 		<td><%= @order.user.name.to_s %></td>
 		<td><%= @numeroItens.to_s %></td>
-		<td> <%=  (number_to_currency( @total, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
-		<td style="text-align:center">	<%if @order.ordercells.count > 0 %><a class="btn btn-large btn-success" href="<%= 'payment?id='  + @order.id.to_s %>"><i class=" icon-white icon-ok"></i>Finalizar</a> <% end %></td>
+		<td> <%=  (number_to_currency(@total, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
+		<td style="text-align:center">	<%if @order.ordercells.count > 0 %><a role="button" data-toggle="modal" class="btn btn-large btn-success" href="#myModalPayment"><i class=" icon-white icon-ok"></i>Finalizar</a> <% end %></td>
       </tr>
 	  
 </table>
 
 
+<div class="modal" id="myModalPayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Finalizar Compra</h3>
+  </div>
+  
+	 <form class="form-horizontal" id="formPayment" action="payment" method="get" >
+	 
+	  <div class="modal-body">
+	<div class="control-group">
+   	<label class="control-label"><h3>Total:</h3></label>
+    <div class="controls" style = "margin-top:1%;">
+		<h3 style="text-decoration:line-through"> <%=  (number_to_currency(@order.amount, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> </h3>
+    </div>
+	</div>
+	
+	  <div class="control-group">
+   <label class="control-label" >Forma de Pagamento<span class="asterisk" ></span>:</label>
+    <div class="controls">
+      <%= collection_select :payment_type, :id, PaymentType.all, :id,:name, options = {}, html_options={:class => "long_text", :id => "selectPayment"}%>
+	</div>
+  </div>
 
+	<div class="control-group">
+   	<label class="control-label">Desconto Padrão<span class="asterisk"></span>:</label>
+    <div class="controls">
+		<h4 id="fieldDescontoPadrao" style="margin-top:1%"> <%=  15.00.to_s %>%</h4>
+    </div>
+	</div>
+	
+	<div class="control-group">
+   	<label class="control-label">Desconto Extra (%)<span class="asterisk"></span>:</label>
+    <div class="controls">
+      <input class="number_input"  id = "descontoExtraField" min="0" name="descontoExtra" type="number" step="any" value="0" style="height:30px; width:60px;">	
+    </div>
+  </div>
+  </div>
+  
+  <div class="control-group" style="color:red;">
+   	<label class="control-label"><h2>Total:</h2></label>
+    <div class="controls" style = "margin-top:1%;">
+		<h1 id="fieldTotalDescontado" > <%=  (number_to_currency( @order.amount.to_f * 0.85.to_f, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> </h1>
+    </div>
+	</div>
+  
+  	   <input class="text_field"  min="1" name="id" type="hidden" style="height:30px;"  value="<%= @order.id %>">	
 
+  
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+    <button class="btn btn-primary">Confirmar</button>
+  </div>
+  </form>
+</div>
 
 

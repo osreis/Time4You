@@ -1,11 +1,11 @@
 class Order < ActiveRecord::Base
   belongs_to :user
-  attr_accessible :amout, :consumerAmout, :created, :discount, :paymentType, :status, :updated, :user_id
+  attr_accessible :amount, :consumerAmount, :created, :discount, :status, :updated, :user_id
   has_many :ordercells
-  
-   Order::STATUS_NEW = "new"
-   Order::STATUS_CANCELED = "canceled"
-   Order::STATUS_NEEDSPAYMENT = "payment"
-   Order::STATUS_CONFIRMED= "confirmed"
+  has_one :payment_type
+   Order::STATUS_NEW = "N"
+   Order::STATUS_CANCELED = "D"
+   Order::STATUS_NEEDSPAYMENT = "P"
+   Order::STATUS_CONFIRMED= "C"
 
 end
