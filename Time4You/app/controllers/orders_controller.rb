@@ -20,6 +20,9 @@
   # GET /Orders/new.json
   def new
     @order = Order.new
+	@order.created =Time.now.strftime("%d/%m/%Y")
+	@order.status = Order::STATUS_NEW
+	@order.user = current_user
 	@order.save
 	@numeroItens = 0;
 	@total = 0;
@@ -50,6 +53,7 @@
   # PUT /Orders/1.json
   def update
     @order = Order.find(params[:id])
+
 	if @order.update_attributes(params[:order])
 		redirect_to({:controller=> :orders, :action => :index}, :flash => { :notice_success => "Venda alterada com sucesso" }) 
 	else  
@@ -61,10 +65,11 @@
   # DELETE /Orders/1.json
   def destroy
     @order = Order.find(params[:id])
-    if @order.delete
-		redirect_to({:controller=> :orders, :action => :index}, :flash => { :notice_success => "Venda removida com sucesso" }) 
+	@order.status =  Order::STATUS_CANCELED
+    if @order.save
+		redirect_to({:controller=> :orders, :action => :index}, :flash => { :notice_success => "Venda cancelada com sucesso" }) 
 	else  
-		redirect_to({:controller=> :orders, :action => :index}, :flash => { :notice_error => "Erro ao remover Venda" }) 
+		redirect_to({:controller=> :orders, :action => :index}, :flash => { :notice_error => "Erro ao cancelar Venda" }) 
 	end  
   end
   
@@ -99,16 +104,29 @@
 		end
 	end
 	
-	@numeroItens =  @order.ordercells.count;
+	@numeroItens =  0;
 	@total = 0.0;
 	@order.ordercells.each do |ordercell|
 			@total = ordercell.product.regular_sale_price.to_f + @total.to_f
+			@numeroItens = @numeroItens.to_i +  ordercell.quantity
 	end
 	
 	 respond_to do |format|
     format.js
   end
  end
+  
+ def payment
+	@order = Order.find(params[:id])
+	@order.status = Order::STATUS_NEEDSPAYMENT
+	@numeroItens =  0;
+	@total = 0.0;
+	@order.ordercells.each do |ordercell|
+			@total = ordercell.product.regular_sale_price.to_f + @total.to_f
+			@numeroItens = @numeroItens.to_i +  ordercell.quantity
+	end
+
+end 
   
   
   

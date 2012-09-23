@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   
    Order::STATUS_NEW = "new"
    Order::STATUS_CANCELED = "canceled"
-   Order::STATUS_NEEDSPAYMENT = "canceled"
+   Order::STATUS_NEEDSPAYMENT = "payment"
+   Order::STATUS_CONFIRMED= "confirmed"
 
 end

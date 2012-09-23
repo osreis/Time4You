@@ -24,6 +24,7 @@ Time4You::Application.routes.draw do
 	resources :orders do
 		collection do
 			get :check_ajax
+			get :payment
 		end
 	end
 	resources :users, :sessions do

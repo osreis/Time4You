@@ -1,0 +1,64 @@
+﻿<h1> <%=  " Finalizar Venda "%> </h1>
+
+<div class="grid_16">
+
+    	<h2 class="muted">
+    		<%=  "Resumo"%>
+    	</h2>
+</div>
+<br/>
+<table class="table table-bordered">
+  <thead>
+    <tr class = "info">
+
+		<th><%= "Pedido" %></th>
+		<th><%= "Data" %></th> 
+		<th><%= "Vendedor" %></th> 
+		<th><%= "Número de Itens" %></th> 
+		<th><%= " Total " %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "warning">
+	    <td><%= @order.id%></td>
+		<td><%= @order.created.strftime("%d/%m/%Y")%></td>
+		<td><%= @order.user.name.to_s %></td>
+		<td><%= @numeroItens.to_s %></td>
+		<td> <%=  (number_to_currency( @total, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
+      </tr>
+	  
+</table>
+
+
+
+<% if (@order.ordercells.count) > 0 %>
+<div class="grid_16">
+
+    	<h2 class="muted">
+    		<%=  "Itens do Pedido" %>
+    	</h2>
+</div>
+<br/>
+<table class="table table-bordered">  <thead>
+    <tr>
+			<th >Nome</th>
+			<th >Marca</th>
+			<th >Preço</th>
+			<th >Quantidade</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.ordercells.each do |ordercell| %>
+      <tr>
+        <td><%= ordercell.product.name %></td>
+		<td><%= ordercell.product.brand.name %></td>
+
+		<td> <%#= (number_to_currency(  ordercell.product.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
+		<td><%= ordercell.quantity %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
