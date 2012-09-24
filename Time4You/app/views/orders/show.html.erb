@@ -32,7 +32,7 @@
 		<td><%= @numeroItens.to_s %></td>
 		<td> <%=  (number_to_currency( @order.amount, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
 		<% if @order.status == Order::STATUS_CONFIRMED %>
-		<td><%= @order.payment_type.name %></td>
+		<td><%= @order.payment_types.first.name %></td>
 		<td><%= @order.discount.to_s + "%" %></td>
 		<td> <%=  (number_to_currency( @order.amount.to_f * (1 - @order.discount.to_f/100), :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
 		<% end %>
@@ -97,12 +97,12 @@
   <tbody>
     <% @order.ordercells.reverse.each do |ordercell| %>
       <tr>
-        <td><%= ordercell.product.name %></td>
-		<td><%= ordercell.product.brand.name %></td>
-		<% if ordercell.product.regular_sale_price.to_f == ordercell.product_sold_price.to_f %>
-		<td> <%= (number_to_currency(  ordercell.product.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
+        <td><%= ordercell.products.first.name %></td>
+		<td><%= ordercell.products.first.brand.name %></td>
+		<% if ordercell.products.first.regular_sale_price.to_f == ordercell.product_sold_price.to_f %>
+		<td> <%= (number_to_currency(  ordercell.products.first.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
 				<% else %>
-				<%@oldPrice=  (number_to_currency(  ordercell.product.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> 
+				<%@oldPrice=  (number_to_currency(  ordercell.products.first.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> 
 				<td><span class="label label-success" style="font-size:13pt;"> <span  style="text-decoration:line-through"> <%="de " +  @oldPrice.to_s %>    </span>     <%= " por " + (number_to_currency(  ordercell.product_sold_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")).to_s %> </span></td>	<% end %>
 
 		<td><%= ordercell.quantity %></td>

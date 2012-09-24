@@ -40,11 +40,11 @@
 		@order.ordercells.each do |ordercell|
 			quantidade = ordercell.quantity
 			ordercell.salecells.each do |sale|
-				@valorCompra = @valorCompra + sale.quantity * sale.special_product.specialPrice.to_f
+				@valorCompra = @valorCompra + sale.quantity * sale.special_products.first.specialPrice.to_f
 				quantidade = quantidade - sale.quantity
 			end
 			if quantidade > 0
-				@valorCompra = @valorCompra + ordercell.product.regular_purchase_price.to_f * quantidade 
+				@valorCompra = @valorCompra + ordercell.products.first.regular_purchase_price.to_f * quantidade 
 			end
 		end
 	end
@@ -60,10 +60,10 @@
 		@total = 0.0;
 		@order.ordercells.each do |ordercell|
 			@price = 0.0
-			if ordercell.product.sale != nil
-				@price =  ordercell.product.sale.salePrice * ordercell.quantity
+			if ordercell.products.firsts.first.sale != nil
+				@price =  ordercell.products.firsts.first.sale.salePrice * ordercell.quantity
 				else 
-					@price =  ordercell.product.regular_sale_price.to_f  * ordercell.quantity
+					@price =  ordercell.products.firsts.first.regular_sale_price.to_f  * ordercell.quantity
 				end	
 				@total = @price + @total.to_f
 				@numeroItens = @numeroItens.to_i +  ordercell.quantity
@@ -103,15 +103,15 @@
 		@quantidade = ordercell.quantity
 		if  @quantidade > 0 && @order.status ==  Order::STATUS_CONFIRMED
 			ordercell.salecells.each do |sale|
-				sale.special_product.available = sale.quantity + sale.special_product.available
-				sale.special_product.save
-				sale.special_product.product.in_stock_quantity = sale.quantity + sale.special_product.product.in_stock_quantity
-				sale.special_product.save
+				sale.special_products.first.available = sale.quantity + sale.special_products.first.available
+				sale.special_products.first.save
+				sale.special_products.first.product.in_stock_quantity = sale.quantity + sale.special_products.first.product.in_stock_quantity
+				sale.special_products.first.save
 				sale.save
 			end
-			ordercell.product.in_stock_quantity = ordercell.quantity + ordercell.product.in_stock_quantity
+			ordercell.products.first.in_stock_quantity = ordercell.quantity + ordercell.products.first.in_stock_quantity
 			ordercell.save
-			ordercell.product.save
+			ordercell.products.first.save
 		end
 	end			
     if @order.save
@@ -132,7 +132,7 @@
 	if @product != nil
 		if @product.in_stock_quantity  >= params[:quantidade].to_i
 			@order.ordercells.each do |ordercell|			
-				if ordercell.product == @product
+				if ordercell.products.first == @product
 					if @product.in_stock_quantity >= params[:quantidade].to_i + ordercell.quantity
 						ordercell.quantity = ordercell.quantity + params[:quantidade].to_i
 						ordercell.save
@@ -143,7 +143,7 @@
 				end	
 			end	
 			if !found
-				@ordercell.product = @product
+				@ordercell.products << @product
 				@ordercell.quantity = params[:quantidade].to_i
 				@message = "success"
 					#checar agora se produto foi vendido com preco de catalogo
@@ -182,22 +182,22 @@
 	@payment_type = PaymentType.find(params[:payment_type][:id])
 	
 	if(@payment_type != nil)
-		@order.payment_type = @payment_type
+		@order.payment_types << @payment_type
 		@order.discount = @payment_type.discount.to_f + params[:descontoExtra].to_f
 		@order.consumerAmount = @order.amount.to_f * (1.to_f - @order.discount.to_f/100.to_f)
 		@order.updated = Time.now
 		@order.save
 		@order.ordercells.each do |ordercell|
 			#checar produtos diferenciados
-			@special_products = SpecialProduct.where('product_id = ?', ordercell.product.id ).where('available > 0')
+			@special_products = SpecialProduct.where('product_id = ?', ordercell.products.first.id ).where('available > 0')
 				@quantidade = ordercell.quantity
 				if @special_products.count > 0 && @quantidade > 0
 					@special_products.each do |special|
 							@salecell = Salecell.new
-							@salecell.special_product = special
+							@salecell.special_products << special
 							@salecell.quantity  = 0
-							ordercell.product.in_stock_quantity = ordercell.product.in_stock_quantity  - @quantidade
-							ordercell.product.save
+							ordercell.products.first.in_stock_quantity = ordercell.products.first.in_stock_quantity  - @quantidade
+							ordercell.products.first.save
 							ordercell.save
 							while @quantidade > 0 && special.available > 0
 								@salecell.quantity = @salecell.quantity + 1
@@ -210,8 +210,8 @@
 							ordercell.save
 						end	
 				else
-					ordercell.product.in_stock_quantity = ordercell.product.in_stock_quantity  - @quantidade
-					ordercell.product.save
+					ordercell.products.first.in_stock_quantity = ordercell.products.first.in_stock_quantity  - @quantidade
+					ordercell.products.first.save
 					ordercell.save
 				end 	
 

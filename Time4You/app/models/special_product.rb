@@ -4,6 +4,6 @@
   validates :specialPrice, :presence => { :message => "digite o preço especial." }
   validates :total, :presence => { :message => "digite o total" }
   validates :available, :presence => { :message => "digite o total disponível" }
-  belongs_to :salecell
+  has_and_belongs_to_many :salecells
   
 end

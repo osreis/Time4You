@@ -7,7 +7,7 @@ class Product < ActiveRecord::Base
   validates_presence_of :in_stock_quantity
   validates_numericality_of :in_stock_quantity, :greater_than => 0
   validates_presence_of :brand_id
-  belongs_to :ordercell
+  has_and_belongs_to_many :ordercells
   belongs_to :brand
   has_one :sale
   

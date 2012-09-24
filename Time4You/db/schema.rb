@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120923171442) do
+ActiveRecord::Schema.define(:version => 20120924002415) do
 
   create_table "backups", :force => true do |t|
     t.date     "date"
@@ -58,6 +58,13 @@ ActiveRecord::Schema.define(:version => 20120923171442) do
 
   add_index "ordercells", ["order_id"], :name => "index_ordercells_on_order_id"
 
+  create_table "ordercells_products", :id => false, :force => true do |t|
+    t.integer "ordercells_id"
+    t.integer "products_id"
+    t.integer "ordercell_id"
+    t.integer "product_id"
+  end
+
   create_table "orders", :force => true do |t|
     t.date     "created"
     t.string   "paymentType"
@@ -73,6 +80,13 @@ ActiveRecord::Schema.define(:version => 20120923171442) do
   end
 
   add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
+
+  create_table "orders_payment_types", :id => false, :force => true do |t|
+    t.integer "orders_id"
+    t.integer "payment_types_id"
+    t.integer "order_id"
+    t.integer "payment_type_id"
+  end
 
   create_table "payment_types", :force => true do |t|
     t.decimal  "discount"
@@ -108,6 +122,13 @@ ActiveRecord::Schema.define(:version => 20120923171442) do
   end
 
   add_index "salecells", ["ordercell_id"], :name => "index_salecells_on_ordercell_id"
+
+  create_table "salecells_special_products", :id => false, :force => true do |t|
+    t.integer "salecells_id"
+    t.integer "special_products_id"
+    t.integer "salecell_id"
+    t.integer "special_product_id"
+  end
 
   create_table "sales", :force => true do |t|
     t.decimal  "salePrice"
