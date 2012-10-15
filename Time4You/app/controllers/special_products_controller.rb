@@ -70,9 +70,17 @@
   def destroy
     @special_product = SpecialProduct.find(params[:id])
     if @special_product.destroy
-       	 redirect_to({:controller=> :special_products, :action => :index}, :flash => { :notice_success => "DIferenciação removida com sucesso" }) 
+      redirect_to({:controller=> :special_products, :action => :index}, :flash => { :notice_success => "DIferenciação removida com sucesso" }) 
     else  
-		redirect_to({:controller=> :special_products, :action => :index}, :flash => { :notice_error => "Erro ao remover diferenciação" }) 
-	end  
+		  redirect_to({:controller=> :special_products, :action => :index}, :flash => { :notice_error => "Erro ao remover diferenciação" }) 
+	 end  
   end
+
+  def check_ajax
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
  end

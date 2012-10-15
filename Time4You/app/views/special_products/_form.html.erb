@@ -67,6 +67,12 @@ $("#nominal_price").priceFormat({
 
 <%= stylesheet_link_tag "jqueryui.css" %>
 
+<form class="form-horizontal" id="formAddProducts" action="check_ajax" method="get" data-remote="true">
+  <input type="text" name="dsd" />
+</form>
+
+
+
 <%= form_for @special_product, :validate => true, :html => { :class => 'form-horizontal',  :onsubmit => 'return validate()'} do |f| %>
 <div class="form">
   

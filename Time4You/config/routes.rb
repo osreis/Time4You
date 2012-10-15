@@ -6,7 +6,11 @@ Time4You::Application.routes.draw do
   resources :products
 
   resources :backups
-  resources :special_products
+  resources :special_products do
+    collection do
+      get :check_ajax
+    end
+  end
   resources :sales
   resources :brands
   resources :catalogs

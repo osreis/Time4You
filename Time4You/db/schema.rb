@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(:version => 20120924002415) do
 
   create_table "orders", :force => true do |t|
     t.date     "created"
-    t.string   "paymentType"
     t.decimal  "discount"
     t.string   "status"
     t.date     "updated"
