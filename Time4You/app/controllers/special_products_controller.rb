@@ -5,7 +5,17 @@
 
 
 	def get_page
-		@special_products = SpecialProduct.all
+    case (params[:query_option])
+    when 'Produto'
+      @special_products = SpecialProduct.joins(:product).where("products.name like ?", "%#{params[:query]}%").searchByPage(params[:page])
+    when 'Marca'
+      brand = Brand.where("name like ?", "%#{params[:query]}%").first
+      if brand
+        @special_products = SpecialProduct.joins(:product).where("products.brand_id == ?", "#{brand.id}").searchByPage(params[:page])
+      end
+    else
+      @special_products = SpecialProduct.searchByPage(params[:page])
+    end
 	end
 
   def index
@@ -39,15 +49,16 @@
 
   def edit
     @title = "Editar Diferenciação"
-	@subtitle = ""
-	@legend =  "Nome do Produto" #@catalog.name
+    @subtitle = ""
+    @legend =  "Nome do Produto" #@catalog.name
     @special_product = SpecialProduct.find(params[:id])
+    @product = @special_product.product
   end
 
   def create
     @special_product = SpecialProduct.new(params[:special_product])
+    @special_product.product = Product.find(params[:product_id]) if params[:product_id]
       if @special_product.save
-	  
 		if params[:product]
 		    redirect_to({:controller=> :products, :action => :show, :id => params[:catalog]}, :flash => { :notice_success => "Diferenciação adicionada com sucesso" }) 
 		else
@@ -77,6 +88,12 @@
   end
 
   def check_ajax
+    @product =  Product.where('barcode = ?', params[:barcode]).first
+    @message = 'Produto não encontrado!'
+    if @product
+      @found = true 
+      @message = 'Produto encontrado!'
+    end
     respond_to do |format|
       format.js
     end

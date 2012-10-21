@@ -11,23 +11,23 @@ text-align: right
 	<legend> <%= " Nome do Produto"  %> </legend>
 	<div class = "form-actions">
 	    <dl class="dl-horizontal">
-		    <dt>Nome:</dt>
-		    <dd> <%= " Nome do Produto"    %> </dd>
+			<dt>Nome:</dt>
+		    <dd>&nbsp<%= @special_product.product.name %> </dd>
 		
 		    <dt>Marca:</dt>
-		    <dd> <%= " Marca do Produto"  %> </dd>
+		    <dd>&nbsp<%= @special_product.product.brand.name %> </dd>
 		 
-		    <dt>Quantidade Adquirida</dt>
-		    <dd><%= " " + @special_product.total.to_s %> </dd>
+		    <dt>Quantidade Adquirida:</dt>
+		    <dd>&nbsp<%= @special_product.total.to_s %> </dd>
 		
-		    <dt>Quantidade Disponível</dt>
-		    <dd><%= " " + @special_product.available.to_s  %> </dd>
+		    <dt>Quantidade Disponível:</dt>
+		    <dd>&nbsp<%= @special_product.available.to_s  %> </dd>
 		 
-		 <dt>Preço Original:</dt>
-		    <dd><%= "R$ 990,99" %> </dd>
+		 	<dt>Preço Original:</dt>
+		    <dd>&nbsp<%= (number_to_currency(@special_product.product.regular_purchase_price, unit: 'R$', precision: 2, separator: ',', delimiter: '.')) %> </dd>
 		
-		 <dt>Preço Adquirido:</dt>
-		    <dd><%= (number_to_currency(@special_product.specialPrice, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %>  </dd>
+		 	<dt>Preço Adquirido:</dt>
+		    <dd>&nbsp<%= (number_to_currency(@special_product.specialPrice, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %>  </dd>
 		</dl>
 	</div>
 		

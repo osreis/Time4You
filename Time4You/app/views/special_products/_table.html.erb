@@ -1,6 +1,4 @@
-﻿
-		
-<% if (SpecialProduct.all.count) > 0 %>
+﻿<% if @special_products && @special_products.count > 0 %>
 
 <table class="table table-striped">
   <thead>
@@ -16,8 +14,8 @@
   <tbody>
     <% @special_products.each do |special_product| %>
       <tr>
-	    <td><%= "Produto" %></td>
-        <td><%= "R$ 10,99" %></td>
+	    <td><%= special_product.product.name %></td>
+        <td><%= number_to_currency(special_product.product.regular_purchase_price, unit: 'R$ ', precision: 2, separator: ',', delimiter: '.') %></td>
         <td><%=  (number_to_currency(special_product.specialPrice, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> </td>
 		<td><%= special_product.available.to_s %></td>
 		
@@ -32,6 +30,7 @@
     <% end %>
   </tbody>
 </table>
+<%= page_navigation_links @special_products %>
 <% else %>
 <br/><br/>
 <div align="center">

@@ -4,6 +4,8 @@
   validates :specialPrice, :presence => { :message => "digite o preço especial." }
   validates :total, :presence => { :message => "digite o total" }
   validates :available, :presence => { :message => "digite o total disponível" }
-  has_and_belongs_to_many :salecells
+  def self.searchByPage(page)
+    paginate :per_page => 5, :page => page
+  end
   
 end
