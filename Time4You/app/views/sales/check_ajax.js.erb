@@ -1,0 +1,6 @@
+$("#notice").attr('class', '<%= @found ? "alert alert-success" : "alert alert-error" %>');
+$("#message").text('<%= @found ? "Produto encontrado!" : "Produto não encontrado!" %>');
+$("#product_id").val('<%= @product.id if @found%>');
+$("#product_name").val('<%= @product.name if @found%>');
+$("#product_brand").val('<%= @product.brand.name if @found%>');
+$("#nominal_price").val('<%= number_to_currency(@product.regular_purchase_price, unit: "R$ ", separator: ",") if @found%>');

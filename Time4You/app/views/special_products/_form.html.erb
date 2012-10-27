@@ -9,32 +9,32 @@
 
 function validate (){
 
-	var camposNaoPreenchidos = false;
-	var precoErrado = false;
-	var precoNominal = parseFloat($("#nominal_price").val().replace("R$", "").replace(",", "."));
-	var precoPromocional = parseFloat($("#special_product_specialPrice").val().replace("R$", "").replace(",", "."));
+  var camposNaoPreenchidos = false;
+  var precoErrado = false;
+  var preco_nominal = parseFloat($("#nominal_price").val().replace("R$", "").replace(",", "."));
+  var preco_promocional = parseFloat($("#special_price").val().replace("R$", "").replace(",", "."));
 
-	if(precoNominal < precoPromocional){
-		alert("Preço Promocional deve ser menor que o nominal!");
-		var e = window.event;
-		e.cancelBubble = true;
-		e.returnValue = false;
+  if(preco_nominal < preco_promocional){
+    alert("Preço promocional deve ser maior que o nominal!");
+    var e = window.event;
+    e.cancelBubble = true;
+    e.returnValue = false;
 
-		if (e.stopPropagation) {
+    if (e.stopPropagation) {
             e.stopPropagation();
             e.preventDefault();
-			}
-		return false;	
-	}
-	else {
-		$("#nominal_price").val(precoNominal);
-		$("#special_product_specialPrice").val(precoPromocional);
-		return true;
-	}	
+      }
+    return false; 
+  }
+  else {
+    $("#nominal_price").val(preco_nominal);
+    $("#special_price").val(preco_promocional);
+    return true;
+  } 
 }
 
  $(document).ready(function(){
- $("#special_product_specialPrice").priceFormat({
+ $("#special_price").priceFormat({
     prefix: 'R$ ',
     centsSeparator: ','
 });
@@ -45,53 +45,34 @@ $("#nominal_price").priceFormat({
     centsSeparator: ','
 });
 
-//TODO!!! torcar para 0 quando chegar o produto!!
-	if( $("#nominal_price").val().length === 0 ){
-		$("#nominal_price").val("R$ 100,00");
-	} 
-	else {
-			$("#nominal_price").val($("#nominal_price").val().replace(".", ","));
+//TODO!!! trocar para 0 quando chegar o produto!!
+  $("#nominal_price").val($("#nominal_price").val().replace(".", ","));
+  $("#nominal_price").val("<%=  (number_to_currency(@special_product.product.regular_purchase_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) if @special_product.product %>");
+  if( $("#special_price").val().length === 0){
+    $("#special_price").val("R$ 0,00");
+  } 
+    else {
+      var valor = $("#special_price").val().replace(".", ",");
+      $("#special_price").val("<%=  (number_to_currency(@special_product.specialPrice, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) if @special_product.product%>");
 
-	}
-	if( $("#special_product_specialPrice").val().length === 0){
-		$("#special_product_specialPrice").val("R$ 0,00");
-	} 
-		else {
-			$("#special_product_specialPrice").val($("#special_product_specialPrice").val().replace(".", ","));
-
-	}
+  }
 
  });
  
 </script>
 
 <%= stylesheet_link_tag "jqueryui.css" %>
+<%= render 'shared/find_product' %>
 
 <%= form_for @special_product, :validate => true, :html => { :class => 'form-horizontal',  :onsubmit => 'return validate()'} do |f| %>
 <div class="form">
-  
-  
-	 <div class="control-group">
-   <label class="control-label" for="user_nome">Produto<span class="asterisk" >*</span>:</label>
-    <div class="controls">
-      <%#= f.text_field :product_id, :class => 'text_field' %>
-    <input class="text_field"   type="text" placeholder="Autocomplete Produtos..." disabled>
-	</div>
-  </div>
 
-
-
-    <div class="control-group">
-   <label class="control-label" for="user_nome">Preço Nominal<span class="asterisk" >*</span>:</label>
-    <div class="controls">
-     <input class="text_field"   id="nominal_price" type="text" placeholder="10.99" disabled >
-    </div>
-  </div>
+  <%= render 'shared/product_details' %>
 
     <div class="control-group">
    <label class="control-label" for="user_nome">Preço Promocional<span class="asterisk" >*</span>:</label>
     <div class="controls">
-      <%= f.text_field :specialPrice, :class => 'text_field' %>
+      <%= f.text_field :specialPrice, :class => 'text_field', id: 'special_price' %>
     </div>
   </div>
   
