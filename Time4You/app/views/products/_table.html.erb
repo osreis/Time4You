@@ -11,7 +11,12 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= product.name %></td>
+		 <% if product.brand_id != nil %>
 	      <td><%= link_to Brand.find(product.brand_id).name, brand_path(product.brand_id) %></td>
+		  <% else %>
+		  <td> Sem Marca Cadastrada </td>
+		  <% end %>
+		  
 		  <%if product.in_stock_quantity > 10%>
 	      <td id="in_stock_quantity" style="text-align:center"><%= product.in_stock_quantity %></td>
 		  <% else %>
