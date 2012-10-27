@@ -1,0 +1,9 @@
+<% if !@product %>
+  <div class="alert" id="notice">
+    <div id="message">Pesquise um produto!</div>
+  </div>
+  <form class="form-horizontal" id="formAddProducts" action="check_ajax" method="get" data-remote="true">
+    <input type="text" class="search-query" style="height: auto" name="barcode" placeholder="Insira o código de barras"/>
+    <%= button_tag 'Buscar produto', class: 'btn' %>
+  </form>
+<% end %>

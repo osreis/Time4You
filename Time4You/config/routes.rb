@@ -11,7 +11,11 @@ Time4You::Application.routes.draw do
       get :check_ajax
     end
   end
-  resources :sales
+  resources :sales do
+	collection do
+      get :check_ajax
+    end
+  end
   resources :brands
   resources :catalogs
 

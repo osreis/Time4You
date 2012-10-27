@@ -62,44 +62,12 @@ $("#nominal_price").priceFormat({
 </script>
 
 <%= stylesheet_link_tag "jqueryui.css" %>
-<% if !@product %>
-  <div class="alert" id="notice">
-    <div id="message">Pesquise um produto!</div>
-  </div>
-  <form class="form-horizontal" id="formAddProducts" action="check_ajax" method="get" data-remote="true">
-    <input type="text" class="search-query" style="height: auto" name="barcode" placeholder="Insira o código de barras"/>
-    <%= button_tag 'Buscar produto', class: 'btn' %>
-  </form>
-<% end %>
+<%= render 'shared/find_product' %>
 
 <%= form_for @special_product, :validate => true, :html => { :class => 'form-horizontal',  :onsubmit => 'return validate()'} do |f| %>
 <div class="form">
-  
-    
 
-  <input id='product_id' class="text_field"  type ="hidden" min="1" name="product_id" value="<%= @product.id if @product %>" style="height:30px;" >
-
-  <div class="control-group">
-   <label class="control-label" for="user_nome">Nome do Produto<span class="asterisk" >*</span>:</label>
-    <div class="controls">
-     <input class="text_field" id="product_name" type="text" disabled value=<%=@product.name if @product%>>
-    </div>
-  </div>
-  
-  <div class="control-group">
-   <label class="control-label" for="user_nome">Marca do Produto<span class="asterisk" >*</span>:</label>
-    <div class="controls">
-     <input class="text_field"   id="product_brand" type="text" disabled value=<%=@product.brand.name if @product %>>
-    </div>
-  </div>
-  
-  
-  <div class="control-group">
-   <label class="control-label" for="user_nome">Preço Nominal<span class="asterisk" >*</span>:</label>
-    <div class="controls">
-     <input class="text_field"   id="nominal_price" type="text" disabled  value=<%=@product.regular_purchase_price if @product %>>
-    </div>
-  </div>
+  <%= render 'shared/product_details' %>
 
     <div class="control-group">
    <label class="control-label" for="user_nome">Preço Promocional<span class="asterisk" >*</span>:</label>

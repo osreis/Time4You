@@ -1,0 +1,23 @@
+<input id='product_id' class="text_field"  type ="hidden" min="1" name="product_id" value="<%= @product.id if @product %>" style="height:30px;" >
+
+<div class="control-group">
+ <label class="control-label" for="user_nome">Nome do Produto<span class="asterisk" >*</span>:</label>
+  <div class="controls">
+   <input class="text_field" id="product_name" type="text" disabled value=<%=@product.name if @product%>>
+  </div>
+</div>
+
+<div class="control-group">
+ <label class="control-label" for="user_nome">Marca do Produto<span class="asterisk" >*</span>:</label>
+  <div class="controls">
+   <input class="text_field"   id="product_brand" type="text" disabled value=<%=@product.brand.name if @product %>>
+  </div>
+</div>
+
+
+<div class="control-group">
+ <label class="control-label" for="user_nome">Preço Nominal<span class="asterisk" >*</span>:</label>
+  <div class="controls">
+   <input class="text_field"   id="nominal_price" type="text" disabled  value=<%=@product.regular_purchase_price if @product %>>
+  </div>
+</div>
