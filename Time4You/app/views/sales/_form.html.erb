@@ -45,28 +45,22 @@ $("#nominal_price").priceFormat({
     centsSeparator: ','
 });
 
-//TODO!!! trocar para 0 quando chegar o produto!!
-	if( $("#nominal_price").val().length === 0 ){
-		$("#nominal_price").val("R$ 100,00");
-	} 
-	else {
-			$("#nominal_price").val($("#nominal_price").val().replace(".", ","));
+			
+$("#nominal_price").val($("#nominal_price").val().replace(".", ","));
+if( $("#sale_salePrice").val().length === 0){
+	$("#sale_salePrice").val("R$ 0,00");
+} else {
+	var valor = $("#sale_salePrice").val().replace(".", ",");
+	$("#sale_salePrice").val("<%=  (number_to_currency(@sale.salePrice, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %>");
 
-	}
-	if( $("#sale_salePrice").val().length === 0){
-		$("#sale_salePrice").val("R$ 0,00");
-	} 
-		else {
-			var valor = $("#sale_salePrice").val().replace(".", ",");
-			$("#sale_salePrice").val("<%=  (number_to_currency(@sale.salePrice, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %>");
-
-	}
+}
 
  });
  
 </script>
 
 <%= stylesheet_link_tag "jqueryui.css" %>
+<%= render 'shared/find_product' %>
 
 <%= form_for @sale, :validate => true, :html => { :class => 'form-horizontal',  :onsubmit => 'return validate()'} do |f| %>
 <div class="form">
@@ -85,20 +79,7 @@ $("#nominal_price").priceFormat({
 	</div>
   </div>
 
-   <div class="control-group">
-   <label class="control-label" for="user_nome">Produto<span class="asterisk" >*</span>:</label>
-    <div class="controls">
-      <%#= f.text_field :product_id, :class => 'text_field' %>
-    <input class="text_field"   type="text" placeholder="Autocomplete Produtos..." disabled>
-	</div>
-  </div>
-
-    <div class="control-group">
-   <label class="control-label" for="user_nome">Preço Nominal<span class="asterisk" >*</span>:</label>
-    <div class="controls">
-     <input class="text_field"   id="nominal_price" type="text" placeholder="10.99" disabled >
-    </div>
-  </div>
+   <%= render 'shared/product_details' %>
 
     <div class="control-group">
    <label class="control-label" for="user_nome">Preço Promocional<span class="asterisk" >*</span>:</label>
