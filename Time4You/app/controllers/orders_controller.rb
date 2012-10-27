@@ -13,19 +13,6 @@
 
     def show
     @order = Order.find(params[:id])
-	#@produtos = @order.produtos
-	puts"*************************************"
-	puts"*************************************"
-	puts"*************************************"
-	puts"*************************************"
-	puts"*************************************"
-	puts"*************************************"
-	puts"*************************************"
-	puts"*************************************"
-	puts"*************************************"
-	puts"*************************************"
-	puts"*************************************" + @order.ordercells.to_json
-	
 	@title = "Detalhes"
 	@subtitle = ""
 	@order = Order.find(params[:id])
@@ -60,10 +47,10 @@
 		@total = 0.0;
 		@order.ordercells.each do |ordercell|
 			@price = 0.0
-			if ordercell.products.firsts.first.sale != nil
-				@price =  ordercell.products.firsts.first.sale.salePrice * ordercell.quantity
+			if ordercell.products.first.sale != nil
+				@price =  ordercell.products.first.sale.salePrice * ordercell.quantity
 				else 
-					@price =  ordercell.products.firsts.first.regular_sale_price.to_f  * ordercell.quantity
+					@price =  ordercell.products.first.regular_sale_price.to_f  * ordercell.quantity
 				end	
 				@total = @price + @total.to_f
 				@numeroItens = @numeroItens.to_i +  ordercell.quantity
@@ -98,22 +85,24 @@
   # DELETE /Orders/1.json
   def destroy
     @order = Order.find(params[:id])
-	@order.status =  Order::STATUS_CANCELED
+	@order.status = Order::STATUS_CONFIRMED
 	@order.ordercells.each do |ordercell|
 		@quantidade = ordercell.quantity
 		if  @quantidade > 0 && @order.status ==  Order::STATUS_CONFIRMED
-			ordercell.salecells.each do |sale|
-				sale.special_products.first.available = sale.quantity + sale.special_products.first.available
-				sale.special_products.first.save
-				sale.special_products.first.product.in_stock_quantity = sale.quantity + sale.special_products.first.product.in_stock_quantity
+				ordercell.salecells.each do |sale|
+				@aux = sale.quantity.to_i + sale.special_products.first.available.to_i
+				sale.special_products.first.update_attributes(:available => @aux)			
+				sale.special_products.first.product.update_attributes(:in_stock_quantity => sale.quantity + sale.special_products.first.product.in_stock_quantity)
 				sale.special_products.first.save
 				sale.save
 			end
-			ordercell.products.first.in_stock_quantity = ordercell.quantity + ordercell.products.first.in_stock_quantity
+			ordercell.products.first.update_attributes(:in_stock_quantity => ordercell.quantity + ordercell.products.first.in_stock_quantity)
 			ordercell.save
 			ordercell.products.first.save
 		end
-	end			
+	end	
+	
+	@order.status =  Order::STATUS_CANCELED
     if @order.save
 		redirect_to({:controller=> :orders, :action => :index}, :flash => { :notice_success => "Venda cancelada com sucesso" }) 
 	else  
@@ -214,6 +203,13 @@
 					ordercell.products.first.save
 					ordercell.save
 				end 	
+				
+				
+				if @quantidade > 0 
+					ordercell.products.first.in_stock_quantity = ordercell.products.first.in_stock_quantity  - @quantidade
+					ordercell.products.first.save
+					ordercell.save
+				end
 
 			
 		end			
