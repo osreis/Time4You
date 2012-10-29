@@ -92,8 +92,6 @@
 				ordercell.salecells.each do |sale|
 				@aux = sale.quantity.to_i + sale.special_products.first.available.to_i
 				sale.special_products.first.update_attributes(:available => @aux)			
-				sale.special_products.first.product.update_attributes(:in_stock_quantity => sale.quantity + sale.special_products.first.product.in_stock_quantity)
-				sale.special_products.first.save
 				sale.save
 			end
 			ordercell.products.first.update_attributes(:in_stock_quantity => ordercell.quantity + ordercell.products.first.in_stock_quantity)
@@ -185,12 +183,11 @@
 							@salecell = Salecell.new
 							@salecell.special_products << special
 							@salecell.quantity  = 0
-							ordercell.products.first.in_stock_quantity = ordercell.products.first.in_stock_quantity  - @quantidade
-							ordercell.products.first.save
+							ordercell.products.first.update_attributes(:in_stock_quantity => ordercell.products.first.in_stock_quantity  - @quantidade)
 							ordercell.save
 							while @quantidade > 0 && special.available > 0
 								@salecell.quantity = @salecell.quantity + 1
-								special.available = special.available - 1
+								special.update_attributes(:available => special.available - 1)
 								@quantidade = @quantidade - 1
 							end
 							@salecell.save
@@ -203,8 +200,6 @@
 					ordercell.products.first.save
 					ordercell.save
 				end 	
-				
-				
 				if @quantidade > 0 
 					ordercell.products.first.in_stock_quantity = ordercell.products.first.in_stock_quantity  - @quantidade
 					ordercell.products.first.save
