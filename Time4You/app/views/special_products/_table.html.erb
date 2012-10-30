@@ -1,4 +1,5 @@
 ﻿<% if @special_products && @special_products.count > 0 %>
+<div id="tabela">
 
 <table class="table table-striped">
   <thead>
@@ -30,7 +31,8 @@
     <% end %>
   </tbody>
 </table>
-<%= page_navigation_links @special_products %>
+</div>
+<%= will_paginate @special_products, :renderer => BootstrapPagination::Rails, :next_label => "Próxima", :previous_label => "Anterior", :update => 'tabela' %>
 <% else %>
 <br/><br/>
 <div align="center">
