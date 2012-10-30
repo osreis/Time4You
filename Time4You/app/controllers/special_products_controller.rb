@@ -6,6 +6,8 @@
 
 	def get_page
     case (params[:query_option])
+    when 'Código de barras'
+      @special_products = SpecialProduct.joins(:product).where('products.barcode == ?', params[:query]).searchByPage(params[:page])
     when 'Produto'
       @special_products = SpecialProduct.joins(:product).where("products.name like ?", "%#{params[:query]}%").searchByPage(params[:page])
     when 'Marca'
