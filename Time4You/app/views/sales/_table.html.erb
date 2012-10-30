@@ -21,7 +21,7 @@
 	    <td><%= sale.product.name %></td>
 	    <td><%= sale.product.brand.name %></td>
         <td><a href="/catalogs/<%= sale.catalog.id %>"><%= sale.catalog.name %></a></td>
-        <td><%= number_to_currency(sale.product.regular_purchase_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".") %> </td>
+        <td><%= number_to_currency(sale.product.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".") %> </td>
         <td><%= (number_to_currency(sale.salePrice, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> </td>
 		<td><%= number_to_percentage((1 - (sale.salePrice/ sale.product.regular_purchase_price.to_d)) * 100, precision: 2, delimiter: '.', separator: ',') %></td>
 		

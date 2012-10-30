@@ -56,10 +56,10 @@ text-align: right
   <tbody>
     <% @sales.each do |sale| %>
       <tr>
-	    <td><%= "Produto" %></td>
-        <td><%= "R$ 10,99" %></td>
+	    <td><%= sale.product.name %></td>
+        <td><%=  (number_to_currency(sale.product.regular_sale_price, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %></td>
         <td><%=  (number_to_currency(sale.salePrice, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %> </td>
-		<td><%= "10%" %></td>
+		<td><%= ((1 - sale.salePrice.to_f/sale.product.regular_sale_price.to_f) * 100).to_s + "%"  %></td>
 		
         <td>
 			<div class="btn-group centralizada">

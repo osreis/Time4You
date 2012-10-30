@@ -26,8 +26,8 @@
       <a class="brand" href="#">Time4You</a>
       <div class="nav-collapse">
         <ul class="nav">
-		<% if admin? %>
 		<li class="active"><a href="/home">Home</a></li>
+		<% if admin? %>
 		<li class=" dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Usuários<b class="caret"></b> </a>
 			<ul class="dropdown-menu">
@@ -39,6 +39,7 @@
 				</li>
 			</ul>
 		</li>
+		<% end %>
 		<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Produtos<b class="caret"></b> </a>
 			<ul class="dropdown-menu">
@@ -48,12 +49,14 @@
 				<li>			
 					 <%= link_to 'Adicionar', new_product_path %>
 				</li>
+						<% if admin? %>
 				<li>			
 					<a href="/special_products"> Diferenciações </a>
 				</li>
 				<li>			
 					<a href="/special_products/new">Nova Diferenciação </a>
 				</li>
+				<% end %>
 			</ul>
 		</li>          
 		<li class="dropdown">
@@ -85,7 +88,9 @@
 			</ul>
 		</li>            <li><%#= link_to "Relatórios" %></li>
 			<li><%= link_to "Marcas", brands_path %></li>
+			<% if admin? %>
 			<li><%= link_to "Backup", backups_path %></li>
+		  <% end %>
 		  <li class="divider-vertical"></li>
 			<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user icon-white"></i> <%= current_user.name %> <b class="caret"></b> </a>
@@ -98,7 +103,6 @@
 				</li>
 			</ul>
 
-        <% end %>
 		</ul>
       </div>
 	  

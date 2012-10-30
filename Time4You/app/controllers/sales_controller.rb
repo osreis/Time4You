@@ -49,7 +49,11 @@
   # POST /sales.json
   def create
     @sale = Sale.new(params[:sale])
-    @sale.product = Product.find(params[:product_id]) if params[:product_id]
+    @sale.product = Product.find(params[:product_id])
+	puts"************************" + @sale.to_json
+		puts"************************" + @sale.product.to_json
+		puts"************************" + @sale.catalog.to_json
+
       if @sale.save
 	  
 		if params[:catalog]

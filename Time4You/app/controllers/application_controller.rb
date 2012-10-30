@@ -6,7 +6,16 @@ class ApplicationController < ActionController::Base
 	protect_from_forgery
 	require 'rails/all'
 	helper_method :current_user, :authorize, :authorize_admin, :admin?
+	
+	rescue_from 'NoMethodError ', :with => :my_exception_handler
 
+	def my_exception_handler exception 
+		redirect_to({:controller=> :home, :action => :index}, :flash => { :notice_error => t(:not_authorized) }) 
+	end
+
+
+
+	
 	private  
 
 	def current_user  # returns the session user
