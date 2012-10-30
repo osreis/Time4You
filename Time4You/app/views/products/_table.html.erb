@@ -1,4 +1,5 @@
-<% if (@products.count) > 0 %>
+﻿<% if (@products.count) > 0 %>
+<div id="tabela">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -11,7 +12,12 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= product.name %></td>
+		 <% if product.brand_id != nil %>
 	      <td><%= link_to Brand.find(product.brand_id).name, brand_path(product.brand_id) %></td>
+		  <% else %>
+		  <td> Sem Marca Cadastrada </td>
+		  <% end %>
+		  
 		  <%if product.in_stock_quantity > 10%>
 	      <td id="in_stock_quantity" style="text-align:center"><%= product.in_stock_quantity %></td>
 		  <% else %>
@@ -31,9 +37,10 @@
     <% end %>
   </tbody>
 </table>
+</div>
 <% end %>
 
 <% if (@products.count) > 1 %>
-	<%= page_navigation_links @products %>
+<%= will_paginate  @products, :renderer => BootstrapPagination::Rails, :next_label => "Próxima", :previous_label => "Anterior", :update => 'tabela' %>
 <% end %>
 	

@@ -58,6 +58,9 @@
   def create
     @special_product = SpecialProduct.new(params[:special_product])
     @special_product.product = Product.find(params[:product_id]) if params[:product_id]
+	
+	@special_product.product.in_stock_quantity = @special_product.product.in_stock_quantity + @special_product.total
+	@special_product.product.save
       if @special_product.save
 		if params[:product]
 		    redirect_to({:controller=> :products, :action => :show, :id => params[:catalog]}, :flash => { :notice_success => "Diferenciação adicionada com sucesso" }) 
@@ -80,7 +83,9 @@
 
   def destroy
     @special_product = SpecialProduct.find(params[:id])
-    if @special_product.destroy
+    @special_product.product.in_stock_quantity = @special_product.product.in_stock_quantity - @special_product.available
+	@special_product.product.save
+	if @special_product.destroy
       redirect_to({:controller=> :special_products, :action => :index}, :flash => { :notice_success => "DIferenciação removida com sucesso" }) 
     else  
 		  redirect_to({:controller=> :special_products, :action => :index}, :flash => { :notice_error => "Erro ao remover diferenciação" }) 

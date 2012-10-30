@@ -2,8 +2,6 @@ class Order < ActiveRecord::Base
   belongs_to :user
   attr_accessible :amount, :consumerAmount, :created, :discount, :status, :updated, :user_id, :costPrice
   has_many :ordercells
-  has_many :salescells
-  has_many :specialproductscells
   has_and_belongs_to_many  :payment_types
    Order::STATUS_NEW = "NOVA"
    Order::STATUS_CANCELED = "CANCEL"
