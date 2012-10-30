@@ -1,6 +1,4 @@
-﻿
-		
-<% if (Sale.all.count) > 0 %>
+﻿<% if @sales && @sales.count > 0 %>
 <div id="tabela">
 <table class="table table-striped" >
   <thead>
@@ -37,7 +35,7 @@
   </tbody>
 </table>
 </div>
-<%= will_paginate @sales, :renderer => BootstrapPagination::Rails, :next_label => "Próxima", :previous_label => "Anterior", :update => 'tabela' %>
+<%= page_navigation_links @sales %>
 <% else %>
 <br/><br/>
 <div align="center">

@@ -3,16 +3,20 @@
 	before_filter :authorize
 	before_filter :authorize_admin, :except=>[:my_profile, :update, :check_ajax]
 
-
-	def get_page
-		@sales = Sale.all
-	end
+  def get_page 
+    case (params[:query_option])
+    when 'Código de barras'
+      @sales = Sale.joins(:product).where("products.barcode == ?", params[:query]).searchByPage(params[:page])
+    else
+      @sales = Sale.searchByPage(params[:page])
+    end
+  end
 
   def index
 		@title = "Promoções" 
 		@subtitle = "Promoções de Catálogo"
 		@button_title = "Adicionar Promoção"
-		@sales = Sale.paginate(:page => params[:page], :per_page => 5)
+		get_page
 	end # end index	
 	
 

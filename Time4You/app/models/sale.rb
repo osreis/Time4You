@@ -10,4 +10,8 @@
     errors.add(:product, 'não pertence à mesma marca do catálogo') if self.product.brand != self.catalog.brand
   end
 
+  def self.searchByPage(page)
+    paginate :per_page => 5, :page => page
+  end
+
 end

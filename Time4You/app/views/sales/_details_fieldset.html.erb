@@ -8,11 +8,11 @@ text-align: right
 </style>
 
 <fieldset >
-	<legend> <%= " Nome do Produto"  %> </legend>
+	<legend> <%= "#{@sale.product.name} (#{@sale.product.barcode})"  %> </legend>
 	<div class = "form-actions">
 	    <dl class="dl-horizontal">
 		    <dt>Nome:</dt>
-		    <dd> <%= " Nome do Produto"    %> </dd>
+		    <dd> <%= @sale.product.name   %> </dd>
 		
 		    <dt>Marca:</dt>
 		    <dd> <%= " " +  @sale.catalog.brand.name.to_s %> </dd>
@@ -24,7 +24,7 @@ text-align: right
 		    <dd><%= " " + @sale.catalog.endDate.strftime("%d/%m/%Y") %> </dd>
 		 
 		 <dt>Preço Original:</dt>
-		    <dd><%= "R$ 990,99" %> </dd>
+		    <dd><%= number_to_currency(@sale.product.regular_purchase_price, unit: 'R$ ', precision: 2, separator: ',', delimiter: '.') %> </dd>
 		
 		 <dt>Preço Promocional:</dt>
 		    <dd><%= (number_to_currency(@sale.salePrice, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")) %>  </dd>
