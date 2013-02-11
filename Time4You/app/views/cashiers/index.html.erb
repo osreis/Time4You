@@ -1,0 +1,65 @@
+<script>
+$(document).ready(function(){
+	if( $("#initial_amount_input").val().length === 0 ){
+		$("#initial_amount_input").val("R$ 0,00");
+	}
+
+	$("#initial_amount_input").priceFormat({
+		prefix: 'R$ ',
+		centsSeparator: ','
+	});
+});
+function btnPressed(){
+	var initial_amount_input = parseFloat($("#initial_amount_input").val().replace("R$", "").replace(",", "."));
+	$("#initial_amount_input").val(initial_amount_input);
+}
+</script>
+
+<%= stylesheet_link_tag "jqueryui.css" %>
+
+<div class="page-header">
+	<h1>Caixa - <%= @date.strftime('%d.%m.%Y') %></h1>
+</div>
+
+<div>
+	<%= form_tag("/cashiers", :method => "get") do %>
+  		<%= select_date Date.today, :prefix => 'date', :order => [:day, :month, :year], use_month_numbers: true, start_year: 2013 %>
+  		<button type="submit" style="position:relative; top:-5px" class="btn"><i class="icon-search"></i> Visualizar caixa</button>
+	<% end %>
+</div>
+
+<% if !@cashier %>
+	O caixa não foi aberto
+	<% if @date.today? %>
+		<div>
+			<%= form_tag("/cashiers/new", :method => "get", onsubmit: 'return btnPressed();') do %>
+	  			<%= text_field :cashier, :initial_amount, id: 'initial_amount_input', size: 10, style: 'height: 30px' %>
+	  			<button type="submit" class="btn" style="position:relative; top: -5px">Abrir caixa</button>
+			<% end %>
+		</div>
+	<% end %>
+<% elsif @cashier.opened %>
+	<div>
+		<p>Dinheiro inicial em caixa:  <b><%= number_to_currency(@cashier.initial_amount, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".") %></p></b>
+		<% current_balance_hash = @cashier.current_balance %>
+		<p>Montante total em caixa: <b><%= number_to_currency(current_balance_hash[:total], :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")%></b>
+		<ul>
+			<li>Crédito: 
+				<b><%= number_to_currency(current_balance_hash[:c], :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")%> - <%= ((current_balance_hash[:c].to_f/current_balance_hash[:total]) * 100).to_i %>%</b>
+			</li>
+			<li>Débito: 
+				<b><%= number_to_currency(current_balance_hash[:d], :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")%> - <%= ((current_balance_hash[:d].to_f/current_balance_hash[:total]) * 100).to_i %>%</b>
+			</li>
+			<li>Dinheiro: 
+				<b><%= number_to_currency(current_balance_hash[:e], :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")%> - <%= ((current_balance_hash[:e].to_f/current_balance_hash[:total]) * 100).to_i %>%</b>
+			</li>
+		</ul>
+		<% if !@cashier.closed %>
+			<%= form_tag("/cashiers/close/#{@cashier.id}", :method => "get") do %>
+	  			<button type="submit" class="btn btn-primary" style="position:relative; top: -5px">Fechar caixa</button>
+			<% end %>
+		<% else %>
+			<b>Caixa fechado</b>
+		<% end %>
+	</div>
+<% end %>

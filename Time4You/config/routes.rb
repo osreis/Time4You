@@ -1,6 +1,12 @@
 Time4You::Application.routes.draw do
 
 
+  get "cashiers/index"
+
+  get "cashiers/show"
+
+  get "cashiers/new"
+
   resources :payment_types
 
   resources :products
@@ -42,8 +48,6 @@ Time4You::Application.routes.draw do
 			get :check_ajax
 		end
 	end
-  
-  resources :users
 
  
     root :to => 'sessions#login'
