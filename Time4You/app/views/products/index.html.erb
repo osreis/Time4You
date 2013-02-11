@@ -6,9 +6,11 @@
 <% end %>
 <%= index_header %>
 <%= form_tag("/products", :method => "get") do %>
-  <%= text_field_tag :barcode, nil, :style => 'height:38px', :class => 'search-query', :placeholder => "Insira o código de barras" %>
-  <button type="submit" class="btn btn-large">
-  <i class="icon-search"></i> Buscar Produto</button>
+  <%= text_field_tag :query, nil, :style => 'height:auto', :class => 'search-query', :placeholder => "Busca..." %>
+  <button type="submit" class="btn">
+  <i class="icon-search"></i> Buscar Produtos </button>
+	Por:
+	<%= select_tag :query_option, "<option>Código de barras</option> <option>Nome</option>".html_safe, :style => 'position:relative; top:5px' %>
 <% end %>
 <div style="float:right; margin-top:-8%">
 	<%= link_to raw('<i class="icon-plus icon-white"></i>' + ' ' + 'Adicionar produto'), new_product_path, :class => "btn btn-primary" %>

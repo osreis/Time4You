@@ -11,13 +11,21 @@ class Product < ActiveRecord::Base
   belongs_to :brand
   has_one :sale
   
-  def self.search(barcode)
+  def self.searchByBarcode(barcode)
     if (barcode)
       Product.where('barcode = ?', barcode)
     else
       Product.all
     end   
   end
+
+  def self.searchByName(name)
+    if (name)
+      Product.where('name like ?', "%#{name}%")
+    else
+      Product.all
+    end
+  end 
   
   def self.searchByPage(page)
     paginate :per_page => 5, :page => page

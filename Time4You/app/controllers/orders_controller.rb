@@ -1,10 +1,14 @@
 ﻿class OrdersController < ApplicationController
 	
-  before_filter :authorize	
+  before_filter :authorize
 	
   def index
-		
-	@orders = Order.paginate(:page => params[:page], :per_page => 10).order('id DESC')
+	if !params[:order_date]
+		@orders = Order.paginate(:page => params[:page], :per_page => 10).order('id DESC')
+	else
+		date = Date.new(params[:order_date][:year].to_i,params[:order_date][:month].to_i,params[:order_date][:day].to_i)  
+		@orders = Order.where(created: date).paginate(:page => params[:page], :per_page => 10).order('id DESC')
+	end
 	@title = "Vendas" 
 	@subtitle = "Vendas Realizadas"
 	@button_title = "Nova Venda"
@@ -175,38 +179,31 @@
 		@order.updated = Time.now
 		@order.save
 		@order.ordercells.each do |ordercell|
-			#checar produtos diferenciados
-			@special_products = SpecialProduct.where('product_id = ?', ordercell.products.first.id ).where('available > 0')
-				@quantidade = ordercell.quantity
-				if @special_products.count > 0 && @quantidade > 0
-					@special_products.each do |special|
-							@salecell = Salecell.new
-							@salecell.special_products << special
-							@salecell.quantity  = 0
-							ordercell.products.first.update_attributes(:in_stock_quantity => ordercell.products.first.in_stock_quantity  - @quantidade)
-							ordercell.save
-							while @quantidade > 0 && special.available > 0
-								@salecell.quantity = @salecell.quantity + 1
-								special.update_attributes(:available => special.available - 1)
-								@quantidade = @quantidade - 1
-							end
-							@salecell.save
-							special.save	
-							ordercell.salecells << @salecell
-							ordercell.save
-						end	
-				else
-					ordercell.products.first.in_stock_quantity = ordercell.products.first.in_stock_quantity  - @quantidade
-					ordercell.products.first.save
-					ordercell.save
-				end 	
-				if @quantidade > 0 
-					ordercell.products.first.in_stock_quantity = ordercell.products.first.in_stock_quantity  - @quantidade
-					ordercell.products.first.save
-					ordercell.save
-				end
-
-			
+		#checar produtos diferenciados
+		@special_products = SpecialProduct.where('product_id = ?', ordercell.products.first.id ).where('available > 0')
+			@quantidade = ordercell.quantity
+			if @special_products.count > 0 && @quantidade > 0
+				@special_products.each do |special|
+						@salecell = Salecell.new
+						@salecell.special_products << special
+						@salecell.quantity  = 0
+						ordercell.products.first.update_attributes(:in_stock_quantity => ordercell.products.first.in_stock_quantity  - @quantidade)
+						ordercell.save
+						while @quantidade > 0 && special.available > 0
+							@salecell.quantity = @salecell.quantity + 1
+							special.update_attributes(:available => special.available - 1)
+							@quantidade = @quantidade - 1
+						end
+						@salecell.save
+						special.save	
+						ordercell.salecells << @salecell
+						ordercell.save
+					end	
+			else
+				current_quantity = ordercell.products.first.in_stock_quantity - @quantidade
+				ordercell.products.first.update_attributes(in_stock_quantity: current_quantity)
+				ordercell.save
+			end
 		end			
 		@order.save
 		redirect_to({:controller=> :orders, :action => :index}, :flash => { :notice_success => "Venda confimada com sucesso" }) 

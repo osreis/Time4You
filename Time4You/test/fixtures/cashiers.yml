@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  opened_at: 2013-02-10 15:30:30
+  closed_at: 2013-02-10 15:30:30
+  balance: 9.99
+
+two:
+  opened_at: 2013-02-10 15:30:30
+  closed_at: 2013-02-10 15:30:30
+  balance: 9.99

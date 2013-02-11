@@ -40,7 +40,7 @@
 </div>
 <% end %>
 
-<% if (@products.count) > 1 %>
+<% if (@products.entries.count) > 1 %>
 <%= will_paginate  @products, :renderer => BootstrapPagination::Rails, :next_label => "Próxima", :previous_label => "Anterior", :update => 'tabela' %>
 <% end %>
 	

@@ -56,7 +56,7 @@
 	<% if !@edit %>
      <%= f.date_select :birthDate, :order=>[:day,:month,:year], :start_year => 1946, :end_year => 2000, :use_month_numbers => true %>
     <% else %>
-		<input class="text_field"   type="text" placeholder="<%= @user.birthDate.strftime("%d/%m/%Y") %>" disabled>
+		<input class="text_field"   type="text" placeholder="<%= @user.birthDate.strftime("%d/%m/%Y") if @user.birthDate %>" disabled>
 	<% end %>
 	</div>
   </div>

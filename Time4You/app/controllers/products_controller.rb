@@ -5,8 +5,15 @@ class ProductsController < ApplicationController
   def index
     if params[:brand_id]
       @products = Brand.find(params[:brand_id]).products.searchByPage(params[:page])
-    elsif params[:barcode]
-      @products = Product.search(params[:barcode])
+    elsif params[:query]
+      if params[:query_option] == 'Código de barras'
+        @products = Product.searchByBarcode(params[:query])
+      elsif params[:query_option] == 'Nome'
+        @products = Product.searchByName(params[:query])
+      end
+      if @products
+        @products = @products.searchByPage(params[:page])
+      end
     else
       @products = Product.searchByPage(params[:page])
     end
