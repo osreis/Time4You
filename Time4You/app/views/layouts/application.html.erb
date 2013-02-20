@@ -88,7 +88,7 @@
 			</ul>
 		</li>            <li><%#= link_to "Relatórios" %></li>
 			<li><%= link_to "Marcas", brands_path %></li>
-			<% if admin? %>
+		  <% if admin? %>
 			<li><%= link_to "Caixa", cashiers_path %></li>
 			<li><%= link_to "Backup", backups_path %></li>
 		  <% end %>
