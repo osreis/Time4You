@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
   
   def check_ajax  
    # method that verifies user login and password
-    user = User.where(:login => params[:email].to_s).first
+    user = User.where(:login => params[:login].to_s).first
     if user && user.authenticate(params[:password])  
 		session[:user_id] = user.id
       if params[:remember_me] 

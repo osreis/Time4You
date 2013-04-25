@@ -8,7 +8,7 @@
   <button type="submit" class="btn">
   <i class="icon-search"></i> Buscar Usuários </button>
 	Por:
-	<%= select_tag :query_option, "<option>Nome</option> <option>E-mail</option> <option>Login</option> <option>CPF</option>".html_safe, :style => 'position:relative; top:5px' %>
+	<%= select_tag :query_option, "<option>Nome</option> <option>E-mail</option> <option>Login</option> <option>CPF</option>".html_safe, :style => 'position:absolute' %>
 <% end %>
 
 <%= render "table" %>

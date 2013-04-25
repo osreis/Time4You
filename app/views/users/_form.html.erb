@@ -40,7 +40,7 @@
   </div>
   
    <div class="control-group">
-   <label class="control-label" for="user_nome">CPF<span class="asterisk" >*</span>:</label>
+   <label class="control-label" for="user_nome">CPF:</label>
     <div class="controls">
 	<% if !@edit %>
       <%= f.text_field :cpf, :class => 'text_field' %>
@@ -51,7 +51,7 @@
   </div>
   
    <div class="control-group">
-   <label class="control-label" for="user_nome">Data de Nascimento<span class="asterisk" >*</span>:</label>
+   <label class="control-label" for="user_nome">Data de Nascimento:</label>
     <div class="controls">
 	<% if !@edit %>
      <%= f.date_select :birthDate, :order=>[:day,:month,:year], :start_year => 1946, :end_year => 2000, :use_month_numbers => true %>
@@ -62,7 +62,7 @@
   </div>
 
    <div class="control-group">
-   <label class="control-label" for="user_nome">Sexo<span class="asterisk" >*</span>:</label>
+   <label class="control-label" for="user_nome">Sexo:</label>
     <div class="controls">
 	<% if !@edit %>
       <%= f.select(:gender, options_for_select(sexos))  %>
@@ -73,48 +73,48 @@
   </div>
   
   <div class="control-group">
-   <label class="control-label" for="user_nome">E-Mail<span class="asterisk" >*</span>:</label>
+   <label class="control-label" for="user_nome">E-Mail:</label>
     <div class="controls">
       <%= f.text_field :email, :class => 'text_field' %>
     </div>
   </div>
   
   <div class="control-group">
-   <label class="control-label" for="user_nome">Telefone<span class="asterisk" >*</span>:</label>
+   <label class="control-label" for="user_nome">Telefone:</label>
     <div class="controls">
       <%= f.text_field :phone, :class => 'text_field' %>
     </div>
   </div>
  
    <div class="control-group">
-   <label class="control-label" for="user_nome">Celular<span class="asterisk" >*</span>:</label>
+   <label class="control-label" for="user_nome">Celular:</label>
     <div class="controls">
       <%= f.text_field :mobile, :class => 'text_field' %>
     </div>
   </div>
 
   <div class="control-group">
-   <label class="control-label" for="user_nome">Endereço<span class="asterisk" >*</span>:</label>
+   <label class="control-label" for="user_nome">Endereço:</label>
     <div class="controls">
       <%= f.text_field :address, :class => 'text_field' %>
     </div>
   </div>
 
  <div class="control-group">
-   <label class="control-label" for="user_nome">Cidade<span class="asterisk" >*</span>:</label>
+   <label class="control-label" for="user_nome">Cidade:</label>
     <div class="controls">
       <%= f.text_field :city, :class => 'text_field' %>
     </div>
   </div>
  
  <div class="control-group">
-   <label class="control-label" for="user_nome">Estado<span class="asterisk" >*</span>:</label>
+   <label class="control-label" for="user_nome">Estado:</label>
     <div class="controls">
       <%= f.select(:state, options_for_select(br_states, :selected => @user.state))  %>
     </div>
   </div>
  <div class="control-group">
-   <label class="control-label" for="user_nome">CEP<span class="asterisk" >*</span>:</label>
+   <label class="control-label" for="user_nome">CEP:</label>
     <div class="controls">
       <%= f.text_field :cep, :class => 'text_field' %>
     </div>

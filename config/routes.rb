@@ -1,6 +1,8 @@
 Time4You::Application.routes.draw do
 
 
+  get "asset/index"
+
   resources :cashiers
 
   resources :payment_types

@@ -48,7 +48,7 @@
 				<%= form_tag sessions_path do %>
 				<div class="field" style="font-size:15">
 					</br><b>Login</b></br>
-					<%= text_field_tag :email, params[:email], :class => "email_password", :id => "email" , :style => "height:30"%></br></br>
+					<%= text_field_tag :email, params[:login], :class => "email_password", :id => "email" , :style => "height:30"%></br></br>
 				</div>
 				<div class="field" style="font-size:15">
 					<b>Senha</b></br>
@@ -94,7 +94,7 @@
   {
 		if(data == false){
 			$("#flash_notice_error").show();
-			$("#flash_notice_error").html("email ou senha incorretos");
+			$("#flash_notice_error").html("login ou senha incorretos");
 		 	$("#loading").hide(); 
 		}
 		else {
@@ -118,7 +118,7 @@ $(window).submit(function(){
 	else {
 		$("#loading").show(); 
 		$("#flash_notice_error").hide();
-		$.getJSON ("sessions/check_ajax?password=" + $("#password").val() +"&email=" + $("#email").val(), check_ajaxAjax);
+		$.getJSON ("sessions/check_ajax?password=" + $("#password").val() +"&login=" + $("#email").val(), check_ajaxAjax);
 		return false;
 	}
 	
