@@ -16,13 +16,13 @@
 	</div>
 
 <div class="btn-group" style="float:right; margin-top: -10%">
-  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-    Menu
+  <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
+    <i class="icon-cog icon-white"></i> Menu
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu">
-    <li><%= link_to "Adicionar produto", new_product_path %></li>
-    <li><%= link_to "Download .xls", '/products.xls' %></li>
+    <li><%= link_to raw('<i class="icon-plus"></i>' + ' Adicionar Produto'), new_product_path %></li>
+    <li><%= link_to raw('<i class="icon-download"></i>' + ' Baixar relatório'), '/products.xls' %></li>
   </ul>
 </div>
 <%= render "table" %>
