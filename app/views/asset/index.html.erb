@@ -1,0 +1,12 @@
+<div class="page-header">
+  <h1>Patrimônio</h1>
+</div>
+<div class="well well-large">
+	<p>Há <strong style="font-size: 125%;"><%= Product.count %></strong> tipos de produtos cadastrados no sistema.</p>
+	<p>Há <strong style="font-size: 125%;"><%= @in_stock_quantity %></strong> unidades nas prateleiras.</p>
+	<p>O patrimônio da empresa é de: <strong style="font-size: 125%;"><%= number_to_currency(@asset, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".") %></strong></p>
+	<p>Patrimônio/unidades: <strong style="font-size: 125%;"><%= number_to_currency(@asset/@in_stock_quantity, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".") %></strong></p>
+	<p><u><b>IMPORTANTE</b></u></br>
+		Para garantir a precisão dessas estatísticas, certifique-se de que o estoque e os preços de cada produto estão atualizados.
+	</p>
+</div>
