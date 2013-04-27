@@ -2,6 +2,8 @@
   # GET /payment_types
   # GET /payment_types.json
   before_filter :authorize
+  before_filter :authorize_admin
+
  def index
 		@title = "Tipos de Pagamentos" 
 		@subtitle = "Tipos de Pagamentos"

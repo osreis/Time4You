@@ -1,7 +1,7 @@
 ﻿class SalesController < SeaOrdPagController
 
 	before_filter :authorize
-	before_filter :authorize_admin, :except=>[:my_profile, :update, :check_ajax]
+	before_filter :authorize_admin, :except=>[:update, :check_ajax]
 
   def get_page 
     case (params[:query_option])

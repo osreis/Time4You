@@ -68,9 +68,11 @@
 				<li>			
 					<a href="/catalogs/new"> Adicionar </a>
 				</li>
-				<li>
-					<%= link_to "Promoções", sales_path %>
-				</li>
+				<% if admin? %>
+					<li>
+						<%= link_to "Promoções", sales_path %>
+					</li>
+				<% end %>
 			</ul>
 		</li>
 	<li class="dropdown">
@@ -82,13 +84,15 @@
 				<li>			
 					<a href="/orders/new"> Nova </a>
 				</li>
+				<% if admin? %>
 				<li>
 					<a href="/payment_types/"> Tipos de Pagamento </a>
 				</li>
+				<% end %>
 			</ul>
 		</li>            <li><%#= link_to "Relatórios" %></li>
-			<li><%= link_to "Marcas", brands_path %></li>
 		  <% if admin? %>
+			<li><%= link_to "Marcas", brands_path %></li>
 		  	<li><%= link_to "Patrimônio", '/asset' %></li>
 			<li><%= link_to "Caixa", cashiers_path %></li>
 			<li><%= link_to "Backup", backups_path %></li>
