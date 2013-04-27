@@ -24,10 +24,11 @@
 
   # GET /PaymentTypes/1/edit
   def edit
+    @edit = true
     @payment_type = PaymentType.find(params[:id])
-	@title = "Editar Tipo de Pagamento"
-	@subtitle = ""
-	@legend = @payment_type.name
+    @title = "Editar Tipo de Pagamento"
+    @subtitle = ""
+    @legend = @payment_type.name
   end
 
   # POST /PaymentTypes
@@ -44,6 +45,7 @@
   # PUT /PaymentTypes/1
   # PUT /PaymentTypes/1.json
   def update
+    @edit = true
     @payment_type = PaymentType.find(params[:id])
 	if @payment_type.update_attributes(params[:payment_type])
 		redirect_to({:controller=> :payment_types, :action => :index}, :flash => { :notice_success => "Tipo de Pagamento alterado com sucesso" }) 

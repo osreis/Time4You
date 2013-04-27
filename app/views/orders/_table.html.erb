@@ -61,9 +61,7 @@ background-color: #D9EDF7;
 							<li>Não há opções disponíveis!</li>
 						<% end %>
 				<% if admin? && order.status != Order::STATUS_CANCELED %>
-				 	<% if order.status != Order::STATUS_CONFIRMED %>
-					<a  href="/orders/new?id=<%= order.id %>"><i class="icon-pencil icon-gray"></i>Editar</a>
-					<% end %>
+				 	<a  href="/orders/new?id=<%= order.id %>"><i class="icon-pencil icon-gray"></i>Editar</a>
 					<a  href="/orders/<%= order.id %>" data-confirm="<%= "Deseja cancelar a venda?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-gray"></i>Cancelar</a>
 				<% end %>
 				</ul>

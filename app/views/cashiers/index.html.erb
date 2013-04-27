@@ -42,17 +42,15 @@ function btnPressed(){
 	<div>
 		<p>Dinheiro inicial em caixa:  <b><%= number_to_currency(@cashier.initial_amount, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".") %></p></b>
 		<% current_balance_hash = @cashier.current_balance %>
-		<p>Montante total em caixa: <b><%= number_to_currency(current_balance_hash[:total], :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")%></b>
+		<% total = current_balance_hash[:total] %>
+		<p>Montante total em caixa: <b><%= number_to_currency(total, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")%></b>
 		<ul>
-			<li>Crédito: 
-				<b><%= number_to_currency(current_balance_hash[:c], :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")%> - <%= ((current_balance_hash[:c].to_f/current_balance_hash[:total]) * 100).to_i %>%</b>
+			<% PaymentType.all.each do |payment_type| %>
+			<% payment_type_sum = current_balance_hash[:payment_type_sums][payment_type.id.to_s].to_f %>
+			<li><%= payment_type.name %>: 
+				<b><%= number_to_currency(payment_type_sum, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")%> - <%= ((payment_type_sum/total) * 100).to_i %>%</b>
 			</li>
-			<li>Débito: 
-				<b><%= number_to_currency(current_balance_hash[:d], :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")%> - <%= ((current_balance_hash[:d].to_f/current_balance_hash[:total]) * 100).to_i %>%</b>
-			</li>
-			<li>Dinheiro: 
-				<b><%= number_to_currency(current_balance_hash[:e], :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".")%> - <%= ((current_balance_hash[:e].to_f/current_balance_hash[:total]) * 100).to_i %>%</b>
-			</li>
+			<%end%>
 		</ul>
 		<% if !@cashier.closed %>
 			<%= form_tag("/cashiers/close/#{@cashier.id}", :method => "get") do %>

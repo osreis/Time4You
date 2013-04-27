@@ -5,6 +5,9 @@
 # 
 #    cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #    Mayor.create(name: 'Emanuel', city: cities.first)
+
+PaymentType.find_or_create_by_name("Dinheiro", discount: 20.0)
+
 if Group.count == 0
 
 	puts "Criando Grupo de Administracao"

@@ -6,13 +6,14 @@
 
 <%= form_for @payment_type, :validate => true, :html => { :class => 'form-horizontal' , :onsubmit => 'return validate()'} do |f| %>
 <div class="form">
-  
-   <div class="control-group">
-   <label class="control-label" for="user_nome">Nome<span class="asterisk" >*</span>:</label>
-    <div class="controls">
-      <%= f.text_field :name, :class => 'text_field' %>	
+  <% if !@edit %>
+    <div class="control-group">
+      <label class="control-label" for="user_nome">Nome<span class="asterisk" >*</span>:</label>
+      <div class="controls">
+        <%= f.text_field :name, :class => 'text_field' %>	
+      </div>
     </div>
-  </div>
+  <% end %>
 	
   </div>
 	<div class="control-group">

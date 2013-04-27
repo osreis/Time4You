@@ -173,6 +173,7 @@
 	
 	if(@payment_type != nil)
 		@order.payment_types << @payment_type
+		@order.paymentType = @payment_type
 		@order.discount = @payment_type.discount.to_f + params[:descontoExtra].to_f
 		@order.consumerAmount = @order.amount.to_f * (1.to_f - @order.discount.to_f/100.to_f)
 		@order.updated = Time.now

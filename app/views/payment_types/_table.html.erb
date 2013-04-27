@@ -8,7 +8,6 @@
 
 		<th><%= "Nome" %></th>
 		<th><%= "Desconto" %></th>
-		<th style="text-align:center"><%= t(:actions_name) %></th> 
     </tr>
   </thead>
   <tbody>
@@ -17,9 +16,11 @@
 	    <td><%= payment_type.name %></td>
 	    <td><%=payment_type.discount  %></td>		
         <td>
-			<div class="btn-group centralizada" style="width:190px">
-				<a class="btn btn-small" href="/payment_types/<%= payment_type.id %>/edit"><i class="icon-pencil icon-gray"></i> Editar</a>
-				<a class="btn btn-small  btn-danger" href="/payment_types/<%= payment_type.id %>" data-confirm="<%= "Deseja remover o Tipo de Pagamento?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i> Remover</a>
+			<div class="btn-group pull-right" style="width:190px">
+        <a class="btn btn-small" href="/payment_types/<%= payment_type.id %>/edit"><i class="icon-pencil icon-gray"></i> Editar</a>
+        <% if payment_type != PaymentType.find_by_name("Dinheiro") %>
+          <a class="btn btn-small  btn-danger" href="/payment_types/<%= payment_type.id %>" data-confirm="<%= "Deseja remover o Tipo de Pagamento?" %>" data-method="delete" rel="nofollow"><i class="icon-trash icon-white"></i> Remover</a>
+        <% end %>
 			</div> 
         </td>
       </tr>

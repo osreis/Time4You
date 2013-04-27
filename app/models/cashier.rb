@@ -18,24 +18,25 @@ class Cashier < ActiveRecord::Base
   end
 
   def current_balance
-  	total_sum, c_sum, d_sum, e_sum	= 0.0, 0.0, 0.0, 0.0
+  	total_sum = 0.0
+    payment_type_sums = {}
+    PaymentType.all.each do |payment_type|
+      payment_type_sums.merge!({payment_type.id.to_s => 0})
+    end
   	if self.opened
   		orders 	= Order.where(created: self.opened, status: "CONF")
   		orders.each do |o|
   			amount 		 = o.consumerAmount.to_f
   			total_sum 	+= amount
-  			case o.payment_types.first.id
-  			when 1 then c_sum += amount
-  			when 2 then d_sum += amount
-  			when 3 then e_sum += amount
-  			end
+  			payment_type_id = o.payment_types.first.id.to_s
+  			payment_type_sums[payment_type_id] += amount 
   		end
   	end
+    dinheiro_id = PaymentType.find_or_create_by_name("Dinheiro", discount: 20.0).id.to_s
+    payment_type_sums[dinheiro_id] += self.initial_amount
   	{
   		total: self.initial_amount + total_sum,
-  		c: c_sum,
-  		d: d_sum,
-  		e: e_sum + self.initial_amount
+  		payment_type_sums: payment_type_sums
   	}
   end
 
