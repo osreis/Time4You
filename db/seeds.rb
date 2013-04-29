@@ -9,7 +9,6 @@
 PaymentType.find_or_create_by_name("Dinheiro", discount: 20.0)
 
 if Group.count == 0
-
 	puts "Criando Grupo de Administracao"
 		group_administracao = Group.create(:name => 'Administradores', :internal_id => Group::ADMIN.to_i)
 		group_vendas = Group.create(:name => 'Vendedores', :internal_id => Group::VENDEDOR.to_i)

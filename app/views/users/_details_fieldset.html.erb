@@ -33,8 +33,40 @@ text-align: right
 	    	<b>E-mail: </b> 
 	    	<%= mail_to @user.email %></br>
 				<b>Endereço: </b>
-				<%= @user.address + " - " +  @user.cep + " - " + @user.city + " - " + @user.state%>
+				<% address = "" %>
+				<% address << @user.address 		if @user.address.present?	%>
+				<% address << " - #{@user.cep}" 	if @user.cep.present?		%>
+				<% address << " - #{@user.city}" 	if @user.city.present? 		%>
+				<% address << " - #{@user.state}" 	if @user.state.present? 	%>
+				<%= address %>
 			</ul>
+		</div>
+		<div class='well'>
+			<b><u>Comissões devidas</u></b></br></br>
+			<b>Comissão do vendedor:</b> <%= @user.commission %>%</br></br>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Mês</th>
+						<th>Valor total das vendas</th>
+						<th>Valor devido</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for i in 1..Date.today.month do %>
+						<tr>
+							<% beginning_of_month = Date.new(Date.today.year, i, 1) %>
+							<% end_of_month = beginning_of_month.end_of_month %>
+							<% orders = Order.where(['user_id == ? and created_at < ? and created_at > ? and status == "CONF"', @user.id, end_of_month, beginning_of_month]) %>
+							<% amount = 0.0 %>
+			    			<% orders.map{ |o| amount += o.consumerAmount if o.consumerAmount } %>
+							<td><%= beginning_of_month.month %></td>
+							<td><%= number_to_currency(amount, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".") %></td>
+							<td><%= number_to_currency((@user.commission.to_f/100) * amount, :unit => "R$ ", :precision => 2, :separator => ",", :delimiter => ".") %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
 		</div>
 	</dl>
 		

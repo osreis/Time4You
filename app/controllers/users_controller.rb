@@ -43,7 +43,8 @@
 		@user.group = @group
 		if @user.save  
 			redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_success => t(:add_new_user_success) }) 
-		else  
+		else
+			puts @user.errors.messages
 			render "new"  
 		end  
 	end  # end create
@@ -73,9 +74,8 @@
 	
 	
 	def show
-	  @user = User.find(params[:id])
-	  @title = "Detalhes"
-	  @subtitle = ""
+	  @user 	= User.find(params[:id])
+	  @title 	= "Detalhes"
 	end # end
 
 
@@ -102,7 +102,9 @@
 
 	def update
 	  @user = User.find(params[:id])
-      if @user.update_attribute(:email, params[:user][:email]) and @user.update_attribute(:address, params[:user][:address]) and @user.update_attribute(:city, params[:user][:city]) and @user.update_attribute(:state, params[:user][:state]) and @user.update_attribute(:phone, params[:user][:phone]) and @user.update_attribute(:mobile, params[:user][:mobile]) and @user.update_attribute(:login, params[:user][:login])  
+	  params_cpy = params[:user]
+	  params_cpy.delete(:old_password)
+      if @user.update_attributes(params_cpy)  
        	if @user != current_user
 		redirect_to({:controller=> :users, :action => :index}, :flash => { :notice_success => "Usuário alterado com sucesso" }) 
 		elsif   @user.update_attribute(:password, params[:user][:password]) and @user.update_attribute(:password_confirmation, params[:user][:password_confirmation])
@@ -111,7 +113,7 @@
 	  else
 		render "edit"
 	  end
-  end
+  	end
 
 
 	def admin_update # update user's params, by an Admin call
@@ -155,7 +157,7 @@
 		else
 			render :text => false.to_json
 		end
-  end # end check ajax
+ 	end # end check ajax
 
 
 end  # end Class

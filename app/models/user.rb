@@ -1,7 +1,11 @@
 ﻿class User < ActiveRecord::Base
   belongs_to :group
-  attr_accessible :address, :birthDate, :cep, :city, :cpf, :email, :gender, :login, :mobile, :name, :password_digest, :phone, :state, :password, :password_confirmation
+  attr_accessible :address, :birthDate, :cep, :city, :cpf, :email, :gender
+  attr_accessible :login, :mobile, :name, :password_digest, :phone, :state
+  attr_accessible :password, :password_confirmation
+  attr_accessible :commission
   has_secure_password
+  before_save :initial_values
   before_create { generate_token(:auth_token) }
 # Validations   
   # validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i 
@@ -12,19 +16,17 @@
 
   validates_uniqueness_of :login,:case_sensitive => false
   # validates_presence_of :email
-  validates_presence_of :name
-  validates_presence_of :password
-  validates_presence_of :password_confirmation
-  validates_confirmation_of :password
+  validates :name, presence: true
+  validates :password, presence: { on: :create }, confirmation: true, length: { minimum: 6, on: :create }
+  validates :password_confirmation, presence: { on: :create }, length: { minimum: 6, on: :create }
   # validates_presence_of :address, :message => "digite um endereço"
   # validates_presence_of :phone, :message => "digite um telefone"
   # validates_presence_of :mobile, :message => "digite um celular"
   # validates_presence_of :city, :message => "digite uma cidade"
   # validates_presence_of :cep, :message => "digite um CEP"
   # validates_presence_of :cpf, :message => "digite um CPF"
-  validates_length_of :password, :minimum => 6, :message => "senha deve ter mais de 6 caracteres"
-  validates_length_of :password_confirmation, :minimum => 6, :message => "senha deve ter mais de 6 caracteres"
-
+  
+  validates :commission, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
   
   User::CAN_EDIT_EMAIL = false
   User::CAN_EDIT_GROUP = false
@@ -42,6 +44,10 @@
   
   def self.searchByPage(page)
     paginate :per_page => 5, :page => page, :order => 'name'
+  end
+
+  def initial_values
+    self.commission ||= 0.0
   end
   
 end

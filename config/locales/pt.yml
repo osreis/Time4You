@@ -22,6 +22,11 @@ pt:
               confirmation: "confirmação e senha diferentes"	
               too_short: "senha deve ter no mínimo 6 caracteres"	
             password_confirmation:
+              too_short: "senha deve ter no mínimo 6 caracteres"
+            commission:
+              greater_than_or_equal_to: "valor deve estar entre 0 e 100"
+              less_than_or_equal_to: "valor deve estar entre 0 e 100"
+
         
 
 #Groups messages		  
